@@ -132,8 +132,8 @@ exports.createPages = ({ actions, graphql }) => {
 
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
-        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-        component: path.resolve('./src/templates/Blog.tsx'),
+        path: i === 0 ? `/` : `/blog/${i + 1}`,
+        component: path.resolve('./src/templates/index.tsx'),
         context: {
           limit: postsPerPage,
           skip: i * postsPerPage,
@@ -183,12 +183,7 @@ exports.onCreateWebpackConfig = (p) => {
             {
               loader: 'css-loader',
               options: {
-                modules: {
-                  mode: 'local',
-                  localIdentName: '[local]__[hash:base64:5]',
-                },
                 sourceMap: !isProduction,
-                importLoaders: 1,
               },
             },
             {

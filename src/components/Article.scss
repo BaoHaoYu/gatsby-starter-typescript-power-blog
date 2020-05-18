@@ -1,0 +1,32 @@
+.Article {
+    &__title {
+        background: #ce7a7a;
+    }
+
+    &__excerpt {
+        background: #6ab0de;
+    }
+
+    &__read {
+        background: #71ded3;
+    }
+}
+
+.Post {
+    &__title {
+        color: #1c1d1f;
+
+        &:hover {
+            color: #ce8460;
+        }
+    }
+
+    &__meta {
+        color: #696c6d;
+        border-bottom: 1px dotted #ddd;
+
+        &:hover {
+            background: #ce8460;
+        }
+    }
+}

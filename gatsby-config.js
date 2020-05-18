@@ -84,5 +84,12 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     `gatsby-plugin-netlify`,
+    {
+      resolve: 'gatsby-plugin-import',
+      options: {
+        libraryName: "antd",
+        style: 'css',   // or 'css'
+      }
+    },
   ],
 };

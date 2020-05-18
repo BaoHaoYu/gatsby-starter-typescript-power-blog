@@ -102,7 +102,7 @@ const Pagination = ({ currentPage, totalPages, url }: Props) => {
           <Link
             className={currentPage === i + 1 ? 'page-numbers current' : 'page-numbers'}
             key={`pagination-number${i + 1}`}
-            to={`/${url}/${i === 0 ? '' : i + 1}`}
+            to={`/${i !== 0 ? url : ''}/${i === 0 ? '' : i + 1}`}
           >
             {i + 1}
           </Link>

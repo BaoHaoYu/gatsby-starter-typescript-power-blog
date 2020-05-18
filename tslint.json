@@ -2,7 +2,8 @@
   "rulesDirectory": ["tslint-plugin-prettier"],
   "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier", "tslint-react-a11y"],
   "rules": {
-    "prettier": true
+    "prettier": true,
+    "no-console": false
   },
   "linterOptions": {
     "exclude": ["bin", "**/*.d.ts", "**/*.json"]

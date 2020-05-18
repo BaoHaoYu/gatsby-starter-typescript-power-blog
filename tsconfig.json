@@ -14,5 +14,6 @@
     "removeComments": false,
     "preserveConstEnums": true
   },
-  "include": ["./src/**/*", "src/theme/model/.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "*.ts"],
+  "exclude": ["node_modules","public", ".cache", "static"]
 }

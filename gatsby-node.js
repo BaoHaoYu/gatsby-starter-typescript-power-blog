@@ -1,6 +1,7 @@
 const path = require('path');
 const _ = require('lodash');
 const config = require('./config/SiteConfig').default;
+const precss = require('precss');
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
@@ -160,3 +161,57 @@ exports.createPages = ({ actions, graphql }) => {
     });
   });
 };
+
+const isProduction = false
+exports.onCreateWebpackConfig = (p) => {
+  const {
+    stage,
+    rules,
+    loaders,
+    plugins,
+    actions,
+  } = p
+  actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.scss/,
+          use: [
+            {
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  mode: 'local',
+                  localIdentName: '[local]__[hash:base64:5]',
+                },
+                sourceMap: !isProduction,
+                importLoaders: 1,
+              },
+            },
+            {
+              loader: path.join(__dirname, 'loader/css-map-loader/index.js'),
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: !isProduction,
+                plugins() {
+                  return [precss]
+                },
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: !isProduction,
+              },
+            },
+          ],
+        }
+      ]
+    },
+  })
+}

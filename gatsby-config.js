@@ -19,7 +19,6 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-offline',
     'gatsby-plugin-typescript',
-    'gatsby-plugin-sass',
     'gatsby-plugin-manifest',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-sitemap',
@@ -84,16 +83,6 @@ module.exports = {
     },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    {
-      // Removes unused css rules
-      resolve: 'gatsby-plugin-purgecss',
-      options: {
-        // Activates purging in gatsby develop
-        develop: true,
-        // Purge only the main css file
-        purgeOnly: ['all.scss'],
-      },
-    },
     `gatsby-plugin-netlify`,
   ],
 };

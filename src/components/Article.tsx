@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { kebabCase } from 'lodash';
 import { Subline } from './Subline';
-
+// @ts-ignore
+import a from'./A.scss';
+// @ts-ignore
+// tslint:disable-next-line:no-console
+console.log(a);
 const Post = styled.article`
   display: flex;
   flex-direction: column;

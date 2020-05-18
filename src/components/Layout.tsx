@@ -3,7 +3,6 @@ import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../theme/GlobalStyle';
 import { Footer } from './Footer';
 
-import '../style/all.scss';
 import { darkTheme, lightTheme } from '../theme';
 
 const ModeButton = styled.button`

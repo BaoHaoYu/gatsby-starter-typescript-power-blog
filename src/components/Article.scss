@@ -1,32 +1,66 @@
 .Article {
+    margin-bottom: 3rem;
+
     &__title {
-        background: #ce7a7a;
-    }
+        a {
+            color: #1c1d1f;
 
-    &__excerpt {
-        background: #6ab0de;
-    }
-
-    &__read {
-        background: #71ded3;
-    }
-}
-
-.Post {
-    &__title {
-        color: #1c1d1f;
-
-        &:hover {
-            color: #ce8460;
+            &:hover {
+                color: #ce8460;
+            }
         }
     }
 
     &__meta {
+        margin-bottom: 1.5rem;
+    }
+
+    &__banner {
+        img {
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+
+    &__item {
         color: #696c6d;
-        border-bottom: 1px dotted #ddd;
+        margin-left: 9px;
+
+        a {
+            color: #696c6d;
+            border-bottom: 1px dotted #ddd;
+
+            &:hover {
+                color: #ce8460;
+            }
+        }
+    }
+
+    &__excerpt {
+        /* - */
+    }
+
+    &__read {
+        display: inline-block;
+        font-size: 14px;
+        font-family: "Open Sans", sans-serif;
+        text-transform: capitalize;
+        padding: 8px 25px;
+        border-radius: 50px;
+        border: 1px solid #ce8460;
+        position: relative;
+        z-index: 1;
+        transition: .2s ease;
+        background: transparent;
+        color: #696c6d;
 
         &:hover {
-            background: #ce8460;
+            background: #ce8460 !important;
+            border-color: #ce8460 !important;
+            color: white;
         }
     }
 }
+

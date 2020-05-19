@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
-import { Layout, Article, Wrapper, SectionTitle, Header, Content, Pagination } from '../components';
+import { graphql } from 'gatsby';
+import { Layout, Article, Pagination } from '../components';
 import { Helmet } from 'react-helmet';
 import config from '../../config/SiteConfig';
 import Data from '../models/Data';
+import '../style/all.scss';
+import { Container } from '../components/Container';
 
 interface Props {
   data: Data;
@@ -22,26 +24,22 @@ export default (props: Props) => {
   return (
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />
-      <Header>
-        <Link to="/">{config.siteTitle}</Link>
-        <SectionTitle uppercase={true}>Latest stories ({totalCount})</SectionTitle>
-      </Header>
-      <Wrapper>
-        <Content>
-          {edges.map((post) => (
-            <Article
-              title={post.node.frontmatter.title}
-              date={post.node.frontmatter.date}
-              excerpt={post.node.excerpt}
-              timeToRead={post.node.timeToRead}
-              slug={post.node.fields.slug}
-              category={post.node.frontmatter.category}
-              key={post.node.fields.slug}
-            />
-          ))}
-          <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
-        </Content>
-      </Wrapper>
+
+      <Container>
+        {edges.map((post) => (
+          <Article
+            banner={post.node.frontmatter.banner}
+            title={post.node.frontmatter.title}
+            date={post.node.frontmatter.date}
+            excerpt={post.node.excerpt}
+            timeToRead={post.node.timeToRead}
+            slug={post.node.fields.slug}
+            category={post.node.frontmatter.category}
+            key={post.node.fields.slug}
+          />
+        ))}
+        <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
+      </Container>
     </Layout>
   );
 };
@@ -61,7 +59,8 @@ export const IndexQuery = graphql`
           }
           frontmatter {
             title
-            date(formatString: "DD.MM.YYYY")
+            banner
+            date(formatString: "YYYY-MM-DD")
             category
           }
           excerpt(pruneLength: 200)

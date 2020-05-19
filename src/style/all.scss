@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans&display=swap");
+
 .container {
     width: 100%;
     padding-right: 15px;
@@ -5,6 +7,7 @@
     margin-right: auto;
     margin-left: auto
 }
+
 .hide {
     display: none;
 }
@@ -14,16 +17,19 @@
         max-width: 540px
     }
 }
+
 @media (min-width: 768px) {
     .container {
         max-width: 720px
     }
 }
+
 @media (min-width: 992px) {
     .container {
         max-width: 960px
     }
 }
+
 @media (min-width: 1200px) {
     .container {
         max-width: 1140px
@@ -43,16 +49,19 @@
         max-width: 540px
     }
 }
+
 @media (min-width: 768px) {
     .container, .container-md, .container-sm {
         max-width: 720px
     }
 }
+
 @media (min-width: 992px) {
     .container, .container-lg, .container-md, .container-sm {
         max-width: 960px
     }
 }
+
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1140px
@@ -69,6 +78,7 @@
         display: none;
     }
 }
+
 @media (min-width: 768px) {
     .min-xs-show {
         display: block;
@@ -77,6 +87,7 @@
         display: none;
     }
 }
+
 @media (min-width: 992px) {
     .min-md-show {
         display: block;
@@ -85,6 +96,7 @@
         display: none;
     }
 }
+
 @media (min-width: 1200px) {
     .min-lg-show {
         display: block;
@@ -93,6 +105,7 @@
         display: none;
     }
 }
+
 @media (max-width: 576px) {
     .max-sm-show {
         display: block;
@@ -101,6 +114,7 @@
         display: none;
     }
 }
+
 @media (max-width: 768px) {
     .max-xs-show {
         display: block;
@@ -109,6 +123,7 @@
         display: none;
     }
 }
+
 @media (max-width: 992px) {
     .max-md-show {
         display: block;
@@ -117,6 +132,7 @@
         display: none;
     }
 }
+
 @media (max-width: 1200px) {
     .max-lg-show {
         display: block;
@@ -126,6 +142,76 @@
     }
 }
 
-body {
-    background: #81e8cd;
+// -------------
+
+p, .paragraph {
+    font-weight: 400;
+    color: #696c6d;
+    font-size: 14px;
+    line-height: 1.7;
+    font-family: "Open Sans", sans-serif;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1c1d1f;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+h1, .h1 {
+    font-size: 45px;
+}
+
+h2, .h2 {
+    font-size: 36px;
+}
+
+h3, .h3 {
+    font-size: 28px;
+}
+
+h4, .h4 {
+    font-size: 22px;
+}
+
+h5, .h5 {
+    font-size: 18px;
+}
+
+h6, .h6 {
+    font-size: 14px;
+}
+
+.section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+a,
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+a,
+button,
+select {
+    cursor: pointer;
+    transition: .2s ease;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.s-icon {
+    height: 25px;
+    width: 25px;
+    transition: 0.2s ease;
+}
+
+a:hover, .s-icon:hover {
+    color: #ce8460;
+}
+

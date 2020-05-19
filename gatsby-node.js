@@ -2,6 +2,7 @@ const path = require('path');
 const _ = require('lodash');
 const config = require('./config/SiteConfig').default;
 const precss = require('precss');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
@@ -207,6 +208,9 @@ exports.onCreateWebpackConfig = (p) => {
           ],
         }
       ]
+    },
+    resolve: {
+      plugins: [new TsconfigPathsPlugin()],
     },
   })
 }

@@ -2,7 +2,8 @@ import { Container } from '~/components/Container';
 import { Col, Row } from 'antd';
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
 import React, { useState } from 'react';
-import * as media from '~/utils/media';
+import { useLessXs } from '~/utils/media';
+import './Header.scss';
 
 export function Header() {
   const [data, setState] = useState({ expanded: false, search: false });
@@ -12,7 +13,7 @@ export function Header() {
   function onClickSearch() {
     setState({ ...data, search: !data.search });
   }
-  const lessMd = media.useLessXs();
+  const lessXs = useLessXs();
   return (
     <div className={'Header'}>
       <Container>
@@ -24,16 +25,16 @@ export function Header() {
               </div>
             </Col>
 
-            <Col hidden={!lessMd} xs={6}>
+            <Col hidden={!lessXs} xs={6}>
               <div onClick={onClickToggle} className={'Header__toggle'}>
                 <AiOutlineMenu className={'s-icon'} />
               </div>
             </Col>
 
-            <Col hidden={!data.expanded && lessMd} className={'Header__expanded'} xs={24} md={18}>
+            <Col hidden={!data.expanded && lessXs} className={'Header__expanded'} xs={24} md={18}>
               <div className={'Header__menu'}>
                 <Row align={'middle'}>
-                  <Col xs={24} md={4}>
+                  <Col offset={lessXs ? 0 : 4} xs={24} md={4}>
                     <div>
                       <a className={'Header__link'} href={'about'}>
                         关于

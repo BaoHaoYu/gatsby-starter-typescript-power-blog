@@ -6,40 +6,43 @@ import config from '../../config/SiteConfig';
 import Data from '../models/Data';
 import '../style/all.scss';
 import { Container } from '../components/Container';
-
+import { Layout as L1 } from '~/components/Layout/index';
 interface Props {
   data: Data;
   pageContext: {
     currentPage: number;
     totalPages: number;
+    cTags: { name: string; len: number }[];
+    cCategories: { name: string; len: number }[];
   };
 }
 
 export default (props: Props) => {
-  const { currentPage, totalPages } = props.pageContext;
+  const { currentPage, totalPages, cTags, cCategories } = props.pageContext;
 
   const { data } = props;
-  const { edges, totalCount } = data.allMarkdownRemark;
-
+  const { edges } = data.allMarkdownRemark;
   return (
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />
 
-      <Container>
-        {edges.map((post) => (
-          <Article
-            banner={post.node.frontmatter.banner}
-            title={post.node.frontmatter.title}
-            date={post.node.frontmatter.date}
-            excerpt={post.node.excerpt}
-            timeToRead={post.node.timeToRead}
-            slug={post.node.fields.slug}
-            category={post.node.frontmatter.category}
-            key={post.node.fields.slug}
-          />
-        ))}
-        <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
-      </Container>
+      <L1 cTags={cTags} cCategories={cCategories}>
+        <Container>
+          {edges.map((post) => (
+            <Article
+              banner={post.node.frontmatter.banner}
+              title={post.node.frontmatter.title}
+              date={post.node.frontmatter.date}
+              excerpt={post.node.excerpt}
+              timeToRead={post.node.timeToRead}
+              slug={post.node.fields.slug}
+              category={post.node.frontmatter.category}
+              key={post.node.fields.slug}
+            />
+          ))}
+          <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
+        </Container>
+      </L1>
     </Layout>
   );
 };

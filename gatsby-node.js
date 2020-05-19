@@ -95,6 +95,30 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
   });
 };
 
+function countArray(posts, key) {
+  const item = []
+  const list = []
+  posts.forEach(({node}, index) => {
+    if(node.frontmatter[key]) {
+      node.frontmatter[key].forEach(name => {
+        item.push({name: name})
+      })
+    }
+  })
+  if(item.length === 0){
+    return  []
+  }
+  const gTags = _.groupBy(item, 'name')
+
+  _.map(gTags, (tag, name) => {
+    list.push({
+      name,
+      len: tag.length
+    })
+  })
+  return list;
+}
+
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 
@@ -115,6 +139,7 @@ exports.createPages = ({ actions, graphql }) => {
               date
               title
               category
+              categories
               tags
               banner
             }
@@ -131,12 +156,17 @@ exports.createPages = ({ actions, graphql }) => {
     const postsPerPage = config.POST_PER_PAGE;
     const numPages = Math.ceil(posts.length / postsPerPage);
 
+    const cTags = countArray(posts, 'tags');
+    const cCategories = countArray(posts, 'categories');
+
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
         path: i === 0 ? `/` : `/blog/${i + 1}`,
         component: path.resolve('./src/templates/index.tsx'),
         context: {
           limit: postsPerPage,
+          cTags,
+          cCategories,
           skip: i * postsPerPage,
           totalPages: numPages,
           currentPage: i + 1,

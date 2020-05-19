@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Layout as L1 } from './Layout/index';
 import { darkTheme, lightTheme } from '../theme';
 
 const Layout = ({ children }: { children: any }) => {
@@ -9,7 +8,7 @@ const Layout = ({ children }: { children: any }) => {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <L1>{children}</L1>
+      {children}
     </ThemeProvider>
   );
 };

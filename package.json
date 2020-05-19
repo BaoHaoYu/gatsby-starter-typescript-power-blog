@@ -13,6 +13,7 @@
     "clean": "gatsby clean",
     "build": "gatsby clean && gatsby build",
     "start": "gatsby clean && gatsby develop",
+    "develop": "gatsby develop",
     "deploy:gh": "gatsby build --prefix-paths && gh-pages -d public",
     "deploy:netlify": "gatsby build --prefix-paths && netlify deploy --prod --dir=public",
     "lint": "tslint --project .",

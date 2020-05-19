@@ -2,7 +2,12 @@
 date: "2018-01-05"
 title: "Coding is fun, isn't it?"
 category: "Coding"
-tags: ['Technology', 'Coding']
+categories:
+    - Coding
+    - Go
+tags:
+    - Technology
+    - Coding
 banner: "http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_DODWl7Z8yW.png"
 ---
 

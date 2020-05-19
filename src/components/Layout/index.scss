@@ -1,72 +1,95 @@
-.Header {
-    position: sticky;
-    min-height: 70px;
-    border-bottom: 1px solid #ddd;
+.Widget {
+    background: #fff;
+    margin-bottom: 40px;
 
-    &__bar {
-        padding: 0 1rem;
-    }
-
-    &__logo {
-        height: 60px;
-
-        img {
-            max-height: 100%;
-            margin: 0;
-        }
-    }
-
-    &__link {
-        padding: 15px 20px;
-        color: #1c1d1f;
-        text-transform: capitalize;
-        display: block;
-        text-align: center;
-    }
-
-    &__toggle {
-        cursor: pointer;
+    &__title {
         position: relative;
-        height: 100%;
-        > svg {
-            height: 25px;
-            width: 25px;
+        margin-bottom: 15px;
+
+        span {
+            background: #fff;
+            position: relative;
+            padding-right: 5px;
+            z-index: 1;
+        }
+
+        &::before {
             position: absolute;
+            content: "";
             right: 0;
+            height: 1px;
+            width: 100%;
+            background: #ddd;
             top: 50%;
-            transform: translateY(-50%);
         }
-        &:hover {
-            > svg {
-                color: #ce8460;
-                transition: 0.2s ease;
-            }
-        }
-    }
-
-    &__expanded {
-        position: relative;
     }
 
     &__search {
-        position: absolute;
-        top: 0;
-        height: 100%;
+        border-bottom: 1px dotted #ddd;
         width: 100%;
-        left: 0;
+        height: 40px;
+    }
 
-        > input {
-            height: 100%;
-            width: 100%;
-            font-size: 20px;
+    &__tag {
+        margin-bottom: 10px;
+        cursor: pointer;
+        padding: 2px 10px;
+        border: 1px solid #ddd;
+        border-radius: 40px;
+        display: inline-block;
+        color: #696c6d;
+        margin-right: 0.5rem;
+        transition: 0.2s ease;
+
+        &:hover,
+        &__active {
+            border-color: #ce8460;
+            background: #ce8460;
+            color: #fff;
         }
     }
 
-    &__close {
+    &__tagBox {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__goSearch {
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        display: inline-block;
+        padding: 0;
+        background: #f0f0f0;
+        color: #1c1d1f;
+        text-align: center;
+        border-radius: 50%;
         position: absolute;
         right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
+        top: 5px;
+        font-size: 12px;
+    }
+}
+
+.Categories {
+    list-style: none;
+    margin-left: 0;
+
+    &__item {
+        border-bottom: 1px dotted #ddd;
+    }
+
+    &__link {
+        color: #1c1d1f;
+        display: flex;
+
+        &:hover {
+            color: #ce8460;
+        }
+    }
+
+    &__len {
+        /* - */
+        margin-left: auto;
     }
 }

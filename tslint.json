@@ -3,7 +3,10 @@
   "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier", "tslint-react-a11y"],
   "rules": {
     "prettier": true,
-    "no-console": false
+    "no-console": false,
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false
+
   },
   "linterOptions": {
     "exclude": ["bin", "**/*.d.ts", "**/*.json"]

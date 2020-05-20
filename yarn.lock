@@ -1557,6 +1557,11 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@types/animejs@^3.1.1":
+  version "3.1.1"
+  resolved "http://r.cnpmjs.org/@types/animejs/download/@types/animejs-3.1.1.tgz#f1455e306a96f4bff9aae6b5b61c1b5efca74cf4"
+  integrity sha1-8UVeMGqW9L/5qua1thwbXvynTPQ=
+
 "@types/classnames@^2.2.10":
   version "2.2.10"
   resolved "http://r.cnpmjs.org/@types/classnames/download/@types/classnames-2.2.10.tgz#cc658ca319b6355399efc1f5b9e818f1a24bf999"
@@ -1647,6 +1652,13 @@
   dependencies:
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
+
+"@types/jquery@^3.3.38":
+  version "3.3.38"
+  resolved "http://r.cnpmjs.org/@types/jquery/download/@types/jquery-3.3.38.tgz#6385f1e1b30bd2bff55ae8ee75ea42a999cc3608"
+  integrity sha1-Y4Xx4bML0r/1WujudepCqZnMNgg=
+  dependencies:
+    "@types/sizzle" "*"
 
 "@types/js-cookie@2.2.6":
   version "2.2.6"
@@ -1767,6 +1779,11 @@
     "@types/glob" "*"
     "@types/node" "*"
 
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "http://r.cnpmjs.org/@types/sizzle/download/@types/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+  integrity sha1-qBG4wY4rq6t9VCszZYh64uTZ3kc=
+
 "@types/styled-components@^5.0.1":
   version "5.1.0"
   resolved "http://r.cnpmjs.org/@types/styled-components/download/@types/styled-components-5.1.0.tgz#24d3412ba5395aa06e14fbc93c52f9454cebd0d6"
@@ -1824,6 +1841,11 @@
   version "1.9.1"
   resolved "http://r.cnpmjs.org/@types/yoga-layout/download/@types/yoga-layout-1.9.1.tgz#6c00e4a151a9a529397d580e2cf6f3947a42a928"
   integrity sha1-bADkoVGppSk5fVgOLPbzlHpCqSg=
+
+"@types/zepto@^1.0.31":
+  version "1.0.31"
+  resolved "http://r.cnpmjs.org/@types/zepto/download/@types/zepto-1.0.31.tgz#99dea89804a2ba6cbdd5a99b1b77f8cf43c055f6"
+  integrity sha1-md6omASiumy91ambG3f4z0PAVfY=
 
 "@typescript-eslint/eslint-plugin@^2.24.0":
   version "2.33.0"
@@ -2127,6 +2149,11 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/amdefine/download/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+animejs@^3.2.0:
+  version "3.2.0"
+  resolved "http://r.cnpmjs.org/animejs/download/animejs-3.2.0.tgz#2daea7365983249022cc454fa726acdb4a84345d"
+  integrity sha1-La6nNlmDJJAizEVPpyas20qENF0=
 
 ansi-align@^3.0.0:
   version "3.0.0"
@@ -9000,6 +9027,11 @@ jpeg-js@^0.3.4:
   resolved "http://r.cnpmjs.org/jpeg-js/download/jpeg-js-0.3.7.tgz#471a89d06011640592d314158608690172b1028d"
   integrity sha1-RxqJ0GARZAWS0xQVhghpAXKxAo0=
 
+jquery@^3.5.1:
+  version "3.5.1"
+  resolved "http://r.cnpmjs.org/jquery/download/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
+  integrity sha1-17TQjhv9uGrS8aPQOeoXMEcXq7U=
+
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.5.2"
   resolved "http://r.cnpmjs.org/js-base64/download/js-base64-2.5.2.tgz#313b6274dda718f714d00b3330bbae6e38e90209"
@@ -10159,6 +10191,23 @@ mkdirp@^1.0.3:
   version "1.0.4"
   resolved "http://r.cnpmjs.org/mkdirp/download/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha1-PrXtYmInVteaXw4qIh3+utdcL34=
+
+mobx-react-lite@2:
+  version "2.0.7"
+  resolved "http://r.cnpmjs.org/mobx-react-lite/download/mobx-react-lite-2.0.7.tgz#1bfb3b4272668e288047cf0c7940b14e91cba284"
+  integrity sha1-G/s7QnJmjiiAR88MeUCxTpHLooQ=
+
+mobx-react@^6.2.2:
+  version "6.2.2"
+  resolved "http://r.cnpmjs.org/mobx-react/download/mobx-react-6.2.2.tgz#45e8e7c4894cac8399bba0a91060d7cfb8ea084b"
+  integrity sha1-RejnxIlMrIOZu6CpEGDXz7jqCEs=
+  dependencies:
+    mobx-react-lite "2"
+
+mobx@^5.15.4:
+  version "5.15.4"
+  resolved "http://r.cnpmjs.org/mobx/download/mobx-5.15.4.tgz#9da1a84e97ba624622f4e55a0bf3300fb931c2ab"
+  integrity sha1-naGoTpe6YkYi9OVaC/MwD7kxwqs=
 
 modularscale@^1.0.2:
   version "1.0.2"
@@ -17158,6 +17207,11 @@ yurnalist@^1.1.2:
     semver "^6.3.0"
     strip-ansi "^5.2.0"
     strip-bom "^4.0.0"
+
+zepto@^1.2.0:
+  version "1.2.0"
+  resolved "http://r.cnpmjs.org/zepto/download/zepto-1.2.0.tgz#e127bd9e66fd846be5eab48c1394882f7c0e4f98"
+  integrity sha1-4Se9nmb9hGvl6rSME5SIL3wOT5g=
 
 zwitch@^1.0.0:
   version "1.0.5"

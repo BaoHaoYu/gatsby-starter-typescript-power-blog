@@ -6,7 +6,8 @@
     "no-console": false,
     "no-implicit-dependencies": false,
     "no-submodule-imports": false,
-    "react-a11y-event-has-role": false
+    "react-a11y-event-has-role": false,
+    "jsx-no-lambda": false
   },
   "linterOptions": {
     "exclude": ["bin", "**/*.d.ts", "**/*.json"]

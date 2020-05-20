@@ -24,13 +24,16 @@
     "formatAndFix": "npm run format && npm run lint:ts && npm run style"
   },
   "devDependencies": {
+    "@types/animejs": "^3.1.1",
     "@types/classnames": "^2.2.10",
+    "@types/jquery": "^3.3.38",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@types/react-helmet": "^5.0.15",
     "@types/styled-components": "^5.0.1",
     "@types/typography": "^0.16.3",
+    "@types/zepto": "^1.0.31",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-styled-components": "^1.10.7",
     "babel-preset-gatsby": "^0.4.2",
@@ -90,12 +93,16 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^3.26.1",
+    "animejs": "^3.2.0",
     "antd": "^4.2.3",
     "classnames": "^2.2.6",
     "gatsby": "^2.20.18",
     "gatsby-image": "^2.3.2",
     "gatsby-plugin-google-tagmanager": "^2.2.1",
+    "jquery": "^3.5.1",
     "lodash": "^4.17.15",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.2.2",
     "polished": "^3.5.1",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",
@@ -104,7 +111,8 @@
     "react-icons": "^3.10.0",
     "react-use": "^15.1.0",
     "styled-components": "^5.1.0",
-    "typography": "^0.16.19"
+    "typography": "^0.16.19",
+    "zepto": "^1.2.0"
   },
   "resolutions": {
     "bin-wrapper": "npm:bin-wrapper-china"

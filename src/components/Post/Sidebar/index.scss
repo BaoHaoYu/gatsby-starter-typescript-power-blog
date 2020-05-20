@@ -1,0 +1,35 @@
+.sideBarTOC {
+    position: fixed;
+    top: 80px;
+
+    &__title {
+        position: relative;
+        color: #607d8b;
+    }
+
+    &__title::before {
+        content: '';
+        height: 100%;
+        left: -1rem;
+        margin-top: 3px;
+        position: absolute;
+        width: 2px;
+        font-size: 12px;
+        background-color: #727072;
+    }
+
+    &__node {
+        margin-bottom: 3px;
+
+        .sideBarTOC__node {
+            padding-left: 1rem;
+        }
+
+        &--active {
+            > .sideBarTOC__title {
+                color: #26a69a;
+                font-weight: 700;
+            }
+        }
+    }
+}

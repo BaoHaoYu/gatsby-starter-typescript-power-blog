@@ -23,11 +23,17 @@ export default (props: Props) => {
 
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
+
   return (
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />
 
-      <L1 cTags={cTags} cCategories={cCategories} lastUpdatePosts={lastUpdatePosts}>
+      <L1
+        showSideBar={true}
+        cTags={cTags}
+        cCategories={cCategories}
+        lastUpdatePosts={lastUpdatePosts}
+      >
         <Container>
           {edges.map((post) => (
             <Article
@@ -35,10 +41,11 @@ export default (props: Props) => {
               banner={post.node.frontmatter.banner}
               title={post.node.frontmatter.title}
               date={post.node.frontmatter.date}
+              tags={post.node.frontmatter.tags}
+              categories={post.node.frontmatter.categories}
               excerpt={post.node.excerpt}
               timeToRead={post.node.timeToRead}
               slug={post.node.fields.slug}
-              category={post.node.frontmatter.category}
               key={post.node.fields.slug}
             />
           ))}
@@ -68,7 +75,8 @@ export const IndexQuery = graphql`
             description
             date(formatString: "YYYY-MM-DD")
             latest_update_date(formatString: "YYYY-MM-DD")
-            category
+            categories
+            tags
           }
           excerpt(pruneLength: 200)
           timeToRead

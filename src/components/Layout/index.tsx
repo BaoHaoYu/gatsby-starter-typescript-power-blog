@@ -9,6 +9,7 @@ import { SideBar } from './SideBar/SideBar';
 export interface ILayoutProps {
   cTags?: { name: string; len: number }[];
   cCategories?: { name: string; len: number }[];
+  showSideBar?: boolean;
   lastUpdatePosts?: {
     slug: string;
     title: string;
@@ -19,7 +20,7 @@ export interface ILayoutProps {
 }
 
 export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
-  const exceedXs = useLessLg();
+  const lessLg = useLessLg();
 
   return (
     <div className={'Layout'}>
@@ -31,7 +32,7 @@ export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
             <Col md={24} lg={16}>
               {p.children}
             </Col>
-            {exceedXs && (
+            {lessLg && p.showSideBar && (
               <Col lg={8}>
                 <SideBar
                   cTags={p.cTags}

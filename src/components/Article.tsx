@@ -11,9 +11,19 @@ interface IProps {
   timeToRead: number;
   category: string;
   banner?: string;
+  description?: string;
 }
 
-const Article = ({ title, date, excerpt, slug, timeToRead, category, banner }: IProps) => {
+const Article = ({
+  title,
+  date,
+  excerpt,
+  slug,
+  timeToRead,
+  category,
+  banner,
+  description,
+}: IProps) => {
   return (
     <div className={'Article'}>
       {banner && (
@@ -33,7 +43,7 @@ const Article = ({ title, date, excerpt, slug, timeToRead, category, banner }: I
           分类 : <Link to={`/categories/${kebabCase(category)}`}> {category}</Link>
         </span>
       </div>
-      <p className={'Article__excerpt'}>{excerpt}</p>
+      <p className={'Article__excerpt'}>{description || excerpt}</p>
 
       <Link className={'Article__read'} to={`/blog/${slug}`}>
         阅读

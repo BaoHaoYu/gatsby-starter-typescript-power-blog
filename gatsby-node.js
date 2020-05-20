@@ -137,6 +137,7 @@ exports.createPages = ({ actions, graphql }) => {
             }
             frontmatter {
               date
+              description
               latest_update_date
               title
               category

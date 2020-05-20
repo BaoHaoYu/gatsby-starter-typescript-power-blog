@@ -26,6 +26,7 @@ export default (props: PageProps) => {
           {posts
             ? posts.map((post: any, index) => (
                 <Article
+                  banner={post.frontmatter.banner}
                   title={post.frontmatter.title}
                   date={post.frontmatter.date}
                   excerpt={post.excerpt}

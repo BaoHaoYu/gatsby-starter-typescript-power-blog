@@ -31,6 +31,7 @@ export default (props: Props) => {
         <Container>
           {edges.map((post) => (
             <Article
+              description={post.node.frontmatter.description}
               banner={post.node.frontmatter.banner}
               title={post.node.frontmatter.title}
               date={post.node.frontmatter.date}
@@ -64,6 +65,7 @@ export const IndexQuery = graphql`
           frontmatter {
             title
             banner
+            description
             date(formatString: "YYYY-MM-DD")
             latest_update_date(formatString: "YYYY-MM-DD")
             category

@@ -19,13 +19,13 @@ export function Header() {
       <Container>
         <div className={'Header__bar'}>
           <Row>
-            <Col md={18} lg={6}>
+            <Col xs={18} lg={6}>
               <div className={'Header__logo'}>
                 <img src="/assets/logo.png" alt="log" />
               </div>
             </Col>
 
-            <Col hidden={!lessMd} md={6}>
+            <Col hidden={!lessMd} xs={6}>
               <div onClick={onClickToggle} className={'Header__toggle'}>
                 <AiOutlineMenu className={'s-icon'} />
               </div>
@@ -34,33 +34,33 @@ export function Header() {
             <Col hidden={!data.expanded && lessMd} className={'Header__expanded'} xs={24} md={18}>
               <div className={'Header__menu'}>
                 <Row align={'middle'}>
-                  <Col offset={lessMd ? 0 : 4} md={24} lg={4}>
+                  <Col offset={lessMd ? 0 : 4} xs={24} lg={4}>
                     <div>
                       <a className={'Header__link'} href={'about'}>
                         关于
                       </a>
                     </div>
                   </Col>
-                  <Col md={24} lg={4}>
+                  <Col xs={24} lg={4}>
                     <div>
                       <a className={'Header__link'} href={'tags'}>
                         标签
                       </a>
                     </div>
                   </Col>
-                  <Col md={24} lg={4}>
+                  <Col xs={24} lg={4}>
                     <div>
                       <a className={'Header__link'} href={'/categories'}>
                         分类
                       </a>
                     </div>
                   </Col>
-                  <Col md={24} lg={4}>
+                  <Col xs={24} lg={4}>
                     <a className={'Header__link'} href={'/archives'}>
                       归档
                     </a>
                   </Col>
-                  <Col md={24} lg={4}>
+                  <Col xs={24} lg={4}>
                     <div>
                       <span onClick={onClickSearch} className={'Header__link'}>
                         <AiOutlineSearch className={'s-icon'} />

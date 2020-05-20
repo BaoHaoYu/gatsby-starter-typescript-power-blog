@@ -3,7 +3,17 @@ import { Link } from 'gatsby';
 import { kebabCase } from 'lodash';
 import './Article.scss';
 
-const Article = ({ title, date, excerpt, slug, timeToRead, category, banner }: Props) => {
+interface IProps {
+  title: string;
+  date: string;
+  excerpt: string;
+  slug: string;
+  timeToRead: number;
+  category: string;
+  banner?: string;
+}
+
+const Article = ({ title, date, excerpt, slug, timeToRead, category, banner }: IProps) => {
   return (
     <div className={'Article'}>
       {banner && (
@@ -16,17 +26,17 @@ const Article = ({ title, date, excerpt, slug, timeToRead, category, banner }: P
       </h3>
       <div className={'Article__meta'}>
         <span style={{ marginLeft: 0 }} className={'Article__item'}>
-          Data : {date}
+          日期 : {date}
         </span>
-        <span className={'Article__item'}>{timeToRead} Min Read </span>
+        <span className={'Article__item'}>长度: {timeToRead} 分钟</span>
         <span className={'Article__item'}>
-          Categories : <Link to={`/categories/${kebabCase(category)}`}> {category}</Link>
+          分类 : <Link to={`/categories/${kebabCase(category)}`}> {category}</Link>
         </span>
       </div>
       <p className={'Article__excerpt'}>{excerpt}</p>
 
       <Link className={'Article__read'} to={`/blog/${slug}`}>
-        Continue Reading
+        阅读
       </Link>
     </div>
   );

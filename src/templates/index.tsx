@@ -6,19 +6,20 @@ import config from '../../config/SiteConfig';
 import Data from '../models/Data';
 import '../style/all.scss';
 import { Container } from '../components/Container';
-import { Layout as L1 } from '~/components/Layout/index';
+import { Layout as L1, ILayoutProps } from '~/components/Layout/index';
+
+interface IPageContext extends ILayoutProps {
+  currentPage: number;
+  totalPages: number;
+}
+
 interface Props {
   data: Data;
-  pageContext: {
-    currentPage: number;
-    totalPages: number;
-    cTags: { name: string; len: number }[];
-    cCategories: { name: string; len: number }[];
-  };
+  pageContext: IPageContext;
 }
 
 export default (props: Props) => {
-  const { currentPage, totalPages, cTags, cCategories } = props.pageContext;
+  const { currentPage, totalPages, cTags, cCategories, lastUpdatePosts } = props.pageContext;
 
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
@@ -26,7 +27,7 @@ export default (props: Props) => {
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />
 
-      <L1 cTags={cTags} cCategories={cCategories}>
+      <L1 cTags={cTags} cCategories={cCategories} lastUpdatePosts={lastUpdatePosts}>
         <Container>
           {edges.map((post) => (
             <Article
@@ -64,6 +65,7 @@ export const IndexQuery = graphql`
             title
             banner
             date(formatString: "YYYY-MM-DD")
+            latest_update_date(formatString: "YYYY-MM-DD")
             category
           }
           excerpt(pruneLength: 200)

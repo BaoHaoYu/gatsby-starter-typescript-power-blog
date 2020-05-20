@@ -1,14 +1,15 @@
 ---
-date: "2018-01-05"
-title: "Coding is fun, isn't it?"
-category: "Coding"
+date: 2018-01-05
+latest_update_date: 2019-08-26
+title: Coding is fun, isn't it?
+category: Coding
 categories:
     - Coding
     - Go
 tags:
     - Technology
     - Coding
-banner: "http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_DODWl7Z8yW.png"
+banner: http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_DODWl7Z8yW.png
 ---
 
 Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich. Vogel Quax zwickt Johnys Pferd Bim. Sylvia wagt quick den Jux bei Pforzheim. Polyfon zwitschernd aßen Mäxchens Vögel Rüben, Joghurt und Quark. "Fix, Schwyz! " quäkt Jürgen blöd vom Paß. Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich. Falsches Üben von Xylophonmusik quält jeden größeren Zwerg. Heizölrückstoßabdämpfung. Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich. Vogel Quax zwickt Johnys Pferd Bim.

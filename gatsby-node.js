@@ -49,7 +49,7 @@ const createClassificationPages = ({ createPage, posts, postsPerPage, numPages }
         part: path.resolve(`src/templates/Category.tsx`),
         all: path.resolve(`src/templates/AllCategory.tsx`),
       },
-      postsByClassificationNames: getPostsByType(posts, 'category'),
+      postsByClassificationNames: getPostsByType(posts, 'categories'),
     },
     {
       singularName: 'tag',
@@ -137,6 +137,7 @@ exports.createPages = ({ actions, graphql }) => {
             }
             frontmatter {
               date
+              latest_update_date
               title
               category
               categories
@@ -159,14 +160,28 @@ exports.createPages = ({ actions, graphql }) => {
     const cTags = countArray(posts, 'tags');
     const cCategories = countArray(posts, 'categories');
 
+    let lastUpdatePosts = _.filter(posts, ({ node }) => node.frontmatter.latest_update_date)
+    lastUpdatePosts = _.sortBy(lastUpdatePosts, ({ node }) => node.frontmatter.latest_update_date)
+    lastUpdatePosts = lastUpdatePosts.map(({ node })=>{
+      return {
+        slug: node.fields.slug,
+        title: node.frontmatter.title,
+        latest_update_date: node.frontmatter.latest_update_date,
+        date: node.frontmatter.date,
+        banner: node.frontmatter.banner
+      }
+    })
+    lastUpdatePosts = lastUpdatePosts.reverse().slice(0, 3)
+
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
         path: i === 0 ? `/` : `/blog/${i + 1}`,
         component: path.resolve('./src/templates/index.tsx'),
         context: {
-          limit: postsPerPage,
           cTags,
           cCategories,
+          lastUpdatePosts,
+          limit: postsPerPage,
           skip: i * postsPerPage,
           totalPages: numPages,
           currentPage: i + 1,

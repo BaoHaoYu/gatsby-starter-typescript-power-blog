@@ -1,5 +1,6 @@
 ---
 date: "2018-01-03"
+latest_update_date: 2019-02-26
 title: "A title must be meaningful"
 category: "Coding"
 tags: ['Technology', 'graphql']

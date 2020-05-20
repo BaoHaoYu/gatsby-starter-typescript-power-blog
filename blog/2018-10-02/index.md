@@ -1,5 +1,6 @@
 ---
 date: "2018-01-02"
+latest_update_date: 2019-01-15
 title: "Alper Musig Clare is a create author"
 category: "Technology"
 tags: ['Author', 'Book']

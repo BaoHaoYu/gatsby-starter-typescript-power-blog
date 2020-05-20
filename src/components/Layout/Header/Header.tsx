@@ -2,7 +2,7 @@ import { Container } from '~/components/Container';
 import { Col, Row } from 'antd';
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
 import React, { useState } from 'react';
-import { useLessXs } from '~/utils/media';
+import { useLessMd } from '~/utils/media';
 import './Header.scss';
 
 export function Header() {
@@ -13,54 +13,54 @@ export function Header() {
   function onClickSearch() {
     setState({ ...data, search: !data.search });
   }
-  const lessXs = useLessXs();
+  const lessMd = useLessMd();
   return (
     <div className={'Header'}>
       <Container>
         <div className={'Header__bar'}>
           <Row>
-            <Col xs={18} md={6}>
+            <Col md={18} lg={6}>
               <div className={'Header__logo'}>
                 <img src="/assets/logo.png" alt="log" />
               </div>
             </Col>
 
-            <Col hidden={!lessXs} xs={6}>
+            <Col hidden={!lessMd} md={6}>
               <div onClick={onClickToggle} className={'Header__toggle'}>
                 <AiOutlineMenu className={'s-icon'} />
               </div>
             </Col>
 
-            <Col hidden={!data.expanded && lessXs} className={'Header__expanded'} xs={24} md={18}>
+            <Col hidden={!data.expanded && lessMd} className={'Header__expanded'} xs={24} md={18}>
               <div className={'Header__menu'}>
                 <Row align={'middle'}>
-                  <Col offset={lessXs ? 0 : 4} xs={24} md={4}>
+                  <Col offset={lessMd ? 0 : 4} md={24} lg={4}>
                     <div>
                       <a className={'Header__link'} href={'about'}>
                         关于
                       </a>
                     </div>
                   </Col>
-                  <Col xs={24} md={4}>
+                  <Col md={24} lg={4}>
                     <div>
                       <a className={'Header__link'} href={'tags'}>
                         标签
                       </a>
                     </div>
                   </Col>
-                  <Col xs={24} md={4}>
+                  <Col md={24} lg={4}>
                     <div>
                       <a className={'Header__link'} href={'/categories'}>
                         分类
                       </a>
                     </div>
                   </Col>
-                  <Col xs={24} md={4}>
+                  <Col md={24} lg={4}>
                     <a className={'Header__link'} href={'/archives'}>
                       归档
                     </a>
                   </Col>
-                  <Col xs={24} md={4}>
+                  <Col md={24} lg={4}>
                     <div>
                       <span onClick={onClickSearch} className={'Header__link'}>
                         <AiOutlineSearch className={'s-icon'} />

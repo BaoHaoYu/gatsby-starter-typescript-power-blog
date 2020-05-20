@@ -93,3 +93,27 @@
         margin-left: auto;
     }
 }
+
+.LastUpdate {
+    list-style: none;
+    margin-left: 0;
+
+    &__banner {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__item {
+        padding: 15px 0;
+    }
+
+    &__link {
+        color: #1c1d1f;
+
+        &:hover {
+            color: #ce8460;
+        }
+    }
+}

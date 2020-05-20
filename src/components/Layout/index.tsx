@@ -3,9 +3,10 @@ import './index.scss';
 import { Container } from '../Container';
 import { Header } from './Header/Header';
 import { Row, Col } from 'antd';
-import { useExceedXs } from '~/utils/media';
+import { useLessLg } from '~/utils/media';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'gatsby';
+import { kebabCase } from 'lodash';
 
 interface IWidget {
   children: any;
@@ -24,13 +25,20 @@ function Widget(props: IWidget) {
   );
 }
 
-interface IProps {
+export interface ILayoutProps {
   cTags?: { name: string; len: number }[];
   cCategories?: { name: string; len: number }[];
+  lastUpdatePosts?: {
+    slug: string;
+    title: string;
+    latest_update_date: string;
+    date: string;
+    banner: string;
+  }[];
 }
 
-export const Layout: React.FunctionComponent<IProps> = (p) => {
-  const exceedXs = useExceedXs();
+export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
+  const exceedXs = useLessLg();
 
   return (
     <div className={'Layout'}>
@@ -39,11 +47,11 @@ export const Layout: React.FunctionComponent<IProps> = (p) => {
       <div className={'section'}>
         <Container>
           <Row gutter={20}>
-            <Col xs={24} md={16}>
+            <Col md={24} lg={16}>
               {p.children}
             </Col>
             {exceedXs && (
-              <Col md={8}>
+              <Col lg={8}>
                 <aside>
                   <Widget title={'搜索'}>
                     <div style={{ position: 'relative' }}>
@@ -64,7 +72,10 @@ export const Layout: React.FunctionComponent<IProps> = (p) => {
                     <ul className={'Categories'}>
                       {p.cCategories?.map((item) => (
                         <li className={'Categories__item'} key={item.name}>
-                          <Link className={'Categories__link'} to={'/categories/' + item.name}>
+                          <Link
+                            className={'Categories__link'}
+                            to={'/categories/' + kebabCase(item.name)}
+                          >
                             {item.name}
                             <small className={'Categories__len'}>({item.len})</small>
                           </Link>
@@ -76,14 +87,43 @@ export const Layout: React.FunctionComponent<IProps> = (p) => {
                   <Widget title={'标签'}>
                     <div className={'Widget__tagBox'}>
                       {p.cTags?.map((item) => (
-                        <Link to={'/tags/' + item.name} className={'Widget__tag'} key={item.name}>
+                        <Link
+                          to={'/tags/' + kebabCase(item.name)}
+                          className={'Widget__tag'}
+                          key={item.name}
+                        >
                           {item.name}
                         </Link>
                       ))}
                     </div>
                   </Widget>
 
-                  <Widget title={'最后更新'}>1</Widget>
+                  <Widget title={'最后更新'}>
+                    <ul className={'LastUpdate'}>
+                      {p.lastUpdatePosts?.map((post) => (
+                        <li className={'LastUpdate__item'} key={post.slug}>
+                          <Row gutter={12}>
+                            <Col span={6}>
+                              <img
+                                className={'LastUpdate__banner'}
+                                src={post.banner}
+                                alt={post.title}
+                              />
+                            </Col>
+                            <Col span={18}>
+                              <h5>
+                                <Link className={'LastUpdate__link'} to={'/blog/' + post.slug}>
+                                  {post.title}
+                                </Link>
+                              </h5>
+
+                              <small>{post.latest_update_date}</small>
+                            </Col>
+                          </Row>
+                        </li>
+                      ))}
+                    </ul>
+                  </Widget>
                 </aside>
               </Col>
             )}

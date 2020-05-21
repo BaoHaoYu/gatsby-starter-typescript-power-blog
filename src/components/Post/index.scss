@@ -18,6 +18,7 @@
         display: block;
         color: #696c6d;
         transition: 0.2s ease;
+
         &:hover {
             color: #ce8460;
         }
@@ -31,6 +32,7 @@
         &--active {
             /* - */
             background: #ce8460;
+
             .nav__link {
                 color: white;
             }
@@ -40,6 +42,7 @@
 
 .tab-content {
     padding: 20px 15px;
+
     &__pane {
         display: none;
 
@@ -66,9 +69,197 @@
         display: block;
         padding: 0.5rem;
         border-bottom: 1px dotted #ddd;
+        color: #696c6d;
 
         &:hover {
             color: #ce8460;
+        }
+    }
+}
+
+.alert {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.125rem;
+
+    &--info {
+        background-color: rgba(215, 238, 249, 0.4);
+        color: #555;
+
+        &[data-dir=rtl] {
+            border-right: 5px solid #bbdefb;
+        }
+
+        &[data-dir=ltr] {
+            border-left: 5px solid #bbdefb;
+        }
+    }
+
+    &--success {
+        background-color: rgba(217, 239, 214, 0.4);
+        color: #555;
+
+        &[data-dir=rtl] {
+            border-right: 5px solid #c8e6c9;
+        }
+
+        &[data-dir=ltr] {
+            border-left: 5px solid #c8e6c9;
+        }
+    }
+
+    &--warning {
+        background-color: rgba(255, 249, 196, 0.4);
+        color: #555;
+
+        &[data-dir=rtl] {
+            border-right: 5px solid #ffeb3b;
+        }
+
+        &[data-dir=ltr] {
+            border-left: 5px solid #ffeb3b;
+        }
+    }
+
+    &--danger {
+        background-color: rgba(245, 221, 221, 0.4);
+        color: #555;
+
+        &[data-dir=rtl] {
+            border-right: 5px solid #ffcdd2;
+        }
+
+        &[data-dir=ltr] {
+            border-left: 5px solid #ffcdd2;
+        }
+    }
+}
+
+.notices {
+    position: relative;
+    border-radius: 0.125rem;
+    color: #fff;
+    margin: 2rem 0;
+    padding: 0.3rem 0.5rem 0.3rem 2rem;
+    font-size: 0.95rem;
+
+    &--success {
+        border-top: 30px solid #84c578;
+        background: #e8f7e6;
+        color: rgba(72, 125, 63, 0.995) !important;
+
+        &::before {
+            position: absolute;
+            content: 'Success';
+            font-family: montserrat, sans-serif;
+            top: -26.5px;
+            left: 0.4rem;
+            height: 100%;
+        }
+
+        a {
+            font-weight: 700;
+            color: rgba(56, 109, 47, 0.995);
+        }
+    }
+
+    &--info {
+        border-top: 30px solid #6bb1e0;
+        background: #e6f3fb;
+        color: rgba(47, 103, 141, 0.995) !important;
+
+        &::before {
+            position: absolute;
+            content: 'Info';
+            font-family: montserrat, sans-serif;
+            top: -26.5px;
+            left: 0.4rem;
+            height: 100%;
+        }
+
+        a {
+            font-weight: 700;
+            color: rgba(31, 87, 125, 0.995);
+        }
+    }
+
+    &--warning {
+        border-top: 30px solid #f1b37e;
+        background: #fefaf5;
+        color: rgba(150, 90, 38, 0.995) !important;
+
+        &::before {
+            position: absolute;
+            content: 'Warning';
+            font-family: montserrat, sans-serif;
+            top: -26.5px;
+            left: 0.4rem;
+            height: 100%;
+        }
+
+        a {
+            font-weight: 700;
+            color: rgba(134, 74, 22, 0.995);
+        }
+    }
+
+    &--error {
+        border-top: 30px solid #d58181;
+        background: #fbeded;
+        color: rgba(132, 56, 56, 0.995) !important;
+
+        &::before {
+            position: absolute;
+            content: 'Error';
+            font-family: montserrat, sans-serif;
+            top: -26.5px;
+            left: 0.4rem;
+            height: 100%;
+        }
+
+        a {
+            font-weight: 700;
+            color: rgba(116, 40, 40, 0.995);
+        }
+    }
+}
+
+.postContent {
+    table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+
+        thead {
+            background: #f0f0f0;
+            margin-bottom: 0;
+        }
+
+        th {
+            vertical-align: top;
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+        }
+
+        th,
+        td {
+            padding: .75rem;
+
+            &[align='center'] {
+                text-align: center;
+            }
+
+            &[align='right'] {
+                text-align: right;
+            }
         }
     }
 }
@@ -77,6 +268,6 @@ hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 0;
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: 1px solid rgba(0, 0, 0, .1);
     background: none;
 }

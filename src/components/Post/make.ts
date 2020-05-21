@@ -125,7 +125,7 @@ export function make(_mdContent: string) {
       return v
         .replace(
           /{{< alert theme=".+?" >}}/,
-          `<div class="alert alert-${cl}" role="alert" data-dir="ltr">`,
+          `<div class="alert alert--${cl}" role="alert" data-dir="ltr">`,
         )
         .replace('{{< /alert >}}', '</div>');
     });
@@ -134,10 +134,10 @@ export function make(_mdContent: string) {
   function makeNotice(mdContent: string) {
     return mdContent.replace(/{{< notice .+? >}}(.|\n)+?{{< \/notice >}}/g, (v) => {
       const cl = (v.match(/{{< notice .+? >}}/) || [''])[0]
-        .replace(/{{< notice/, '')
+        .replace(/{{< notice /, '')
         .replace(/ >}}/, '');
       return v
-        .replace(/{{< notice .+? >}}/, `<div class="notices ${cl}">`)
+        .replace(/{{< notice .+? >}}/, `<div class="notices notices--${cl}">`)
         .replace('{{< /notice >}}', '</div>');
     });
   }

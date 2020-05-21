@@ -11,10 +11,6 @@
         }
     }
 
-    &__meta {
-        margin-bottom: 1.5rem;
-    }
-
     &__banner {
         img {
             border-radius: 10px;
@@ -24,19 +20,7 @@
         }
     }
 
-    &__item {
-        color: #696c6d;
-        margin-left: 9px;
 
-        a {
-            color: #696c6d;
-            border-bottom: 1px dotted #ddd;
-
-            &:hover {
-                color: #ce8460;
-            }
-        }
-    }
 
     &__excerpt {
         /* - */

@@ -1,8 +1,11 @@
 import { Data } from './index';
 import get from 'lodash/get';
+
 interface IP {
   postHeadEl: HTMLElement[];
+
   activeIndex(item: Data[0], parents: Data, single: Data): void;
+
   data: Data;
 }
 
@@ -47,23 +50,16 @@ function findIndex(entries: IntersectionObserverEntry[], postHeadEl: HTMLElement
 function createIntersectionObserver(p: {
   marginTop: number;
   postHeadEl: HTMLElement[];
-  activeIndex(index: number): void;
+  active(index: number): void;
 }) {
-  const { marginTop, postHeadEl, activeIndex } = p;
-  const _marginTop = Math.floor(marginTop + 10000);
+  const { postHeadEl, active } = p;
   const intersectionObserver = new IntersectionObserver(
-    (entries, observe) => {
-      const scrollHeight = document.documentElement.scrollHeight + 100;
-      if (scrollHeight > _marginTop) {
-        observe.disconnect();
-        createIntersectionObserver(p);
-        return;
-      }
-      activeIndex(findIndex(entries, postHeadEl));
+    (entries, _observe) => {
+      active(findIndex(entries, postHeadEl));
     },
     {
-      rootMargin: _marginTop + 'px 0px -100% 0px',
-      threshold: 0,
+      rootMargin: document.documentElement.scrollHeight + '10000px 0px -100% 0px',
+      threshold: 1,
     },
   );
   postHeadEl.forEach((item) => intersectionObserver.observe(item as HTMLElement));
@@ -72,6 +68,7 @@ function createIntersectionObserver(p: {
 // 所有的父节点
 export function findNodeParents(data: Data, item: Data[0]) {
   const list: Data = [];
+
   function _find(_item: Data[0]) {
     if (_item.parent) {
       const parentNode = get(data, _item.parent.join('@@children@@').split('@@'));
@@ -95,9 +92,67 @@ export default function registerSideBarTOCTOC(p: IP) {
   // 监视post头部滚动位置
   createIntersectionObserver({
     postHeadEl,
-    activeIndex(index: number) {
+    active(index: number) {
       activeIndex(single[index], findNodeParents(data, single[index]), single);
     },
     marginTop: document.documentElement.scrollHeight,
   });
+}
+
+export function registerSideBarTOC(p: IP) {
+  const { postHeadEl, activeIndex, data } = p;
+  const single = toSingle(data);
+  let stop = window.scrollY;
+  let dir = '';
+  window.addEventListener('scroll', () => {
+    if (stop - window.scrollY > 0) {
+      if (dir !== 'top') {
+        dir = 'top';
+      }
+    } else {
+      if (dir !== 'bottom') {
+        dir = 'bottom';
+      }
+    }
+
+    stop = window.scrollY;
+  });
+  let hasFindIndex = -1;
+
+  const intersectionObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.intersectionRatio === 1) {
+          if (dir === '') {
+            hasFindIndex = postHeadEl.indexOf(entry.target as HTMLElement);
+            activeIndex(single[hasFindIndex], findNodeParents(data, single[hasFindIndex]), single);
+            return;
+          }
+          // 从上边进入
+          if (dir === 'top') {
+            hasFindIndex = postHeadEl.indexOf(entry.target as HTMLElement);
+            activeIndex(
+              single[hasFindIndex - 1 < 0 ? 0 : hasFindIndex - 1],
+              findNodeParents(data, single[hasFindIndex]),
+              single,
+            );
+          }
+        } else {
+          // 从下边离开
+          if (dir === 'bottom') {
+            hasFindIndex = postHeadEl.indexOf(entry.target as HTMLElement);
+            activeIndex(single[hasFindIndex], findNodeParents(data, single[hasFindIndex]), single);
+          }
+        }
+      }
+
+      if (hasFindIndex === -1) {
+        activeIndex(single[0], findNodeParents(data, single[0]), single);
+      }
+    },
+    {
+      threshold: 1,
+    },
+  );
+  postHeadEl.forEach((item) => intersectionObserver.observe(item as HTMLElement));
 }

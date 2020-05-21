@@ -3,7 +3,7 @@ import cn from 'classnames';
 import './index.scss';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
-import registerSidebarTOC from '~/components/Post/sidebar/registerSidebarTOC';
+import { registerSideBarTOC } from '~/components/Post/sidebar/registerSidebarTOC';
 import anime from 'animejs';
 import $ from 'jquery';
 
@@ -48,7 +48,7 @@ function init(props: ISideBarProps) {
     postHeadEl.push(item);
   });
   sideBarStore.initData(props.data);
-  registerSidebarTOC({
+  registerSideBarTOC({
     data: sideBarStore.data,
     postHeadEl,
     activeIndex(item, parents, single) {
@@ -66,7 +66,9 @@ function init(props: ISideBarProps) {
   });
 }
 // 点击导航
-function clickNav(_e: React.MouseEvent & React.BaseSyntheticEvent, item: Data[0]) {
+function clickNav(e: React.MouseEvent & React.BaseSyntheticEvent, item: Data[0]) {
+  e.preventDefault();
+  sideBarStore.setActive(item);
   const $scroll = $(window);
   const target = document.getElementById(item.id) as HTMLElement;
   const offset = target.getBoundingClientRect().top + ($scroll.scrollTop() || 0);
@@ -74,7 +76,7 @@ function clickNav(_e: React.MouseEvent & React.BaseSyntheticEvent, item: Data[0]
     targets: [document.documentElement],
     duration: 0,
     easing: 'linear',
-    scrollTop: offset + 1,
+    scrollTop: offset,
   });
 }
 

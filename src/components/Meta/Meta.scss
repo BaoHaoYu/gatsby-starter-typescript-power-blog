@@ -1,0 +1,17 @@
+.Meta {
+    margin-bottom: 1.5rem;
+
+    &__item {
+        color: #696c6d;
+        margin-left: 9px;
+
+        a {
+            color: #696c6d;
+            border-bottom: 1px dotted #ddd;
+
+            &:hover {
+                color: #ce8460;
+            }
+        }
+    }
+}

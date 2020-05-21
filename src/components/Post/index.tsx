@@ -1,19 +1,17 @@
 import * as React from 'react';
-import Info from '~/components/Post/Info';
 import SideBar, { Data } from '~/components/Post/Sidebar';
 import { observer } from 'mobx-react';
 import { Row, Col } from 'antd';
 import tocData from '~/components/Post/Sidebar/tocData';
 import $ from 'jquery';
 import { useExceedMd } from '~/utils/media';
+import { Meta, IMeta } from '~/components/Meta/Meta';
+import { make } from './make';
+import './index.scss';
 
-interface IProps {
+interface IProps extends IMeta {
   title: string;
-  date: string;
   slug: string;
-  timeToRead: number;
-  categories: string[];
-  tags: string[];
   content: string;
   author?: string;
   authorUrl?: string;
@@ -25,10 +23,12 @@ interface IProps {
 // 文章内tab切换
 function bindTabs(selector: string) {
   const $item = $(selector);
-  $item.on('click', function () {
+  $item.on('click', function (e) {
+    e.preventDefault();
+    const activeClass = 'tab-content__pane--active';
     const index = $item.index(this);
-    $item.removeClass('active').eq(index).addClass('active');
-    $(this).parent().next().children().removeClass('active').eq(index).addClass('active');
+    $item.removeClass('nav__item--active').eq(index).addClass('nav__item--active');
+    $(this).parent().next().children().removeClass(activeClass).eq(index).addClass(activeClass);
   });
 }
 
@@ -37,30 +37,30 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
   const [mountPost, setMountPost] = React.useState<boolean>(false);
 
   const exceedMd = useExceedMd();
-
+  const html = make(props.content);
   React.useEffect(() => {
-    const head = $('.postContent > h2, .postContent > h3, .postContent > h4, .postContent > h5');
-    bindTabs('.code-tabs .nav-item');
+    const head = $('.postContent').children('h2,h3,h4,h5,h6');
+    bindTabs('.code-tabs .nav__item');
     bindTabs('.code-tabs .codetab__link');
     setData(tocData(head));
     setMountPost(true);
-    $('.collapse-head').on('click', function () {
-      $(this).parent().children('.collapse').toggleClass('show');
+    $('.collapse__toggle').on('click', function (e) {
+      e.preventDefault();
+      $(this).parent().children('.collapse__content').toggleClass('collapse__content--active');
     });
   }, []);
   return (
-    <Row>
+    <Row gutter={80}>
       <Col lg={18} md={24}>
         <Row>
           {/*头部*/}
           <Col lg={20}>
             <h1 className={'h2'}>{props.title}</h1>
-            <Info
+            <Meta
               tags={props.tags}
               categories={props.categories}
               date={props.date}
-              author={props.author}
-              authorUrl={props.authorUrl}
+              timeToRead={props.timeToRead}
             />
           </Col>
 
@@ -71,10 +71,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
 
           {/*内容*/}
           <Col lg={20}>
-            <div
-              className={'content postContent'}
-              dangerouslySetInnerHTML={{ __html: props?.content || '' }}
-            />
+            <div className={'content'} dangerouslySetInnerHTML={{ __html: html || '' }} />
           </Col>
         </Row>
       </Col>
@@ -83,7 +80,9 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
       {mountPost && (
         <Col hidden={!exceedMd} lg={6}>
           <SideBar
-            postHead={'.postContent > h2, .postContent > h3, .postContent > h4, .postContent > h5'}
+            postHead={
+              '.postContent > h2, .postContent > h3, .postContent > h4, .postContent > h5, .postContent > h6'
+            }
             data={data}
           />
         </Col>

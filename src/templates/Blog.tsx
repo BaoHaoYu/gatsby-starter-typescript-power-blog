@@ -35,7 +35,6 @@ export default (props: Props) => {
               excerpt={post.node.excerpt}
               timeToRead={post.node.timeToRead}
               slug={post.node.fields.slug}
-              category={post.node.frontmatter.category}
               key={post.node.fields.slug}
             />
           ))}

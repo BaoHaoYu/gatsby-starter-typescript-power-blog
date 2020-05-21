@@ -3,7 +3,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { Link } from 'gatsby';
 import { kebabCase } from 'lodash';
 import { Col, Row } from 'antd';
-import './SideBar.scss'
+import './SideBar.scss';
 
 export interface ISideBarProps {
   cTags?: { name: string; len: number }[];

@@ -3,7 +3,7 @@ import './index.scss';
 import { Container } from '../Container';
 import { Header } from './Header/Header';
 import { Row, Col } from 'antd';
-import { useLessLg } from '~/utils/media';
+import { useExceedMd } from '~/utils/media';
 import { SideBar } from './SideBar/SideBar';
 
 export interface ILayoutProps {
@@ -20,7 +20,7 @@ export interface ILayoutProps {
 }
 
 export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
-  const lessLg = useLessLg();
+  const lessLg = useExceedMd();
 
   return (
     <div className={'Layout'}>
@@ -29,7 +29,7 @@ export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
       <div className={'section'}>
         <Container>
           <Row gutter={20}>
-            <Col md={24} lg={16}>
+            <Col md={24} lg={p.showSideBar ? 16 : 24}>
               {p.children}
             </Col>
             {lessLg && p.showSideBar && (

@@ -80,7 +80,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
       {mountPost && (
         <Col hidden={!exceedMd} lg={6}>
           <SideBar
-            postHead={
+            postHeadSelector={
               '.postContent > h2, .postContent > h3, .postContent > h4, .postContent > h5, .postContent > h6'
             }
             data={data}

@@ -4,7 +4,6 @@ import './index.scss';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import { registerSideBarTOC } from '~/components/Post/sidebar/registerSidebarTOC';
-import anime from 'animejs';
 import $ from 'jquery';
 
 const sideBarStore = observable({
@@ -37,14 +36,14 @@ export type Data = {
 
 export interface ISideBarProps {
   data: Data;
-  postHead: string;
+  postHeadSelector: string;
   onClickTitle?(e: React.MouseEvent, item: Data[0]): void;
 }
 
 // 初始化
 function init(props: ISideBarProps) {
   const postHeadEl: HTMLElement[] = [];
-  $(props.postHead).each((_index, item) => {
+  $(props.postHeadSelector).each((_index, item) => {
     postHeadEl.push(item);
   });
   sideBarStore.initData(props.data);
@@ -68,16 +67,10 @@ function init(props: ISideBarProps) {
 // 点击导航
 function clickNav(e: React.MouseEvent & React.BaseSyntheticEvent, item: Data[0]) {
   e.preventDefault();
-  sideBarStore.setActive(item);
   const $scroll = $(window);
   const target = document.getElementById(item.id) as HTMLElement;
   const offset = target.getBoundingClientRect().top + ($scroll.scrollTop() || 0);
-  anime({
-    targets: [document.documentElement],
-    duration: 0,
-    easing: 'linear',
-    scrollTop: offset,
-  });
+  $scroll.scrollTop(offset);
 }
 
 const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
@@ -89,7 +82,7 @@ const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
     return data.map((item) => {
       return (
         <div
-          className={cn('sideBarTOC__node', { 'sideBarTOC__node--active': item.active })}
+          className={cn('SideBarTOC__node', { 'SideBarTOC__node--active': item.active })}
           key={item.title}
         >
           <a
@@ -97,7 +90,7 @@ const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
               clickNav(e, item);
             }}
             href={'#' + item.id}
-            className={'sideBarTOC__title'}
+            className={'SideBarTOC__title'}
           >
             {item.title}
           </a>
@@ -106,7 +99,7 @@ const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
       );
     });
   }
-  return <div className={'sideBarTOC'}>{renderNode(sideBarStore.data)}</div>;
+  return <div className={'SideBarTOC'}>{renderNode(sideBarStore.data)}</div>;
 };
 
 export default observer(SideBar);

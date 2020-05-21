@@ -1,4 +1,4 @@
-.sideBarTOC {
+.SideBarTOC {
     position: fixed;
     top: 80px;
 
@@ -21,14 +21,18 @@
     &__node {
         margin-bottom: 3px;
 
-        .sideBarTOC__node {
+        .SideBarTOC__node {
             padding-left: 1rem;
         }
-
+        &:hover,
         &--active {
-            > .sideBarTOC__title {
-                color: #26a69a;
+            > .SideBarTOC__title {
+                color: #ce8460;
                 font-weight: 700;
+
+                &::before {
+                    background-color: #ce8460;
+                }
             }
         }
     }

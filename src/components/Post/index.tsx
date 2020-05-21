@@ -50,7 +50,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
     });
   }, []);
   return (
-    <Row gutter={80}>
+    <Row gutter={exceedMd ? 80 : 0}>
       <Col lg={18} md={24}>
         <Row>
           {/*头部*/}
@@ -66,12 +66,12 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
 
           {/*图片*/}
           <Col span={24}>
-            <img src={props.banner} alt={props.title} />
+            <img className={'banner'} src={props.banner} alt={props.title} />
           </Col>
 
           {/*内容*/}
-          <Col lg={20}>
-            <div className={'content'} dangerouslySetInnerHTML={{ __html: html || '' }} />
+          <Col style={{ width: exceedMd ? 'auto' : '100%' }} lg={20}>
+            <div dangerouslySetInnerHTML={{ __html: html || '' }} />
           </Col>
         </Row>
       </Col>

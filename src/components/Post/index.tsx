@@ -12,6 +12,8 @@ import './index.scss';
 import IPost from '~/models/Post';
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
 import { NavPreAndNext } from './NavPreAndNext/NavPreAndNext';
+import { useSpring, animated } from 'react-spring';
+
 interface IProps extends IMeta {
   title: string;
   slug: string;
@@ -68,6 +70,17 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
     });
   }, []);
 
+  const toggleStyle: React.CSSProperties = state.toggleToc
+    ? { opacity: 1, transform: 'translateY(0)', display: 'block' }
+    : { opacity: 0, transform: 'translateY(50px)', display: 'none' };
+
+  const sideBarSpring = useSpring({
+    delay: state.toggleToc ? 100 : 0,
+    config: { tension: state.toggleToc ? 200 : 0 },
+    from: { opacity: 0, transform: 'translateY(50px)' },
+    ...toggleStyle,
+  });
+
   function toggleToc() {
     state.toggleToc = !state.toggleToc;
     setState({ ...state });
@@ -115,9 +128,11 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
         </Col>
 
         {/*导航*/}
-        <Col hidden={!showToc} lg={6}>
+        <Col lg={6}>
           <Affix offsetTop={50}>
-            <SideBar postHeadElement={state.postHeadElement} data={state.data} />
+            <animated.div style={sideBarSpring}>
+              <SideBar postHeadElement={state.postHeadElement} data={state.data} />
+            </animated.div>
           </Affix>
         </Col>
       </Row>

@@ -4,6 +4,7 @@ import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
 import React, { useState } from 'react';
 import { useLessMd } from '~/utils/media';
 import './Header.scss';
+import { Link } from 'gatsby';
 
 export function Header() {
   const [data, setState] = useState({ expanded: false, search: false });
@@ -21,7 +22,9 @@ export function Header() {
           <Row>
             <Col xs={18} lg={6}>
               <div className={'Header__logo'}>
-                <img src="/assets/logo.png" alt="log" />
+                <Link to={'/'}>
+                  <img src="/assets/logo.png" alt="log" />
+                </Link>
               </div>
             </Col>
 

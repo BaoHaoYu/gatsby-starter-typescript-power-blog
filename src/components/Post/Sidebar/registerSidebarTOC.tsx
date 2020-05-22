@@ -2,7 +2,7 @@ import { Data } from './index';
 import get from 'lodash/get';
 
 interface IP {
-  postHeadEl: HTMLElement[];
+  postHeadElement: HTMLElement[];
 
   activeIndex(item: Data[0], parents: Data, single: Data): void;
 
@@ -31,7 +31,6 @@ function toSingle(data: Data): Data {
 // 所有的父节点
 export function findNodeParents(data: Data, item: Data[0]) {
   const list: Data = [];
-
   function _find(_item: Data[0]) {
     if (_item.parent) {
       const parentNode = get(data, _item.parent.join('@@children@@').split('@@'));
@@ -49,13 +48,13 @@ export function findNodeParents(data: Data, item: Data[0]) {
 }
 
 export function registerSideBarTOC(p: IP) {
-  const { postHeadEl, activeIndex, data } = p;
+  const { postHeadElement, activeIndex, data } = p;
   const single = toSingle(data);
   const viewState: {
     target: HTMLElement;
     isView: boolean;
   }[] = [];
-  postHeadEl.map((el) => {
+  postHeadElement.map((el) => {
     viewState.push({
       target: el,
       isView: false,
@@ -85,12 +84,14 @@ export function registerSideBarTOC(p: IP) {
 
   const intersectionObserver = new IntersectionObserver(
     (entries) => {
-      const index = findIndex(entries, postHeadEl);
+      const index = findIndex(entries, postHeadElement);
       activeIndex(single[index], findNodeParents(data, single[index]), single);
     },
     {
       threshold: 1,
     },
   );
-  postHeadEl.forEach((item) => intersectionObserver.observe(item as HTMLElement));
+  postHeadElement.forEach((item) => intersectionObserver.observe(item as HTMLElement));
+
+  return intersectionObserver;
 }

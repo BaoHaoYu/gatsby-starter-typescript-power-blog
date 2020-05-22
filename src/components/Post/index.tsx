@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 import SideBar, { Data } from '~/components/Post/Sidebar';
 import { observer } from 'mobx-react';
 import { Row, Col, Affix } from 'antd';
@@ -12,6 +12,7 @@ import './index.scss';
 import { Link } from 'gatsby';
 import IPost from '~/models/Post';
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
+
 interface IProps extends IMeta {
   title: string;
   slug: string;
@@ -39,16 +40,29 @@ function bindTabs(selector: string) {
 
 export const Post: React.FunctionComponent<IProps> = observer((props: IProps) => {
   const exceedMd = useExceedMd();
-  const [state, setState] = React.useState<{ data: Data; showToc: boolean }>({
+  const [state, setState] = React.useState<{
+    postHeadElement: HTMLElement[];
+    data: Data;
+    toggleToc: boolean;
+  }>({
     data: [],
-    showToc: true,
+    toggleToc: true,
+    postHeadElement: [],
   });
   const html = make(props.content);
+
+  const post = useRef(null);
   React.useEffect(() => {
-    const head = $('.postContent').children('h2,h3,h4,h5,h6');
-    bindTabs('.code-tabs .nav__item');
+    const head = $(post.current!).children('h2,h3,h4,h5,h6');
+    const postHeadElement: HTMLElement[] = [];
+    head.each(function (_index, element) {
+      postHeadElement.push(element);
+    });
     state.data = tocData(head);
+    state.postHeadElement = postHeadElement;
     setState({ ...state });
+
+    bindTabs('.code-tabs .nav__item');
     $('.collapse__toggle').on('click', function (e) {
       e.preventDefault();
       $(this).parent().children('.collapse__content').toggleClass('collapse__content--active');
@@ -56,17 +70,17 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
   }, []);
 
   function toggleToc() {
-    state.showToc = !state.showToc;
+    state.toggleToc = !state.toggleToc;
     setState({ ...state });
   }
 
-  const showToc = exceedMd && state.showToc;
+  const showToc = exceedMd && state.toggleToc && state.data.length > 0;
   return (
     <div>
       <Row gutter={showToc ? 50 : 0}>
         <Col lg={showToc ? 18 : 24} md={24}>
           {/*头部*/}
-          <div>
+          <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
             <h1 className={'h2'}>{props.title}</h1>
             <Meta
               tags={props.tags}
@@ -74,7 +88,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
               date={props.date}
               timeToRead={props.timeToRead}
             />
-          </div>
+          </Col>
 
           {/*图片*/}
           <div>
@@ -82,13 +96,18 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
           </div>
 
           {/*内容*/}
-          <Col lg={showToc ? 24 : 20}>
+          <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
             <div
               className={cn('content', {
                 'content--showToc': showToc,
               })}
             >
-              <div dangerouslySetInnerHTML={{ __html: html || '' }} />
+              <div
+                className={'postContent'}
+                ref={post}
+                dangerouslySetInnerHTML={{ __html: html || '' }}
+              />
+
               {exceedMd && (
                 <div className={'navPost'}>
                   <Row>
@@ -123,19 +142,14 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
         {/*导航*/}
         <Col hidden={!showToc} lg={6}>
           <Affix offsetTop={50}>
-            <SideBar
-              postHeadSelector={
-                '.postContent > h2, .postContent > h3, .postContent > h4, .postContent > h5, .postContent > h6'
-              }
-              data={state.data}
-            />
+            <SideBar postHeadElement={state.postHeadElement} data={state.data} />
           </Affix>
         </Col>
       </Row>
 
-      {exceedMd && (
+      {exceedMd && state.data.length > 0 && (
         <div onClick={toggleToc} className={'bottom'}>
-          {state.showToc ? (
+          {state.toggleToc ? (
             <AiOutlineMenuUnfold className={'s-icon'} />
           ) : (
             <AiOutlineMenuFold className={'s-icon'} />

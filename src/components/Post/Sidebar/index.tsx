@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 import cn from 'classnames';
 import './index.scss';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import { registerSideBarTOC } from '~/components/Post/sidebar/registerSidebarTOC';
 import $ from 'jquery';
+import {element} from "prop-types";
 
 const sideBarStore = observable({
   data: [] as Data,
@@ -36,20 +37,16 @@ export type Data = {
 
 export interface ISideBarProps {
   data: Data;
-  postHeadSelector: string;
+  postHeadElement: HTMLElement[];
   onClickTitle?(e: React.MouseEvent, item: Data[0]): void;
 }
 
 // 初始化
 function init(props: ISideBarProps) {
-  const postHeadEl: HTMLElement[] = [];
-  $(props.postHeadSelector).each((_index, item) => {
-    postHeadEl.push(item);
-  });
   sideBarStore.initData(props.data);
-  registerSideBarTOC({
+  return registerSideBarTOC({
     data: sideBarStore.data,
-    postHeadEl,
+    postHeadElement: props.postHeadElement,
     activeIndex(item, parents, single) {
       single.map((node) => {
         sideBarStore.setActive(node, false);
@@ -74,8 +71,14 @@ function clickNav(e: React.MouseEvent & React.BaseSyntheticEvent, item: Data[0])
 }
 
 const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
+  const intersectionObserver = useRef<null | IntersectionObserver>();
   React.useEffect(() => {
-    init(props);
+    if (props.data.length > 0) {
+      intersectionObserver.current = init(props);
+    }
+    return () => {
+      intersectionObserver.current?.disconnect();
+    };
   }, [props.data]);
 
   function renderNode(data: ISideBarProps['data'] = []) {

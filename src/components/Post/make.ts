@@ -3,7 +3,7 @@ import $ from 'jquery';
 import cn from 'classnames';
 
 export function make(_mdContent: string) {
-  _mdContent = he.decode('<div class="postContent">' + _mdContent + '</div>');
+  _mdContent = he.decode('<div>' + _mdContent + '</div>');
   // 清除空的P标签
   function cleanEmptyP(mdContent: string) {
     const $md = $(mdContent);
@@ -159,5 +159,5 @@ export function make(_mdContent: string) {
   //
   _mdContent = cleanEmptyP(_mdContent);
 
-  return _mdContent;
+  return $(_mdContent).html();
 }

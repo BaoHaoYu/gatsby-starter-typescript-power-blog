@@ -9,10 +9,9 @@ import { Meta, IMeta } from '~/components/Meta/Meta';
 import { make } from './make';
 import cn from 'classnames';
 import './index.scss';
-import { Link } from 'gatsby';
 import IPost from '~/models/Post';
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
-
+import { NavPreAndNext } from './NavPreAndNext/NavPreAndNext';
 interface IProps extends IMeta {
   title: string;
   slug: string;
@@ -110,33 +109,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
                 dangerouslySetInnerHTML={{ __html: html || '' }}
               />
 
-              {exceedMd && (
-                <div className={'navPost'}>
-                  <Row>
-                    {props.prev && (
-                      <Col span={12}>
-                        <div className={'navPost__item'}>
-                          <span className={'navPost__label'}>prev blog : </span>
-                          <Link className={'navPost__link'} to={'/blog/' + props.prev.fields.slug}>
-                            {props.prev.frontmatter.title}
-                          </Link>
-                        </div>
-                      </Col>
-                    )}
-
-                    {props.next && (
-                      <Col span={12}>
-                        <div className={'navPost__item navPost__item--next'}>
-                          <span className={'navPost__label'}>prev blog : </span>
-                          <Link className={'navPost__link'} to={'/blog/' + props.next.fields.slug}>
-                            {props.next.frontmatter.title}
-                          </Link>
-                        </div>
-                      </Col>
-                    )}
-                  </Row>
-                </div>
-              )}
+              {exceedMd && <NavPreAndNext next={props.next} prev={props.prev} />}
             </div>
           </Col>
         </Col>

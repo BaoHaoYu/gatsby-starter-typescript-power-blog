@@ -6,13 +6,8 @@ export function make(_mdContent: string) {
   _mdContent = he.decode('<div>' + _mdContent + '</div>');
   // 清除空的P标签
   function cleanEmptyP(mdContent: string) {
-    const $md = $(mdContent);
-    $md.find('p').each((_index, el) => {
-      if (/^\s+$/.test($(el).text()) || $(el).text() === '') {
-        $(el).remove();
-      }
-    });
-    return $md.prop('outerHTML');
+    mdContent.replace(/<p>\s+<\/p>/g, '');
+    return mdContent.replace(/<p>\s+<\/p>/g, '');
   }
 
   function addHrBeforeH(mdContent: string) {

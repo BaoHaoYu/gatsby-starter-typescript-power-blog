@@ -91,5 +91,6 @@ module.exports = {
         style: 'css',   // or 'css'
       }
     },
+    'gatsby-remark-lazy-load',
   ],
 };

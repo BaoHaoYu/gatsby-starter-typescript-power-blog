@@ -141,6 +141,10 @@ export function make(_mdContent: string) {
     });
   }
 
+  function makeLazy(mdContent: string) {
+    return mdContent.replace(/img src/g, 'img class="lazyload" data-src');
+  }
+
   // Notice
   _mdContent = makeNotice(_mdContent);
   // Alert
@@ -153,10 +157,12 @@ export function make(_mdContent: string) {
   _mdContent = makeExpand(_mdContent);
   // BoxMd
   _mdContent = makeBoxMd(_mdContent);
+
+  _mdContent = cleanEmptyP(_mdContent);
+
+  _mdContent = makeLazy(_mdContent);
   // Add hr
   _mdContent = addHrBeforeH(_mdContent);
-  //
-  _mdContent = cleanEmptyP(_mdContent);
 
   return $(_mdContent).html();
 }

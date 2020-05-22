@@ -2,7 +2,6 @@ import cn from 'classnames';
 import cheerio from 'cheerio';
 
 export function make(_mdContent: string) {
-  _mdContent = '<div>' + _mdContent + '</div>';
   // 清除空的P标签
   function cleanEmptyP(mdContent: string) {
     mdContent.replace(/<p>\s+<\/p>/g, '');

@@ -1,9 +1,8 @@
-import he from 'he';
 import $ from 'jquery';
 import cn from 'classnames';
 
 export function make(_mdContent: string) {
-  _mdContent = he.decode('<div>' + _mdContent + '</div>');
+  _mdContent = '<div>' + _mdContent + '</div>';
   // 清除空的P标签
   function cleanEmptyP(mdContent: string) {
     mdContent.replace(/<p>\s+<\/p>/g, '');
@@ -27,20 +26,22 @@ export function make(_mdContent: string) {
   }
 
   function makeBoxMd(mdContent: string) {
-    return mdContent.replace(/{{< boxmd >}}(.|\n)+?{{< \/boxmd >}}/g, (v) => {
+    return mdContent.replace(/{{&#x3C; boxmd >}}(.|\n)+?{{&#x3C; \/boxmd >}}/g, (v) => {
       return v
-        .replace(/{{< boxmd >}}/, `<div class="alert alert-box" role="alert" >`)
-        .replace('{{< /boxmd >}}', '</div>');
+        .replace(/{{&#x3C; boxmd >}}/, `<div class="alert alert-box" role="alert" >`)
+        .replace('{{&#x3C; /boxmd >}}', '</div>');
     });
   }
 
   function makeExpand(mdContent: string) {
-    return mdContent.replace(/{{< expand ".+?" >}}(.|\n)+?{{< \/expand >}}/g, (v) => {
-      const expandTitle = (v.match(/{{< expand ".+?" >}}/) || [''])[0]
-        .replace(/{{< expand "/, '')
+    return mdContent.replace(/{{&#x3C; expand ".+?" >}}(.|\n)+?{{&#x3C; \/expand >}}/g, (v) => {
+      const expandTitle = (v.match(/{{&#x3C; expand ".+?" >}}/) || [''])[0]
+        .replace(/{{&#x3C; expand "/, '')
         .replace(/" >}}/, '');
 
-      const expandContent = v.replace(/{{< expand ".+?" >}}/, ``).replace('{{< /expand >}}', '');
+      const expandContent = v
+        .replace(/{{&#x3C; expand ".+?" >}}/, ``)
+        .replace('{{&#x3C; /expand >}}', '');
       return `<div class="collapse">
             <a class="collapse__toggle">
               ${expandTitle} <i class="ml-auto ti-minus"> </i>
@@ -53,40 +54,43 @@ export function make(_mdContent: string) {
   }
 
   function makeCodeTabs(mdContent: string) {
-    return mdContent.replace(/(<p>)?{{< codes .+? >}}(.|\n)+?{{< \/codes >}}(<\/p>)?/g, (codes) => {
-      // 语言种类
-      const codeTabs = (codes.match(/{{< codes .+? >}}/) || [''])[0]
-        .replace(/{{< codes /, '')
-        .replace(/ >}}/, '')
-        .split(' ');
+    return mdContent.replace(
+      /(<p>)?{{&#x3C; codes .+? >}}(.|\n)+?{{&#x3C; \/codes >}}(<\/p>)?/g,
+      (codes) => {
+        // 语言种类
+        const codeTabs = (codes.match(/{{&#x3C; codes .+? >}}/) || [''])[0]
+          .replace(/{{&#x3C; codes /, '')
+          .replace(/ >}}/, '')
+          .split(' ');
 
-      let tabsHeadHtml = codeTabs
-        .map((tab, index) => {
-          const c = cn('codetab__link', {
-            active: index === 0,
-          });
-          return `<button class='${c}'>${tab}</button>`;
-        })
-        .join('');
-      tabsHeadHtml = `<div class="codetab__links">${tabsHeadHtml}</div>`;
-      let tabsContentHtml = (codes.match(/{{< code >}}(.|\n)+?{{< \/code >}}/g) || [])
-        .map((tab, index) => {
-          const content = tab.replace(/{{< code >}}/, '').replace(/{{< \/code >}}/, '');
-          const cl = cn('codetab__content', {
-            active: index === 0,
-          });
-          return `<div class="${cl}"> ${content} </div>`;
-        })
-        .join('');
-      tabsContentHtml = `<div class="tab-content">${tabsContentHtml}</div>`;
-      return `<div class="code-tabs onlyCode">${tabsHeadHtml + tabsContentHtml}</div>`;
-    });
+        let tabsHeadHtml = codeTabs
+          .map((tab, index) => {
+            const c = cn('codetab__link', {
+              active: index === 0,
+            });
+            return `<button class='${c}'>${tab}</button>`;
+          })
+          .join('');
+        tabsHeadHtml = `<div class="codetab__links">${tabsHeadHtml}</div>`;
+        let tabsContentHtml = (codes.match(/{{&#x3C; code >}}(.|\n)+?{{&#x3C; \/code >}}/g) || [])
+          .map((tab, index) => {
+            const content = tab.replace(/{{&#x3C; code >}}/, '').replace(/{{&#x3C; \/code >}}/, '');
+            const cl = cn('codetab__content', {
+              active: index === 0,
+            });
+            return `<div class="${cl}"> ${content} </div>`;
+          })
+          .join('');
+        tabsContentHtml = `<div class="tab-content">${tabsContentHtml}</div>`;
+        return `<div class="code-tabs onlyCode">${tabsHeadHtml + tabsContentHtml}</div>`;
+      },
+    );
   }
 
   function makeTabs(mdContent: string) {
-    return mdContent.replace(/{{< tabs .+? >}}(.|\n)+?{{< \/tabs >}}/g, (v) => {
-      const tabs = (v.match(/{{< tabs .+? >}}/) || [''])[0]
-        .replace(/{{< tabs /, '')
+    return mdContent.replace(/{{&#x3C; tabs .+? >}}(.|\n)+?{{&#x3C; \/tabs >}}/g, (v) => {
+      const tabs = (v.match(/{{&#x3C; tabs .+? >}}/) || [''])[0]
+        .replace(/{{&#x3C; tabs /, '')
         .replace(/ >}}/, '')
         .split(' ');
 
@@ -99,9 +103,9 @@ export function make(_mdContent: string) {
         })
         .join('');
       tabsHeadHtml = `<ul class="nav">${tabsHeadHtml}</ul>`;
-      let tabsContentHtml = (v.match(/{{< tab >}}(.|\n)+?{{< \/tab >}}/g) || [])
+      let tabsContentHtml = (v.match(/{{&#x3C; tab >}}(.|\n)+?{{&#x3C; \/tab >}}/g) || [])
         .map((tab, index) => {
-          const content = tab.replace('{{< tab >}}', '').replace('{{< /tab >}}', '');
+          const content = tab.replace('{{&#x3C; tab >}}', '').replace('{{&#x3C; /tab >}}', '');
           return `<div class="${cn('tab-content__pane', {
             'tab-content__pane--active': index === 0,
           })}"> ${content} </div>`;
@@ -113,27 +117,27 @@ export function make(_mdContent: string) {
   }
 
   function makeAlert(mdContent: string) {
-    return mdContent.replace(/{{< alert theme=".+?" >}}(.|\n)+?{{< \/alert >}}/g, (v) => {
-      const cl = (v.match(/{{< alert theme=".+?" >}}/) || [''])[0]
-        .replace(/{{< alert theme="/, '')
+    return mdContent.replace(/{{&#x3C; alert theme=".+?" >}}(.|\n)+?{{&#x3C; \/alert >}}/g, (v) => {
+      const cl = (v.match(/{{&#x3C; alert theme=".+?" >}}/) || [''])[0]
+        .replace(/{{&#x3C; alert theme="/, '')
         .replace(/" >}}/, '');
       return v
         .replace(
-          /{{< alert theme=".+?" >}}/,
+          /{{&#x3C; alert theme=".+?" >}}/,
           `<div class="alert alert--${cl}" role="alert" data-dir="ltr">`,
         )
-        .replace('{{< /alert >}}', '</div>');
+        .replace('{{&#x3C; /alert >}}', '</div>');
     });
   }
 
   function makeNotice(mdContent: string) {
-    return mdContent.replace(/{{< notice .+? >}}(.|\n)+?{{< \/notice >}}/g, (v) => {
-      const cl = (v.match(/{{< notice .+? >}}/) || [''])[0]
-        .replace(/{{< notice /, '')
+    return mdContent.replace(/{{&#x3C; notice .+? >}}(.|\n)+?{{&#x3C; \/notice >}}/g, (v) => {
+      const cl = (v.match(/{{&#x3C; notice .+? >}}/) || [''])[0]
+        .replace(/{{&#x3C; notice /, '')
         .replace(/ >}}/, '');
       return v
-        .replace(/{{< notice .+? >}}/, `<div class="notices notices--${cl}">`)
-        .replace('{{< /notice >}}', '</div>');
+        .replace(/{{&#x3C; notice .+? >}}/, `<div class="notices notices--${cl}">`)
+        .replace('{{&#x3C; /notice >}}', '</div>');
     });
   }
 

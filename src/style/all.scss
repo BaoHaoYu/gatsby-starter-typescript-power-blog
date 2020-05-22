@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans&display=swap");
 
+$sm: 576px;
+$xs: 768px;
+$md: 992px;
+$lg: 1200px;
+
 .container {
     width: 100%;
     padding-right: 15px;
@@ -12,25 +17,25 @@
     display: none;
 }
 
-@media (min-width: 576px) {
+@media (min-width: $sm) {
     .container {
         max-width: 540px
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: $md) {
     .container {
         max-width: 720px
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: $md) {
     .container {
         max-width: 960px
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: $lg) {
     .container {
         max-width: 1140px
     }
@@ -44,25 +49,25 @@
     margin-left: auto
 }
 
-@media (min-width: 576px) {
+@media (min-width: $sm) {
     .container, .container-sm {
         max-width: 540px
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: $md) {
     .container, .container-md, .container-sm {
         max-width: 720px
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: $md) {
     .container, .container-lg, .container-md, .container-sm {
         max-width: 960px
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: $lg) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1140px
     }
@@ -70,7 +75,7 @@
 
 //-------------
 
-@media (min-width: 576px) {
+@media (min-width: $sm) {
     .min-sm-show {
         display: block;
     }
@@ -79,7 +84,7 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: $md) {
     .min-xs-show {
         display: block;
     }
@@ -88,7 +93,7 @@
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: $md) {
     .min-md-show {
         display: block;
     }
@@ -97,7 +102,7 @@
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: $lg) {
     .min-lg-show {
         display: block;
     }
@@ -106,7 +111,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .max-sm-show {
         display: block;
     }
@@ -115,7 +120,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .max-xs-show {
         display: block;
     }
@@ -124,7 +129,7 @@
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: $md) {
     .max-md-show {
         display: block;
     }
@@ -133,7 +138,7 @@
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: $lg) {
     .max-lg-show {
         display: block;
     }
@@ -144,8 +149,11 @@
 
 // -------------
 
+body {
+    font-size: 1rem;
+}
+
 p, .paragraph {
-    font-weight: 400;
     color: #696c6d;
     font-size: 14px;
     line-height: 1.7;

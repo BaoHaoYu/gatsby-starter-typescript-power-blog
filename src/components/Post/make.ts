@@ -1,5 +1,5 @@
-import $ from 'jquery';
 import cn from 'classnames';
+import cheerio from 'cheerio';
 
 export function make(_mdContent: string) {
   _mdContent = '<div>' + _mdContent + '</div>';
@@ -10,19 +10,20 @@ export function make(_mdContent: string) {
   }
 
   function addHrBeforeH(mdContent: string) {
-    const $md = $(mdContent);
-    $md.find('h2,h3,h4,h5,h6').each((index, el) => {
+    const $ = cheerio.load(mdContent, { decodeEntities: false });
+
+    $('h2,h3,h4,h5,h6').each((index, el) => {
       if (index !== 0) {
         $(el).before('<hr />');
       }
     });
-    $md.find('.tab-content__pane').each((_i, el) => {
+    $('.tab-content__pane').each((_i, el) => {
       $(el).children('h2,h3,h4,h5,h6').eq(0).prev('hr').remove();
     });
-    $md.find('.collapse').each((_i, el) => {
+    $('.collapse').each((_i, el) => {
       $(el).find('h2,h3,h4,h5,h6').eq(0).prev('hr').remove();
     });
-    return $md.prop('outerHTML');
+    return $.html();
   }
 
   function makeBoxMd(mdContent: string) {
@@ -142,7 +143,17 @@ export function make(_mdContent: string) {
   }
 
   function makeLazy(mdContent: string) {
-    return mdContent.replace(/img src/g, 'img class="lazyload" data-src');
+    const $ = cheerio.load(mdContent, { decodeEntities: false });
+
+    $('img').each((_index, element) => {
+      const src = $(element).attr('src');
+      $(element)
+        .attr('src', '')
+        .attr('data-src', src || '')
+        .addClass('lazyload');
+    });
+
+    return $.html();
   }
 
   // Notice
@@ -164,5 +175,5 @@ export function make(_mdContent: string) {
   // Add hr
   _mdContent = addHrBeforeH(_mdContent);
 
-  return $(_mdContent).html();
+  return _mdContent;
 }

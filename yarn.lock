@@ -1562,6 +1562,13 @@
   resolved "http://r.cnpmjs.org/@types/animejs/download/@types/animejs-3.1.1.tgz#f1455e306a96f4bff9aae6b5b61c1b5efca74cf4"
   integrity sha1-8UVeMGqW9L/5qua1thwbXvynTPQ=
 
+"@types/cheerio@^0.22.18":
+  version "0.22.18"
+  resolved "http://r.cnpmjs.org/@types/cheerio/download/@types/cheerio-0.22.18.tgz#19018dceae691509901e339d63edf1e935978fe6"
+  integrity sha1-GQGNzq5pFQmQHjOdY+3x6TWXj+Y=
+  dependencies:
+    "@types/node" "*"
+
 "@types/classnames@^2.2.10":
   version "2.2.10"
   resolved "http://r.cnpmjs.org/@types/classnames/download/@types/classnames-2.2.10.tgz#cc658ca319b6355399efc1f5b9e818f1a24bf999"

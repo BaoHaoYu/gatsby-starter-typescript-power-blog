@@ -4,6 +4,17 @@
     width: 100%;
 }
 
+.bottom {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+}
+
+.content {
+    margin: auto;
+}
+
 .postContent {
     * {
         word-break: break-word;
@@ -281,6 +292,34 @@
             &[align='right'] {
                 text-align: right;
             }
+        }
+    }
+}
+
+.navPost {
+    font-size: 16px;
+
+    &__label {
+        white-space: nowrap;
+    }
+
+    &__link {
+        color: #696c6d;
+        border-bottom: 1px dotted #ddd;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:hover {
+            color: #ce8460;
+        }
+    }
+
+    &__item {
+        display: flex;
+
+        &--next {
+            justify-content: flex-end;
         }
     }
 }

@@ -6,8 +6,8 @@ interface PathContext {
   categoryName: string;
   tagName?: string;
   posts?: Post[];
-  next: any;
-  prev: any;
+  next?: Post;
+  prev?: Post;
 }
 
 export default PathContext;

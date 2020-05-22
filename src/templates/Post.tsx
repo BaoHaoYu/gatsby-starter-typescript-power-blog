@@ -1,7 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link, graphql } from 'gatsby';
-import styled from 'styled-components';
+import { graphql } from 'gatsby';
 // import { kebabCase } from 'lodash';
 import {
   Layout,
@@ -48,6 +47,8 @@ export default (props: Props) => {
               slug={post.fields.slug}
               content={post.html}
               timeToRead={post.timeToRead}
+              prev={prev}
+              next={next}
             />
           </>
         ) : null}

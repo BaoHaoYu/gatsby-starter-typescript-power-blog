@@ -7,6 +7,7 @@ import Data from '../models/Data';
 import '../style/all.scss';
 import { Container } from '../components/Container';
 import { Layout as L1, ILayoutProps } from '~/components/Layout/index';
+import { useSpring, animated } from 'react-spring';
 
 interface IPageContext extends ILayoutProps {
   currentPage: number;
@@ -23,7 +24,13 @@ export default (props: Props) => {
 
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
-
+  const articleSpring = useSpring({
+    tension: 300,
+    delay: 200,
+    opacity: 1,
+    transform: 'translateY(0)',
+    from: { opacity: 0, transform: 'translateY(50px)' },
+  });
   return (
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />
@@ -35,20 +42,23 @@ export default (props: Props) => {
         lastUpdatePosts={lastUpdatePosts}
       >
         <Container>
-          {edges.map((post) => (
-            <Article
-              description={post.node.frontmatter.description}
-              banner={post.node.frontmatter.banner}
-              title={post.node.frontmatter.title}
-              date={post.node.frontmatter.date}
-              tags={post.node.frontmatter.tags}
-              categories={post.node.frontmatter.categories}
-              excerpt={post.node.excerpt}
-              timeToRead={post.node.timeToRead}
-              slug={post.node.fields.slug}
-              key={post.node.fields.slug}
-            />
-          ))}
+          <animated.div style={articleSpring}>
+            {edges.map((post) => (
+              <Article
+                key={post.node.fields.slug}
+                description={post.node.frontmatter.description}
+                banner={post.node.frontmatter.banner}
+                title={post.node.frontmatter.title}
+                date={post.node.frontmatter.date}
+                tags={post.node.frontmatter.tags}
+                categories={post.node.frontmatter.categories}
+                excerpt={post.node.excerpt}
+                timeToRead={post.node.timeToRead}
+                slug={post.node.fields.slug}
+              />
+            ))}
+          </animated.div>
+
           <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
         </Container>
       </L1>

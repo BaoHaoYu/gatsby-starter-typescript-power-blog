@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import { registerSideBarTOC } from '~/components/Post/sidebar/registerSidebarTOC';
 import $ from 'jquery';
-import {element} from "prop-types";
 
 const sideBarStore = observable({
   data: [] as Data,

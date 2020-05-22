@@ -31,7 +31,6 @@ export default (props: PageProps) => {
                   excerpt={post.excerpt}
                   slug={kebabCase(post.frontmatter.title)}
                   timeToRead={post.timeToRead}
-                  category={post.frontmatter.category}
                   key={index}
                 />
               ))

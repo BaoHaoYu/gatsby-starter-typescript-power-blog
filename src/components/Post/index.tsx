@@ -55,7 +55,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
   React.useEffect(() => {
     const head = $(post.current!).children('h2,h3,h4,h5,h6');
     const postHeadElement: HTMLElement[] = [];
-    head.each(function (_index, element) {
+    head.each((_index, element) => {
       postHeadElement.push(element);
     });
     state.data = tocData(head);

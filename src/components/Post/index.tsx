@@ -91,9 +91,11 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
           </Col>
 
           {/*图片*/}
-          <div>
-            <img className={'banner'} src={props.banner} alt={props.title} />
-          </div>
+          {props.banner && (
+            <div>
+              <img className={'banner'} src={props.banner} alt={props.title} />
+            </div>
+          )}
 
           {/*内容*/}
           <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>

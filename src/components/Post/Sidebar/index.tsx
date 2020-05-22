@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import { registerSideBarTOC } from '~/components/Post/sidebar/registerSidebarTOC';
 import $ from 'jquery';
+import get from 'lodash/get';
 
 const sideBarStore = observable({
   data: [] as Data,
@@ -15,8 +16,18 @@ const sideBarStore = observable({
   initData(data: Data) {
     sideBarStore.data = data;
   },
+  clean() {
+    function _clean(_data: Data) {
+      for (const item of _data) {
+        sideBarStore.setActive(item, false);
+        if (item.children) {
+          _clean(item.children);
+        }
+      }
+    }
+    _clean(sideBarStore.data);
+  },
 });
-
 export type Data = {
   // 文字
   title: string;
@@ -38,35 +49,6 @@ export interface ISideBarProps {
   data: Data;
   postHeadElement: HTMLElement[];
   onClickTitle?(e: React.MouseEvent, item: Data[0]): void;
-}
-
-// 初始化
-function init(props: ISideBarProps) {
-  sideBarStore.initData(props.data);
-  return registerSideBarTOC({
-    data: sideBarStore.data,
-    postHeadElement: props.postHeadElement,
-    activeIndex(item, parents, single) {
-      single.map((node) => {
-        sideBarStore.setActive(node, false);
-      });
-
-      parents.map((node) => {
-        sideBarStore.setActive(node);
-      });
-
-      sideBarStore.setActive(item);
-      return;
-    },
-  });
-}
-// 点击导航
-function clickNav(e: React.MouseEvent & React.BaseSyntheticEvent, item: Data[0]) {
-  e.preventDefault();
-  const $scroll = $(window);
-  const target = document.getElementById(item.id) as HTMLElement;
-  const offset = target.getBoundingClientRect().top + ($scroll.scrollTop() || 0);
-  $scroll.scrollTop(offset);
 }
 
 const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
@@ -103,5 +85,73 @@ const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
   }
   return <div className={'SideBarTOC'}>{renderNode(sideBarStore.data)}</div>;
 };
+
+// 初始化
+function init(props: ISideBarProps) {
+  sideBarStore.initData(props.data);
+  return registerSideBarTOC({
+    data: sideBarStore.data,
+    postHeadElement: props.postHeadElement,
+    activeIndex(headElement) {
+      sideBarStore.clean();
+      const item = findItem(sideBarStore.data, headElement.id);
+      if (item) {
+        sideBarStore.setActive(item);
+        findNodeParents(sideBarStore.data, item).map((pItem) => {
+          sideBarStore.setActive(pItem);
+        });
+      }
+      return;
+    },
+  });
+}
+
+// 点击导航
+function clickNav(e: React.MouseEvent & React.BaseSyntheticEvent, item: Data[0]) {
+  e.preventDefault();
+  const $scroll = $(window);
+  const target = document.getElementById(item.id) as HTMLElement;
+  const offset = target.getBoundingClientRect().top + ($scroll.scrollTop() || 0);
+  $scroll.scrollTop(offset);
+}
+
+// 解开嵌套
+function findItem(data: Data, id: string) {
+  function _findItem(_data: Data): Data[0] | null {
+    for (const item of _data) {
+      if (item.id === id) {
+        return item;
+      }
+      if (item.children) {
+        const hasFind = _findItem(item.children);
+        if (hasFind) {
+          return hasFind;
+        }
+      }
+    }
+    return null;
+  }
+
+  return _findItem(data);
+}
+
+// 所有的父节点
+function findNodeParents(data: Data, item: Data[0]) {
+  const list: Data = [];
+  function _find(_item: Data[0]) {
+    if (_item.parent) {
+      const parentNode = get(data, _item.parent.join('@@children@@').split('@@'));
+      list.push(parentNode);
+
+      if (parentNode.parent) {
+        _find(parentNode);
+      }
+    }
+  }
+
+  _find(item);
+
+  return list;
+}
 
 export default observer(SideBar);

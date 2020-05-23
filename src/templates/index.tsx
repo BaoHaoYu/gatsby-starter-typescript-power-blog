@@ -57,7 +57,12 @@ export default (props: Props) => {
           ))}
         </animated.div>
 
-        <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          url={'blog'}
+          firstPage={'/'}
+        />
       </L1>
     </Layout>
   );

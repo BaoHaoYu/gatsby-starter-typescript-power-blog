@@ -96,17 +96,30 @@ This is **box** shortcode
 Make it easy to switch between different code
 
 {{< codes java javascript >}}
-  {{< code >}}
-  ```java
-  System.out.println('Hello World!');
-  ```
-  {{< /code >}}
+{{< code >}}
+```java
+System.out.println('Hello World!');
+```
+{{< /code >}}
 
-  {{< code >}}
-  ```javascript
-  console.log('Hello World!');
-  ```
-  {{< /code >}}
+{{< code >}}
+```javascript
+console.log('Hello World!');
+```
+{{< /code >}}
+  
+{{< code >}}
+```tsx
+function Demo() {
+    return (
+      <div>
+        <span>demo:</span>
+      </div>
+    ) 
+}
+```
+{{< /code >}}
+
 {{< /codes >}}
 
 ## Tabs for general purpose

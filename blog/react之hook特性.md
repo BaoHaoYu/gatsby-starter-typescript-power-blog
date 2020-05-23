@@ -1,6 +1,7 @@
 ---
 title: react之hook特性
 date: 2020-04-15 16:00:00
+description: hook 可加强函数式编程，减少类和装饰器，目前第三方项目在 hook 上百花齐放。
 tags:
   - react
 type: categories
@@ -112,7 +113,7 @@ React.useEffect(() => {
 
 可以封装成自定义的`Effect`，减少代码
 
-```tsx
+```jsx
 // 自定义Effect
 const useUpdateEffect = (cb: any, deps?: React.DependencyList) => {
   const hasMount = React.useRef(false)

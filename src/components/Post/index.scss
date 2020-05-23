@@ -14,6 +14,12 @@
     margin: auto;
 }
 
+.Post {
+    &__meta {
+        margin-bottom: 1.5rem;
+    }
+}
+
 #postContent {
     .code-tabs {
         border: 1px solid #ddd;
@@ -99,6 +105,10 @@
         margin-bottom: 1rem;
         border: 1px solid transparent;
         border-radius: 0.125rem;
+
+        &--box {
+            background: #f0f0f0;
+        }
 
         &--info {
             background-color: rgba(215, 238, 249, 0.4);
@@ -315,6 +325,14 @@
         border-radius: 5px;
     }
 
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        background: none;
+    }
+
     .codeTabs {
         border-radius: 5px;
         overflow: hidden;
@@ -372,10 +390,3 @@
     }
 }
 
-hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, .1);
-    background: none;
-}

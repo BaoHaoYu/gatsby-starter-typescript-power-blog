@@ -11,6 +11,10 @@
         }
     }
 
+    &__meta {
+        margin-bottom: 1.5rem;
+    }
+
     &__banner {
         img {
             border-radius: 10px;
@@ -19,7 +23,6 @@
             width: 100%;
         }
     }
-
 
 
     &__excerpt {
@@ -44,6 +47,22 @@
             background: #ce8460 !important;
             border-color: #ce8460 !important;
             color: white;
+        }
+    }
+
+
+    &--list {
+        .Article {
+            &__banner {
+                img {
+                    height: 200px;
+                    object-fit: cover;
+                }
+            }
+
+            &__meta {
+                margin-bottom: 0.5rem;
+            }
         }
     }
 }

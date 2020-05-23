@@ -41,7 +41,7 @@ const getPostsByType = (posts, classificationType) => {
 };
 
 // 标签分类页面
-const createClassificationPages = ({ createPage, posts, postsPerPage, numPages, cTags, cCategories, lastUpdatePosts }) => {
+const createClassificationPages = ({ createPage, posts, postsPerPage, cTags, cCategories, lastUpdatePosts }) => {
   const classifications = [
     {
       singularName: 'category',
@@ -66,6 +66,7 @@ const createClassificationPages = ({ createPage, posts, postsPerPage, numPages, 
   classifications.forEach((classification) => {
     const names = Object.keys(classification.postsByClassificationNames);
 
+    // 所有标签或者分类
     createPage({
       path: _.kebabCase(`/${classification.pluralName}`),
       component: classification.template.all,
@@ -73,11 +74,19 @@ const createClassificationPages = ({ createPage, posts, postsPerPage, numPages, 
         [`${classification.pluralName}`]: names.sort()
       },
     });
+    // 标签或者分类列表
+    const cPosts = names.map((name, i) => {
+      return classification.postsByClassificationNames[name]
+    });
 
-    names.forEach((name) => {
-      const postsByName = classification.postsByClassificationNames[name];
+    const numPages = Math.ceil(cPosts.length / postsPerPage);
+
+    Array.from({ length: numPages }).forEach((postsByName, i) => {
+      const name = names[i]
+      const path = `/${classification.pluralName}/${_.kebabCase(name)}`
+
       createPage({
-        path: `/${classification.pluralName}/${_.kebabCase(name)}`,
+        path: i === 0 ? path : `${path}/${i + 1}`,
         component: classification.template.part,
         context: {
           posts: postsByName,
@@ -85,11 +94,13 @@ const createClassificationPages = ({ createPage, posts, postsPerPage, numPages, 
           cTags,
           cCategories,
           lastUpdatePosts,
-          postsPerPage,
-          numPages,
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          totalPages: numPages,
+          currentPage: i + 1,
         },
       });
-    });
+    })
   });
 };
 
@@ -173,6 +184,7 @@ exports.createPages = ({ actions, graphql }) => {
     })
     lastUpdatePosts = lastUpdatePosts.reverse().slice(0, 3)
 
+    // 分页
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
         path: i === 0 ? `/` : `/blog/${i + 1}`,
@@ -195,6 +207,7 @@ exports.createPages = ({ actions, graphql }) => {
       const next = index === 0 ? null : posts[index - 1].node;
       const prev = index === posts.length - 1 ? null : posts[index + 1].node;
 
+      // 文章内容
       createPage({
         path: `/blog/${_.kebabCase(node.frontmatter.title)}`,
         component: postTemplate,

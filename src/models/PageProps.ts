@@ -5,7 +5,11 @@ interface PageProps {
   data: Data;
   location: Location;
   pageResources?: PageResources;
-  pathContext: PathContext & SideBarFromServer;
+  pathContext: PathContext &
+    SideBarFromServer & {
+      currentPage: number;
+      totalPages: number;
+    };
 }
 
 export default PageProps;

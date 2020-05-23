@@ -4,8 +4,7 @@ import cheerio from 'cheerio';
 export function make(_mdContent: string) {
   // 清除空的P标签
   function cleanEmptyP(mdContent: string) {
-    mdContent.replace(/<p>\s+<\/p>/g, '');
-    return mdContent.replace(/<p>\s+<\/p>/g, '');
+    return mdContent.replace(/<p>(\s+)?<\/p>/g, '');
   }
 
   function addHrBeforeH(mdContent: string) {
@@ -65,24 +64,24 @@ export function make(_mdContent: string) {
 
         let tabsHeadHtml = codeTabs
           .map((tab, index) => {
-            const c = cn('codetab__link', {
-              active: index === 0,
+            const c = cn('codeTabs__link', {
+              'codeTabs__link--active': index === 0,
             });
             return `<button class='${c}'>${tab}</button>`;
           })
           .join('');
-        tabsHeadHtml = `<div class="codetab__links">${tabsHeadHtml}</div>`;
+        tabsHeadHtml = `<div>${tabsHeadHtml}</div>`;
         let tabsContentHtml = (codes.match(/{{&#x3C; code >}}(.|\n)+?{{&#x3C; \/code >}}/g) || [])
           .map((tab, index) => {
             const content = tab.replace(/{{&#x3C; code >}}/, '').replace(/{{&#x3C; \/code >}}/, '');
-            const cl = cn('codetab__content', {
-              active: index === 0,
+            const cl = cn('tab-content__pane', {
+              'tab-content__pane--active': index === 0,
             });
             return `<div class="${cl}"> ${content} </div>`;
           })
           .join('');
         tabsContentHtml = `<div class="tab-content">${tabsContentHtml}</div>`;
-        return `<div class="code-tabs onlyCode">${tabsHeadHtml + tabsContentHtml}</div>`;
+        return `<div class="codeTabs codeTabs--onlyCode">${tabsHeadHtml + tabsContentHtml}</div>`;
       },
     );
   }
@@ -168,11 +167,10 @@ export function make(_mdContent: string) {
   // BoxMd
   _mdContent = makeBoxMd(_mdContent);
   //
-  _mdContent = cleanEmptyP(_mdContent);
-  //
   _mdContent = makeLazy(_mdContent);
   // Add hr
   _mdContent = addHrBeforeH(_mdContent);
-
+  //
+  _mdContent = cleanEmptyP(_mdContent);
   return _mdContent;
 }

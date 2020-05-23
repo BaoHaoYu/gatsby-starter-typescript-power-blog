@@ -29,14 +29,20 @@ interface IProps extends IMeta {
 }
 
 // 文章内tab切换
-function bindTabs(selector: string) {
+function bindTabs(selector: string, activeClass: string) {
   const $item = $(selector);
   $item.on('click', function (e) {
     e.preventDefault();
-    const activeClass = 'tab-content__pane--active';
+    const paneActiveClass = 'tab-content__pane--active';
     const index = $item.index(this);
-    $item.removeClass('nav__item--active').eq(index).addClass('nav__item--active');
-    $(this).parent().next().children().removeClass(activeClass).eq(index).addClass(activeClass);
+    $item.removeClass(activeClass).eq(index).addClass(activeClass);
+    $(this)
+      .parent()
+      .next()
+      .children()
+      .removeClass(paneActiveClass)
+      .eq(index)
+      .addClass(paneActiveClass);
   });
 }
 
@@ -64,7 +70,8 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
     state.postHeadElement = postHeadElement;
     setState({ ...state });
 
-    bindTabs('.code-tabs .nav__item');
+    bindTabs('.code-tabs .nav__item', 'nav__item--active');
+    bindTabs('.codeTabs .codeTabs__link', 'codeTabs__link--active');
     $('.collapse__toggle').on('click', function (e) {
       e.preventDefault();
       $(this).parent().children('.collapse__content').toggleClass('collapse__content--active');

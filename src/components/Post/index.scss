@@ -15,11 +15,6 @@
 }
 
 #postContent {
-    * {
-        word-break: break-word;
-        overflow-wrap: break-word;
-    }
-
     .code-tabs {
         border: 1px solid #ddd;
         overflow: hidden;
@@ -303,6 +298,68 @@
         cursor: pointer;
         transition: 0.3s ease;
         box-shadow: 1px 1px 8px 1px #bdbdbd;
+    }
+
+    a[rel] {
+        color: #696c6d;
+        border-bottom: 1px dotted #dddddd;
+        font-size: 0.9rem;
+
+        &:hover {
+            color: #ce8460;
+            border-bottom-color: #ce8460;
+        }
+    }
+
+    .codeTabs {
+        border-radius: 5px;
+        overflow: hidden;
+
+        &__link {
+            height: 30px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 13.8px;
+            color: #555;
+            border-top: 1px solid transparent;
+            font-family: montserrat, sans-serif;
+            text-transform: capitalize;
+            transition: all 0.2s ease-in;
+            background-color: #e2e6e9;
+
+            &:hover {
+                color: #ce8460;
+            }
+
+            &:first-child {
+                border-top-left-radius: 0.25rem;
+            }
+
+            &--active {
+                background-color: #ce8460;
+                color: white;
+
+                &:hover {
+                    color: white;
+                }
+            }
+        }
+
+        &--onlyCode {
+            background: #e2e6e9;
+            border: none;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125);
+
+            pre {
+                margin: 0;
+            }
+
+            .tab-content {
+                background: #eceff1;
+                padding: 0!important;
+            }
+        }
     }
 }
 

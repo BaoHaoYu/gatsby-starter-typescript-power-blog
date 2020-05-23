@@ -1,4 +1,4 @@
-export * from './Article';
+export * from './Article/Article';
 export * from './Button';
 export * from './Header';
 export * from './Layout';

@@ -34,7 +34,7 @@ const Article = ({
         'Article--list': isList,
       })}
     >
-      <Row gutter={(isList && !lessXs) ? 30 : 0}>
+      <Row gutter={isList && !lessXs ? 30 : 0}>
         <Col xs={24} md={isList ? 8 : 24}>
           {banner && (
             <div

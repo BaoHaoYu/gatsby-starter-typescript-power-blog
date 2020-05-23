@@ -93,6 +93,20 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
     ...toggleStyle,
   });
 
+  const postHeadSpring = useSpring({
+    delay: 100,
+    opacity: 1,
+    transform: 'translateY(0)',
+    from: { opacity: 0, transform: 'translateY(-50px)' },
+  });
+
+  const postContentSpring = useSpring({
+    delay: 400,
+    opacity: 1,
+    transform: 'translateY(0)',
+    from: { opacity: 0, transform: 'translateY(50px)' },
+  });
+
   function toggleToc() {
     state.toggleToc = !state.toggleToc;
     setState({ ...state });
@@ -103,37 +117,44 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
     <div>
       <Row gutter={showToc ? 50 : 0}>
         <Col lg={showToc ? 18 : 24} md={24}>
-          {/*头部*/}
-          <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
-            <h1 className={'h2'}>{props.title}</h1>
-            <div style={{ marginBottom: `1.5rem` }}>
-              <Meta
-                tags={props.tags}
-                categories={props.categories}
-                date={props.date}
-                timeToRead={props.timeToRead}
-              />
-            </div>
-          </Col>
-
-          {/*图片*/}
-          {props.banner && (
-            <div>
-              <img className={'banner'} src={props.banner} alt={props.title} />
-            </div>
-          )}
+          <animated.div style={postHeadSpring}>
+            {/*头部*/}
+            <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
+              <h1 className={'h2'}>{props.title}</h1>
+              <div style={{ marginBottom: `1.5rem` }}>
+                <Meta
+                  tags={props.tags}
+                  categories={props.categories}
+                  date={props.date}
+                  timeToRead={props.timeToRead}
+                />
+              </div>
+            </Col>
+            {/*图片*/}
+            {props.banner && (
+              <div>
+                <img className={'banner'} src={props.banner} alt={props.title} />
+              </div>
+            )}{' '}
+          </animated.div>
 
           {/*内容*/}
           <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
-            <div
-              className={cn('content', {
-                'content--showToc': showToc,
-              })}
-            >
-              <div id={'postContent'} ref={post} dangerouslySetInnerHTML={{ __html: html || '' }} />
+            <animated.div style={postContentSpring}>
+              <div
+                className={cn('content', {
+                  'content--showToc': showToc,
+                })}
+              >
+                <div
+                  id={'postContent'}
+                  ref={post}
+                  dangerouslySetInnerHTML={{ __html: html || '' }}
+                />
 
-              {exceedMd && <NavPreAndNext next={props.next} prev={props.prev} />}
-            </div>
+                {exceedMd && <NavPreAndNext next={props.next} prev={props.prev} />}
+              </div>
+            </animated.div>
           </Col>
         </Col>
 

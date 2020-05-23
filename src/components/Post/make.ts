@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import cheerio from 'cheerio';
-
+import he from 'he';
 export function make(_mdContent: string) {
   // 清除空的P标签
   function cleanEmptyP(mdContent: string) {
@@ -25,10 +25,17 @@ export function make(_mdContent: string) {
   }
 
   function makeBoxMd(mdContent: string) {
-    return mdContent.replace(/{{&#x3C; boxmd >}}(.|\n)+?{{&#x3C; \/boxmd >}}/g, (v) => {
+    return mdContent.replace(/{{&#x3C; box(md|Md) >}}(.|\n)+?{{&#x3C; \/box(md|Md) >}}/g, (v) => {
       return v
-        .replace(/{{&#x3C; boxmd >}}/, `<div class="alert alert-box" role="alert" >`)
-        .replace('{{&#x3C; /boxmd >}}', '</div>');
+        .replace(/{{&#x3C; box(md|Md) >}}/, `<div class="alert alert--box" role="alert" >`)
+        .replace(/{{&#x3C; \/box(md|Md) >}}/, '</div>');
+    });
+  }
+
+  function makeBoxSimple(mdContent: string) {
+    return mdContent.replace(/{{&#x3C; box >}}(.|\n)+?{{&#x3C; \/box >}}/g, (v) => {
+      const content = v.replace(/{{&#x3C; box >}}\n?/, '').replace(/\n?{{&#x3C; \/box >}}/, '');
+      return '<div class="alert alert--box" role="alert" >' + he.encode(content) + '</div>';
     });
   }
 
@@ -166,6 +173,8 @@ export function make(_mdContent: string) {
   _mdContent = makeExpand(_mdContent);
   // BoxMd
   _mdContent = makeBoxMd(_mdContent);
+  //
+  _mdContent = makeBoxSimple(_mdContent);
   //
   _mdContent = makeLazy(_mdContent);
   // Add hr

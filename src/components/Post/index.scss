@@ -311,6 +311,10 @@
         }
     }
 
+    pre[class*="language-"] {
+        border-radius: 5px;
+    }
+
     .codeTabs {
         border-radius: 5px;
         overflow: hidden;
@@ -358,6 +362,11 @@
             .tab-content {
                 background: #eceff1;
                 padding: 0!important;
+            }
+
+            pre[class*="language-"] {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
             }
         }
     }

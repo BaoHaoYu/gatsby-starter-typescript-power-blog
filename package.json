@@ -97,6 +97,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^3.26.1",
+    "@types/prismjs": "^1.16.1",
     "animejs": "^3.2.0",
     "antd": "^4.2.3",
     "cheerio": "^1.0.0-rc.3",

@@ -9,7 +9,7 @@ export function make(_mdContent: string) {
   }
 
   function addHrBeforeH(mdContent: string) {
-    const $ = cheerio.load(mdContent, { decodeEntities: false });
+    const $ = cheerio.load(mdContent);
 
     $('h2,h3,h4,h5,h6').each((index, el) => {
       if (index !== 0) {
@@ -142,7 +142,7 @@ export function make(_mdContent: string) {
   }
 
   function makeLazy(mdContent: string) {
-    const $ = cheerio.load(mdContent, { decodeEntities: false });
+    const $ = cheerio.load(mdContent);
 
     $('img').each((_index, element) => {
       const src = $(element).attr('src');
@@ -167,9 +167,9 @@ export function make(_mdContent: string) {
   _mdContent = makeExpand(_mdContent);
   // BoxMd
   _mdContent = makeBoxMd(_mdContent);
-
+  //
   _mdContent = cleanEmptyP(_mdContent);
-
+  //
   _mdContent = makeLazy(_mdContent);
   // Add hr
   _mdContent = addHrBeforeH(_mdContent);

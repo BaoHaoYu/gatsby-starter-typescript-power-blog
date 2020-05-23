@@ -43,7 +43,7 @@ export function Header() {
               </div>
             </Col>
 
-            <Col hidden={!data.expanded && lessMd} className={'Header__expanded'} xs={24} md={18}>
+            <Col hidden={!data.expanded && lessMd} className={'Header__expanded'} xs={24} lg={18}>
               <div className={'Header__menu'}>
                 <Row align={'middle'}>
                   <Col offset={lessMd ? 0 : 4} xs={24} lg={4}>

@@ -13,6 +13,7 @@ import IPost from '~/models/Post';
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
 import { NavPreAndNext } from './NavPreAndNext/NavPreAndNext';
 import { useSpring, animated } from 'react-spring';
+import { imageGallery } from '~/utils/imageGallery';
 
 interface IProps extends IMeta {
   title: string;
@@ -68,11 +69,15 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
       e.preventDefault();
       $(this).parent().children('.collapse__content').toggleClass('collapse__content--active');
     });
+    const $images = $('#postContent').find('img');
+
+    imageGallery($images);
   }, []);
 
-  const toggleStyle: React.CSSProperties = state.toggleToc
-    ? { opacity: 1, transform: 'translateY(0)', display: 'block' }
-    : { opacity: 0, transform: 'translateY(50px)', display: 'none' };
+  const toggleStyle: React.CSSProperties =
+    state.toggleToc && exceedMd
+      ? { opacity: 1, transform: 'translateY(0)', display: 'block' }
+      : { opacity: 0, transform: 'translateY(50px)', display: 'none' };
 
   const sideBarSpring = useSpring({
     delay: state.toggleToc ? 100 : 0,
@@ -116,11 +121,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
                 'content--showToc': showToc,
               })}
             >
-              <div
-                className={'postContent'}
-                ref={post}
-                dangerouslySetInnerHTML={{ __html: html || '' }}
-              />
+              <div id={'postContent'} ref={post} dangerouslySetInnerHTML={{ __html: html || '' }} />
 
               {exceedMd && <NavPreAndNext next={props.next} prev={props.prev} />}
             </div>
@@ -130,9 +131,11 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
         {/*导航*/}
         <Col lg={6}>
           <Affix offsetTop={50}>
-            <animated.div style={sideBarSpring}>
-              <SideBar postHeadElement={state.postHeadElement} data={state.data} />
-            </animated.div>
+            {exceedMd && (
+              <animated.div style={sideBarSpring}>
+                <SideBar postHeadElement={state.postHeadElement} data={state.data} />
+              </animated.div>
+            )}
           </Affix>
         </Col>
       </Row>

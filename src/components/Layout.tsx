@@ -6,11 +6,7 @@ const Layout = ({ children }: { children: any }) => {
   const stored = typeof window !== 'undefined' && localStorage.getItem('isDarkMode');
   const [isDarkMode] = useState(stored === 'true' ? true : false);
 
-  return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      {children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>{children}</ThemeProvider>;
 };
 
 export { Layout };

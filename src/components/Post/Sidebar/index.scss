@@ -1,36 +1,37 @@
 .SideBarTOC {
-    &__title {
-        position: relative;
-        color: #607d8b;
+  &__title {
+    position: relative;
+    color: #607d8b;
+
+    &::before {
+      content: '';
+      height: 100%;
+      left: -1rem;
+      margin-top: 3px;
+      position: absolute;
+      width: 2px;
+      font-size: 12px;
+      background-color: #727072;
     }
+  }
 
-    &__title::before {
-        content: '';
-        height: 100%;
-        left: -1rem;
-        margin-top: 3px;
-        position: absolute;
-        width: 2px;
-        font-size: 12px;
-        background-color: #727072;
-    }
+  &__node {
+    margin-bottom: 3px;
 
-    &__node {
-        margin-bottom: 3px;
+    &--active,
+    &:hover {
+      .SideBarTOC__title {
+        color: #ce8460;
+        font-weight: 700;
 
-        .SideBarTOC__node {
-            padding-left: 1rem;
+        &::before {
+          background-color: #ce8460;
         }
-        &:hover,
-        &--active {
-            > .SideBarTOC__title {
-                color: #ce8460;
-                font-weight: 700;
-
-                &::before {
-                    background-color: #ce8460;
-                }
-            }
-        }
+      }
     }
+
+    .SideBarTOC__node {
+      padding-left: 1rem;
+    }
+  }
 }

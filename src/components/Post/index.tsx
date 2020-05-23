@@ -106,12 +106,14 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
           {/*头部*/}
           <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
             <h1 className={'h2'}>{props.title}</h1>
-            <Meta
-              tags={props.tags}
-              categories={props.categories}
-              date={props.date}
-              timeToRead={props.timeToRead}
-            />
+            <div style={{ marginBottom: `1.5rem` }}>
+              <Meta
+                tags={props.tags}
+                categories={props.categories}
+                date={props.date}
+                timeToRead={props.timeToRead}
+              />
+            </div>
           </Col>
 
           {/*图片*/}

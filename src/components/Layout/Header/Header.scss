@@ -1,72 +1,72 @@
 .Header {
-    position: sticky;
-    min-height: 60px;
-    border-bottom: 1px solid #ddd;
+  position: sticky;
+  min-height: 60px;
+  border-bottom: 1px solid #ddd;
 
-    &__bar {
-        padding: 0 1rem;
+  &__bar {
+    padding: 0 1rem;
+  }
+
+  &__logo {
+    height: 60px;
+
+    img {
+      max-height: 100%;
+      margin: 0;
     }
+  }
 
-    &__logo {
-        height: 60px;
+  &__link {
+    padding: 15px 20px;
+    color: #1c1d1f;
+    text-transform: capitalize;
+    display: block;
+    text-align: center;
+  }
 
-        img {
-            max-height: 100%;
-            margin: 0;
-        }
+  &__toggle {
+    cursor: pointer;
+    position: relative;
+    height: 100%;
+    > svg {
+      height: 25px;
+      width: 25px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
-
-    &__link {
-        padding: 15px 20px;
-        color: #1c1d1f;
-        text-transform: capitalize;
-        display: block;
-        text-align: center;
+    &:hover {
+      > svg {
+        color: #ce8460;
+        transition: 0.2s ease;
+      }
     }
+  }
 
-    &__toggle {
-        cursor: pointer;
-        position: relative;
-        height: 100%;
-        > svg {
-            height: 25px;
-            width: 25px;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        &:hover {
-            > svg {
-                color: #ce8460;
-                transition: 0.2s ease;
-            }
-        }
+  &__expanded {
+    position: relative;
+  }
+
+  &__search {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+
+    > input {
+      height: 100%;
+      width: 100%;
+      font-size: 20px;
     }
+  }
 
-    &__expanded {
-        position: relative;
-    }
-
-    &__search {
-        position: absolute;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        left: 0;
-
-        > input {
-            height: 100%;
-            width: 100%;
-            font-size: 20px;
-        }
-    }
-
-    &__close {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-    }
+  &__close {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
 }

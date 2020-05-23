@@ -1,42 +1,58 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'gatsby';
-import { Layout, Wrapper, Header, Subline, Article, SectionTitle, Content } from '../components';
+import { Layout, Article, Pagination } from '../components';
 import config from '../../config/SiteConfig';
-import { kebabCase } from 'lodash';
 import PageProps from '../models/PageProps';
+import { animated, useSpring } from 'react-spring';
+import { Layout as L1 } from '~/components/Layout/index';
 
 export default (props: PageProps) => {
-  const { posts, categoryName } = props.pathContext;
-  const totalCount = posts ? posts.length : 0;
-  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${categoryName}"`;
+  const {
+    posts,
+    categoryName,
+    cCategories,
+    cTags,
+    lastUpdatePosts,
+    currentPage,
+    totalPages,
+  } = props.pathContext;
 
+  const articleSpring = useSpring({
+    tension: 300,
+    delay: 200,
+    opacity: 1,
+    transform: 'translateY(0)',
+    from: { opacity: 0, transform: 'translateY(50px)' },
+  });
   return (
     <Layout>
       <Helmet title={`${categoryName} | ${config.siteTitle}`} />
-      <Header>
-        <Link to="/">{config.siteTitle}</Link>
-        <SectionTitle>Category &ndash; {categoryName}</SectionTitle>
-        <Subline sectionTitle={true}>
-          {subline} (See <Link to="/categories">all categories</Link>)
-        </Subline>
-      </Header>
-      <Wrapper>
-        <Content>
-          {posts
-            ? posts.map((post: any, index: number) => (
-                <Article
-                  title={post.frontmatter.title}
-                  date={post.frontmatter.date}
-                  excerpt={post.excerpt}
-                  slug={kebabCase(post.frontmatter.title)}
-                  timeToRead={post.timeToRead}
-                  key={index}
-                />
-              ))
-            : null}
-        </Content>
-      </Wrapper>
+      <L1
+        activeCategory={categoryName}
+        showSideBar={true}
+        cTags={cTags}
+        cCategories={cCategories}
+        lastUpdatePosts={lastUpdatePosts}
+      >
+        <animated.div style={articleSpring}>
+          {posts?.map((post) => (
+            <Article
+              key={post.fields.slug}
+              description={post.frontmatter.description}
+              banner={post.frontmatter.banner}
+              title={post.frontmatter.title}
+              date={post.frontmatter.date}
+              tags={post.frontmatter.tags}
+              categories={post.frontmatter.categories}
+              excerpt={post.excerpt}
+              timeToRead={post.timeToRead}
+              slug={post.fields.slug}
+            />
+          ))}
+        </animated.div>
+
+        <Pagination currentPage={currentPage} totalPages={totalPages} url={'categories'} />
+      </L1>
     </Layout>
   );
 };

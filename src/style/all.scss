@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans&display=swap');
 
 $sm: 576px;
 $xs: 768px;
@@ -6,236 +6,267 @@ $md: 992px;
 $lg: 1200px;
 
 .container {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 @media (min-width: $sm) {
-    .container {
-        max-width: 540px
-    }
+  .container {
+    max-width: 540px;
+  }
 }
 
 @media (min-width: $md) {
-    .container {
-        max-width: 720px
-    }
+  .container {
+    max-width: 720px;
+  }
 }
 
 @media (min-width: $md) {
-    .container {
-        max-width: 960px
-    }
+  .container {
+    max-width: 960px;
+  }
 }
 
 @media (min-width: $lg) {
-    .container {
-        max-width: 1140px
-    }
+  .container {
+    max-width: 1140px;
+  }
 }
 
-.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @media (min-width: $sm) {
-    .container, .container-sm {
-        max-width: 540px
-    }
+  .container,
+  .container-sm {
+    max-width: 540px;
+  }
 }
 
 @media (min-width: $md) {
-    .container, .container-md, .container-sm {
-        max-width: 720px
-    }
+  .container,
+  .container-md,
+  .container-sm {
+    max-width: 720px;
+  }
 }
 
 @media (min-width: $md) {
-    .container, .container-lg, .container-md, .container-sm {
-        max-width: 960px
-    }
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm {
+    max-width: 960px;
+  }
 }
 
 @media (min-width: $lg) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1140px
-    }
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1140px;
+  }
 }
 
 //-------------
 
 @media (min-width: $sm) {
-    .min-sm-show {
-        display: block;
-    }
-    .min-sm-hide {
-        display: none;
-    }
+  .min-sm-show {
+    display: block;
+  }
+  .min-sm-hide {
+    display: none;
+  }
 }
 
 @media (min-width: $md) {
-    .min-xs-show {
-        display: block;
-    }
-    .min-xs-hide {
-        display: none;
-    }
+  .min-xs-show {
+    display: block;
+  }
+  .min-xs-hide {
+    display: none;
+  }
 }
 
 @media (min-width: $md) {
-    .min-md-show {
-        display: block;
-    }
-    .min-md-hide {
-        display: none;
-    }
+  .min-md-show {
+    display: block;
+  }
+  .min-md-hide {
+    display: none;
+  }
 }
 
 @media (min-width: $lg) {
-    .min-lg-show {
-        display: block;
-    }
-    .min-lg-hide {
-        display: none;
-    }
+  .min-lg-show {
+    display: block;
+  }
+  .min-lg-hide {
+    display: none;
+  }
 }
 
 @media (max-width: $sm) {
-    .max-sm-show {
-        display: block;
-    }
-    .max-sm-hide {
-        display: none;
-    }
+  .max-sm-show {
+    display: block;
+  }
+  .max-sm-hide {
+    display: none;
+  }
 }
 
 @media (max-width: $md) {
-    .max-xs-show {
-        display: block;
-    }
-    .max-xs-hide {
-        display: none;
-    }
+  .max-xs-show {
+    display: block;
+  }
+  .max-xs-hide {
+    display: none;
+  }
 }
 
 @media (max-width: $md) {
-    .max-md-show {
-        display: block;
-    }
-    .max-md-hide {
-        display: none;
-    }
+  .max-md-show {
+    display: block;
+  }
+  .max-md-hide {
+    display: none;
+  }
 }
 
 @media (max-width: $lg) {
-    .max-lg-show {
-        display: block;
-    }
-    .max-lg-hide {
-        display: none;
-    }
+  .max-lg-show {
+    display: block;
+  }
+  .max-lg-hide {
+    display: none;
+  }
 }
 
 // -------------
 
-
-p, .paragraph {
-    color: #696c6d;
-    font-size: 14px;
-    line-height: 1.7;
-    font-family: "Open Sans", sans-serif;
+p,
+.paragraph {
+  color: #696c6d;
+  font-size: 14px;
+  line-height: 1.7;
+  font-family: 'Open Sans', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #1c1d1f;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    line-height: 1.2;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #1c1d1f;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-h1, .h1 {
-    font-size: 45px;
+h1,
+.h1 {
+  font-size: 45px;
 }
 
-h2, .h2 {
-    font-size: 36px;
+h2,
+.h2 {
+  font-size: 36px;
 }
 
-h3, .h3 {
-    font-size: 28px;
+h3,
+.h3 {
+  font-size: 28px;
 }
 
-h4, .h4 {
-    font-size: 22px;
+h4,
+.h4 {
+  font-size: 22px;
 }
 
-h5, .h5 {
-    font-size: 18px;
+h5,
+.h5 {
+  font-size: 18px;
 }
 
-h6, .h6 {
-    font-size: 14px;
-}
-
-.section {
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-a,
-a:hover,
-a:focus {
-    text-decoration: none;
-}
-
-a,
-button,
-select {
-    cursor: pointer;
-    transition: .2s ease;
-
-    &:focus {
-        outline: 0;
-    }
-}
-
-.s-icon {
-    height: 25px;
-    width: 25px;
-    transition: 0.2s ease;
-}
-
-a:hover, .s-icon:hover {
-    color: #ce8460;
-}
-
-input {
-    border: 0;
-    outline: none;
+h6,
+.h6 {
+  font-size: 14px;
 }
 
 button {
-    border: 0;
-    outline: none;
-    background: white;
+  border: 0;
+  outline: none;
+  background: white;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    outline: 0;
+    color: #ce8460;
+  }
+}
+
+button,
+select {
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+input {
+  border: 0;
+  outline: none;
 }
 
 ul {
-    margin-left: 0;
-    list-style: none;
+  margin-left: 0;
+  list-style: none;
+}
+
+.s-icon {
+  height: 25px;
+  width: 25px;
+  transition: 0.2s ease;
+
+  &:hover {
+    color: #ce8460;
+  }
+}
+
+.section {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .pswp__bg {
-    background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.9);
 }

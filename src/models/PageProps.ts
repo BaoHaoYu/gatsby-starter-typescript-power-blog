@@ -1,12 +1,11 @@
 import PathContext from './PathContext';
 import PageResources from './PageResources';
-import Data from './Data';
-
+import Data, { SideBarFromServer } from './Data';
 interface PageProps {
   data: Data;
   location: Location;
   pageResources?: PageResources;
-  pathContext: PathContext;
+  pathContext: PathContext & SideBarFromServer;
 }
 
 export default PageProps;

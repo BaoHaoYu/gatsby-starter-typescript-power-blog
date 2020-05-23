@@ -40,7 +40,8 @@ const getPostsByType = (posts, classificationType) => {
   return postsByType;
 };
 
-const createClassificationPages = ({ createPage, posts, postsPerPage, numPages }) => {
+// 标签分类页面
+const createClassificationPages = ({ createPage, posts, postsPerPage, numPages, cTags, cCategories, lastUpdatePosts }) => {
   const classifications = [
     {
       singularName: 'category',
@@ -69,7 +70,7 @@ const createClassificationPages = ({ createPage, posts, postsPerPage, numPages }
       path: _.kebabCase(`/${classification.pluralName}`),
       component: classification.template.all,
       context: {
-        [`${classification.pluralName}`]: names.sort(),
+        [`${classification.pluralName}`]: names.sort()
       },
     });
 
@@ -81,17 +82,14 @@ const createClassificationPages = ({ createPage, posts, postsPerPage, numPages }
         context: {
           posts: postsByName,
           [`${classification.singularName}Name`]: name,
+          cTags,
+          cCategories,
+          lastUpdatePosts,
+          postsPerPage,
+          numPages,
         },
       });
     });
-  });
-};
-
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  actions.setWebpackConfig({
-    resolve: {
-      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    },
   });
 };
 
@@ -119,6 +117,7 @@ function countArray(posts, key) {
   return list;
 }
 
+// 首页
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 
@@ -190,7 +189,7 @@ exports.createPages = ({ actions, graphql }) => {
       });
     });
 
-    createClassificationPages({ createPage, posts, postsPerPage, numPages });
+    createClassificationPages({ createPage, posts, postsPerPage, numPages, cTags, cCategories, lastUpdatePosts });
 
     posts.forEach(({ node }, index) => {
       const next = index === 0 ? null : posts[index - 1].node;
@@ -256,6 +255,7 @@ exports.onCreateWebpackConfig = (p) => {
       ]
     },
     resolve: {
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
       plugins: [new TsconfigPathsPlugin()],
     },
   })

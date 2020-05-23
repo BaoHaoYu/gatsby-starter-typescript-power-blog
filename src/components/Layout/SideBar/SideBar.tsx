@@ -5,17 +5,12 @@ import { kebabCase } from 'lodash';
 import { Col, Row } from 'antd';
 import './SideBar.scss';
 import { useSprings, animated } from 'react-spring';
+import cn from 'classnames';
+import { SideBarFromServer } from '~/models/Data';
 
-export interface ISideBarProps {
-  cTags?: { name: string; len: number }[];
-  cCategories?: { name: string; len: number }[];
-  lastUpdatePosts?: {
-    slug: string;
-    title: string;
-    latest_update_date: string;
-    date: string;
-    banner: string;
-  }[];
+export interface SideBarProps extends SideBarFromServer {
+  activeTag?: string;
+  activeCategory?: string;
 }
 
 interface IWidget {
@@ -35,7 +30,7 @@ function Widget(props: IWidget) {
   );
 }
 
-export function SideBar(p: ISideBarProps & { children?: React.ReactNode }) {
+export function SideBar(p: SideBarProps & { children?: React.ReactNode }) {
   const [sideBarSprings] = useSprings(4, (index) => ({
     delay: 100 + 150 * index,
     opacity: 1,
@@ -66,7 +61,12 @@ export function SideBar(p: ISideBarProps & { children?: React.ReactNode }) {
           <ul className={'Categories'}>
             {p.cCategories?.map((item) => (
               <li className={'Categories__item'} key={item.name}>
-                <Link className={'Categories__link'} to={'/categories/' + kebabCase(item.name)}>
+                <Link
+                  className={cn('Categories__link', {
+                    'Categories__link--active': item.name === p.activeCategory,
+                  })}
+                  to={'/categories/' + kebabCase(item.name)}
+                >
                   {item.name}
                   <small className={'Categories__len'}>({item.len})</small>
                 </Link>
@@ -80,7 +80,11 @@ export function SideBar(p: ISideBarProps & { children?: React.ReactNode }) {
         <Widget title={'标签'}>
           <div className={'Widget__tagBox'}>
             {p.cTags?.map((item) => (
-              <Link to={'/tags/' + kebabCase(item.name)} className={'Widget__tag'} key={item.name}>
+              <Link
+                to={'/tags/' + kebabCase(item.name)}
+                className={cn('Widget__tag', { 'Widget__tag--active': p.activeTag === item.name })}
+                key={item.name}
+              >
                 {item.name}
               </Link>
             ))}

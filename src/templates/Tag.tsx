@@ -1,44 +1,52 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import PageProps from '../models/PageProps';
-import { Article, Content, Header, Layout, SectionTitle, Subline, Wrapper } from '../components';
+import { Article, Layout, Pagination } from '../components';
 import { Helmet } from 'react-helmet';
 import config from '../../config/SiteConfig';
-import { kebabCase } from 'lodash';
+import { Layout as L1 } from '~/components/Layout/index';
+import { animated, useSpring } from 'react-spring';
 
 export default (props: PageProps) => {
-  const { posts, tagName } = props.pathContext;
+  const { posts, tagName, cCategories, cTags, lastUpdatePosts } = props.pathContext;
   const totalCount = posts ? posts.length : 0;
   const subline = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tagName}"`;
-
+  console.log(subline);
+  const articleSpring = useSpring({
+    tension: 300,
+    delay: 200,
+    opacity: 1,
+    transform: 'translateY(0)',
+    from: { opacity: 0, transform: 'translateY(50px)' },
+  });
   return (
     <Layout>
       <Helmet title={`${'Tags'} | ${config.siteTitle}`} />
-      <Header>
-        <Link to="/">{config.siteTitle}</Link>
-        <SectionTitle>Tag &ndash; {tagName}</SectionTitle>
-        <Subline sectionTitle={true}>
-          {subline} (See <Link to="/tags">all tags</Link>)
-        </Subline>
-      </Header>
-      <Wrapper>
-        <Content>
-          {posts
-            ? posts.map((post: any, index) => (
-                <Article
-                  banner={post.frontmatter.banner}
-                  title={post.frontmatter.title}
-                  date={post.frontmatter.date}
-                  excerpt={post.excerpt}
-                  slug={kebabCase(post.frontmatter.title)}
-                  timeToRead={post.timeToRead}
-                  category={post.frontmatter.category}
-                  key={index}
-                />
-              ))
-            : null}
-        </Content>
-      </Wrapper>
+      <L1
+        activeTag={tagName}
+        showSideBar={true}
+        cTags={cTags}
+        cCategories={cCategories}
+        lastUpdatePosts={lastUpdatePosts}
+      >
+        <animated.div style={articleSpring}>
+          {posts?.map((post) => (
+            <Article
+              key={post.fields.slug}
+              description={post.frontmatter.description}
+              banner={post.frontmatter.banner}
+              title={post.frontmatter.title}
+              date={post.frontmatter.date}
+              tags={post.frontmatter.tags}
+              categories={post.frontmatter.categories}
+              excerpt={post.excerpt}
+              timeToRead={post.timeToRead}
+              slug={post.fields.slug}
+            />
+          ))}
+        </animated.div>
+
+        {/*<Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />*/}
+      </L1>
     </Layout>
   );
 };

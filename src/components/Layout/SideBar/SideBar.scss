@@ -42,7 +42,7 @@
         transition: 0.2s ease;
 
         &:hover,
-        &__active {
+        &--active {
             border-color: #ce8460;
             background: #ce8460;
             color: #fff;

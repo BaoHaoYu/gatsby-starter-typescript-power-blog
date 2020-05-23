@@ -4,19 +4,10 @@ import { Container } from '../Container';
 import { Header } from './Header/Header';
 import { Row, Col } from 'antd';
 import { useExceedMd } from '~/utils/media';
-import { SideBar } from './SideBar/SideBar';
+import { SideBar, SideBarProps } from './SideBar/SideBar';
 
-export interface ILayoutProps {
-  cTags?: { name: string; len: number }[];
-  cCategories?: { name: string; len: number }[];
+export interface ILayoutProps extends SideBarProps {
   showSideBar?: boolean;
-  lastUpdatePosts?: {
-    slug: string;
-    title: string;
-    latest_update_date: string;
-    date: string;
-    banner: string;
-  }[];
 }
 
 export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
@@ -35,6 +26,8 @@ export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
             {exceedMd && p.showSideBar && (
               <Col lg={8}>
                 <SideBar
+                  activeTag={p.activeTag}
+                  activeCategory={p.activeCategory}
                   cTags={p.cTags}
                   cCategories={p.cCategories}
                   lastUpdatePosts={p.lastUpdatePosts}

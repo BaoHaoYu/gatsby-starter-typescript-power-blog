@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import config from '../../config/SiteConfig';
 import Data from '../models/Data';
 import '../style/all.scss';
-import { Container } from '../components/Container';
 import { Layout as L1, ILayoutProps } from '~/components/Layout/index';
 import { useSpring, animated } from 'react-spring';
 

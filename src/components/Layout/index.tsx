@@ -20,7 +20,7 @@ export interface ILayoutProps {
 }
 
 export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
-  const lessLg = useExceedMd();
+  const exceedMd = useExceedMd();
 
   return (
     <div className={'Layout'}>
@@ -28,11 +28,11 @@ export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
 
       <div className={'section'}>
         <Container>
-          <Row gutter={20}>
+          <Row gutter={exceedMd && p.showSideBar ? 20 : 0}>
             <Col md={24} lg={p.showSideBar ? 16 : 24}>
               {p.children}
             </Col>
-            {lessLg && p.showSideBar && (
+            {exceedMd && p.showSideBar && (
               <Col lg={8}>
                 <SideBar
                   cTags={p.cTags}

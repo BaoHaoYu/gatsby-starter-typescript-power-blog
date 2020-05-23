@@ -41,26 +41,24 @@ export default (props: Props) => {
         cCategories={cCategories}
         lastUpdatePosts={lastUpdatePosts}
       >
-        <Container>
-          <animated.div style={articleSpring}>
-            {edges.map((post) => (
-              <Article
-                key={post.node.fields.slug}
-                description={post.node.frontmatter.description}
-                banner={post.node.frontmatter.banner}
-                title={post.node.frontmatter.title}
-                date={post.node.frontmatter.date}
-                tags={post.node.frontmatter.tags}
-                categories={post.node.frontmatter.categories}
-                excerpt={post.node.excerpt}
-                timeToRead={post.node.timeToRead}
-                slug={post.node.fields.slug}
-              />
-            ))}
-          </animated.div>
+        <animated.div style={articleSpring}>
+          {edges.map((post) => (
+            <Article
+              key={post.node.fields.slug}
+              description={post.node.frontmatter.description}
+              banner={post.node.frontmatter.banner}
+              title={post.node.frontmatter.title}
+              date={post.node.frontmatter.date}
+              tags={post.node.frontmatter.tags}
+              categories={post.node.frontmatter.categories}
+              excerpt={post.node.excerpt}
+              timeToRead={post.node.timeToRead}
+              slug={post.node.fields.slug}
+            />
+          ))}
+        </animated.div>
 
-          <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
-        </Container>
+        <Pagination currentPage={currentPage} totalPages={totalPages} url={'blog'} />
       </L1>
     </Layout>
   );

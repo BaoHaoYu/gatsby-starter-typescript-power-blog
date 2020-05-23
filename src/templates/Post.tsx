@@ -1,7 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
-// import { kebabCase } from 'lodash';
 import {
   Layout,
   // Wrapper,
@@ -16,7 +15,6 @@ import config from '../../config/SiteConfig';
 import '../utils/prismjs-theme.css';
 import PathContext from '../models/PathContext';
 import Post from '../models/Post';
-import { Col, Row } from 'antd';
 import { Post as PostMain } from '~/components/Post';
 import { Layout as L1 } from '~/components/Layout/index';
 interface Props {

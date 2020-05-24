@@ -1,12 +1,12 @@
 import { Container } from '~/components/Container';
 import { Col, Row } from 'antd';
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLessMd } from '~/utils/media';
 import './Header.scss';
 import { Link } from 'gatsby';
 import { useSprings, animated } from 'react-spring';
-
+import algoliaSearch from 'algoliasearch/lite';
 export function Header() {
   const [data, setState] = useState({ expanded: false, search: false });
   function onClickToggle() {
@@ -23,6 +23,30 @@ export function Header() {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(-10px)' },
   }));
+
+  useEffect(() => {
+    if (
+      !process.env.ALGOLIA_APP_ID ||
+      !process.env.ALGOLIA_SEARCH_KEY ||
+      !process.env.ALGOLIA_INDEX_NAME
+    ) {
+      return;
+    }
+
+    const searchAPI = algoliaSearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_KEY);
+
+    searchAPI
+      .search([
+        {
+          indexName: process.env.ALGOLIA_INDEX_NAME,
+          params: { page: 0 },
+          query: 'hook',
+        },
+      ])
+      .then((result) => {
+        console.log(result);
+      });
+  }, []);
 
   return (
     <div className={'Header'}>

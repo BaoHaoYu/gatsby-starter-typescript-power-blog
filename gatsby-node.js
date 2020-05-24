@@ -232,15 +232,8 @@ exports.onCreateWebpackConfig = (p) => {
         {
           test: /\.scss/,
           use: [
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: !isProduction,
-              },
-            },
+            loaders.miniCssExtract(),
+            loaders.css({ importLoaders: 1 }),
             {
               loader: path.join(__dirname, 'loader/css-map-loader/index.js'),
             },

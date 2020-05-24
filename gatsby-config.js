@@ -6,6 +6,12 @@ require('ts-node').register({
   },
 });
 
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+const queries = require("./src/utils/algolia").default
+
 const config = require('./config/SiteConfig').default;
 const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix;
 
@@ -23,6 +29,7 @@ module.exports = {
     'gatsby-plugin-catch-links',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-lodash',
+    // 'gatsby-plugin-sass',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -92,5 +99,15 @@ module.exports = {
       }
     },
     'gatsby-remark-lazy-load',
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
+        indexName: process.env.ALGOLIA_INDEX_NAME, // for all queries
+        queries,
+        chunkSize: 10000, // default: 1000
+      },
+    },
   ],
 };

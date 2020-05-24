@@ -30,6 +30,7 @@ export default (props: Props) => {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   });
+
   return (
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />

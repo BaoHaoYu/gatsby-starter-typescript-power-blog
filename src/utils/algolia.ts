@@ -11,9 +11,13 @@ const postQuery = `{
           slug
         }
         frontmatter {
-          title
-          date(formatString: "MMM D, YYYY")
-          tags
+            title
+            banner
+            description
+            date(formatString: "YYYY-MM-DD")
+            latest_update_date(formatString: "YYYY-MM-DD")
+            categories
+            tags
         }
         excerpt(pruneLength: 5000)
       }
@@ -31,8 +35,9 @@ const settings = { attributesToSnippet: [`excerpt:20`] };
 const queries = [
   {
     query: postQuery,
-    transformer: ({ data }: { data: { posts: { edges: { node: Post }[] } } }) =>
-      flatten(data.posts.edges),
+    transformer: ({ data }: { data: { posts: { edges: { node: Post }[] } } }) => {
+      return flatten(data.posts.edges);
+    },
     indexName: `gatsby-blog`,
     settings,
   },

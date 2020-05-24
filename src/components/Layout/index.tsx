@@ -39,6 +39,11 @@ export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
       </div>
 
       <div className={'Footer'} />
+
+      {/*TODO*/}
+      <div style={{ display: 'none' }} className={'SearchResultBar'}>
+        SearchResultBar
+      </div>
     </div>
   );
 };

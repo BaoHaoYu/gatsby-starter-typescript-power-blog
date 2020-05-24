@@ -1,7 +1,7 @@
 import Frontmatter from './Frontmatter';
 
 interface Post {
-  id: number;
+  id: string;
   excerpt: string;
   html: string;
   frontmatter: Frontmatter;

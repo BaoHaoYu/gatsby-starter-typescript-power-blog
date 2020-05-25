@@ -1,74 +1,29 @@
 import { HistItem } from '~/models/Search';
-import { animated, useSpring } from 'react-spring';
+import { animated } from 'react-spring';
 import { kebabCase } from 'lodash';
-import React, { useEffect, useState, CSSProperties } from 'react';
+import React from 'react';
 import './SearchResultList.scss';
 import { observer } from 'mobx-react';
-import { UseSpringProps } from 'react-spring/web';
+import useSpringState from './useSpringState';
 
-type Merge<A, B> = { [K in keyof A]: K extends keyof B ? B[K] : A[K] } & B;
-
-function useSpringMount<DS extends object>(
-  start: boolean,
-  springProps: UseSpringProps<Merge<DS, CSSProperties>>,
-) {
-  const [state, setState] = useState<'entering' | 'entered' | 'exiting' | 'exited'>('exited');
-
-  useEffect(() => {
-    if (start) {
-      setState('entering');
-    } else {
-      setState('exiting');
-    }
-  }, [start]);
-
-  const spring = useSpring({
-    ...springProps,
-    onRest(ds) {
-      if (start) {
-        setState('entered');
-      } else {
-        setState('exited');
-      }
-      if (springProps.onRest) {
-        springProps.onRest(ds);
-      }
-    },
-  });
-
-  return [spring, state];
-}
-
-export const SearchResultList = observer((props: { showSearch: boolean; hits?: HistItem[] }) => {
-  const [state, setState] = useState<'entering' | 'entered' | 'exiting' | 'exited'>('exited');
-
-  useEffect(() => {
-    if (props.showSearch) {
-      setState('entering');
-    } else {
-      setState('exiting');
-    }
-  }, [props.showSearch]);
-
-  const searchResultSpring = useSpring({
+export const SearchResultList: React.FunctionComponent<{
+  showSearch: boolean;
+  hits?: HistItem[];
+  style?: React.CSSProperties;
+  className?: string;
+}> = observer((props) => {
+  const searchResult = useSpringState(props.showSearch, {
     delay: 100,
     opacity: 1,
-    reverse: !props.showSearch || !props.hits,
     transform: 'translateY(0)',
-    onRest() {
-      if (props.showSearch) {
-        setState('entered');
-      } else {
-        setState('exited');
-      }
-    },
     from: { opacity: 0, transform: 'translateY(60px)' },
+    reverse: !props.showSearch || !props.hits,
   });
 
   return (
-    <animated.div style={searchResultSpring}>
-      {state !== 'exited' && props.hits && (
-        <div className={'SearchResult'}>
+    <animated.div style={searchResult.spring}>
+      {searchResult.state !== 'exited' && props.hits && (
+        <div style={props.style} className={'SearchResult'}>
           {props.hits?.map((hit) => {
             return (
               <div className={'SearchResult__item'} key={hit.title}>

@@ -43,7 +43,7 @@ export function Header() {
   }
 
   function onSearch() {
-    if (/^\s+$/.test(state.searchValue)) {
+    if (/^\s+$/.test(state.searchValue) || state.searchIng) {
       return;
     }
 
@@ -90,13 +90,20 @@ export function Header() {
     from: { opacity: 0.5, transform: 'translateY(0px)' },
   });
 
+  const searchResultListNode = (
+    <div style={{ width: lessMd ? '100%' : 'auto' }} className={'SearchResult--layout'}>
+      <SearchResultList hits={state.hits} showSearch={state.showSearch && !state.searchIng} />
+    </div>
+  );
+
   const search = (
-    <Col xs={24} lg={4}>
+    <Col xs={24} lg={4} style={{ zIndex: 10 }}>
       <animated.div style={headSprings[5]}>
-        <span onClick={onToggleSearch} className={'Header__link'}>
+        <span onClick={state.showSearch ? onSearch : onToggleSearch} className={'Header__link'}>
           <AiOutlineSearch className={'s-icon'} />
         </span>
       </animated.div>
+      {lessMd && searchResultListNode}
     </Col>
   );
 
@@ -190,7 +197,7 @@ export function Header() {
             </div>
           </Row>
 
-          <SearchResultList hits={state.hits} showSearch={state.showSearch} />
+          {!lessMd && searchResultListNode}
         </div>
       </Container>
     </div>

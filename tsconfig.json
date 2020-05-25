@@ -17,10 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    },
-    "types": [
-      "zepto"
-    ]
+    }
   },
   "include": ["**/*.ts", "**/*.tsx", "*.ts"],
   "exclude": ["node_modules","public", ".cache", "static"]

@@ -38,7 +38,7 @@ const queries = [
     transformer: ({ data }: { data: { posts: { edges: { node: Post }[] } } }) => {
       return flatten(data.posts.edges);
     },
-    indexName: `gatsby-blog`,
+    indexName: process.env.ALGOLIA_INDEX_NAME,
     settings,
   },
 ];

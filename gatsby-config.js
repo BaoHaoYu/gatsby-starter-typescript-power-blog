@@ -37,15 +37,15 @@ module.exports = {
         path: `${__dirname}/blog`,
       },
     },
-    {
-      resolve: `gatsby-plugin-google-tagmanager`,
-      options: {
-        id: config.Google_Tag_Manager_ID,
-        // Include GTM in development.
-        // Defaults to false meaning GTM will only be loaded in production.
-        includeInDevelopment: false,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-tagmanager`,
+    //   options: {
+    //     id: config.Google_Tag_Manager_ID,
+    //     // Include GTM in development.
+    //     // Defaults to false meaning GTM will only be loaded in production.
+    //     includeInDevelopment: false,
+    //   },
+    // },
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -104,7 +104,6 @@ module.exports = {
       options: {
         appId: process.env.ALGOLIA_APP_ID,
         apiKey: process.env.ALGOLIA_API_KEY,
-        indexName: process.env.ALGOLIA_INDEX_NAME, // for all queries
         queries,
         chunkSize: 10000, // default: 1000
       },

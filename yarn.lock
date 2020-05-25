@@ -1980,11 +1980,6 @@
   resolved "http://r.cnpmjs.org/@types/yoga-layout/download/@types/yoga-layout-1.9.1.tgz#6c00e4a151a9a529397d580e2cf6f3947a42a928"
   integrity sha1-bADkoVGppSk5fVgOLPbzlHpCqSg=
 
-"@types/zepto@^1.0.31":
-  version "1.0.31"
-  resolved "http://r.cnpmjs.org/@types/zepto/download/@types/zepto-1.0.31.tgz#99dea89804a2ba6cbdd5a99b1b77f8cf43c055f6"
-  integrity sha1-md6omASiumy91ambG3f4z0PAVfY=
-
 "@typescript-eslint/eslint-plugin@^2.24.0":
   version "2.33.0"
   resolved "http://r.cnpmjs.org/@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-2.33.0.tgz#d6c8319d5011b4783bb3d2dadf105d8bdd499bd5"
@@ -17860,11 +17855,6 @@ yurnalist@^1.1.2:
     semver "^6.3.0"
     strip-ansi "^5.2.0"
     strip-bom "^4.0.0"
-
-zepto@^1.2.0:
-  version "1.2.0"
-  resolved "http://r.cnpmjs.org/zepto/download/zepto-1.2.0.tgz#e127bd9e66fd846be5eab48c1394882f7c0e4f98"
-  integrity sha1-4Se9nmb9hGvl6rSME5SIL3wOT5g=
 
 zwitch@^1.0.0:
   version "1.0.5"

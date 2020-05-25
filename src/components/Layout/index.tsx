@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.scss';
 import { Container } from '../Container';
 import { Header } from './Header/Header';
 import { Row, Col } from 'antd';

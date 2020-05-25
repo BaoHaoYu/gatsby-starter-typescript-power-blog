@@ -17,6 +17,11 @@ $lg: 1200px;
   display: none;
 }
 
+::selection {
+  background: #daa287;
+  color: #fff;
+}
+
 @media (min-width: $sm) {
   .container {
     max-width: 540px;

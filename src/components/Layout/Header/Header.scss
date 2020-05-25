@@ -2,6 +2,7 @@
   position: sticky;
   min-height: 60px;
   border-bottom: 1px solid #ddd;
+  z-index: 10;
 
   &__bar {
     padding: 0 1rem;

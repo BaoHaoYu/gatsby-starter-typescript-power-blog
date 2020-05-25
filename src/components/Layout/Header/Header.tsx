@@ -8,7 +8,7 @@ import { Link } from 'gatsby';
 import { useSprings, useSpring, animated } from 'react-spring';
 import algoliaSearch from 'algoliasearch/lite';
 import { SearchResult, HistItem } from '~/models/Search';
-
+import { SearchResultList } from '../SearchResultList/SearchResultList';
 export function Header() {
   const [state, setState] = useState<{
     expandedMenu: boolean;
@@ -189,6 +189,8 @@ export function Header() {
               </animated.div>
             </div>
           </Row>
+
+          <SearchResultList hits={state.hits} showSearch={state.showSearch} />
         </div>
       </Container>
     </div>

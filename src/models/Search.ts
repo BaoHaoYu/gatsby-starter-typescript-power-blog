@@ -2,16 +2,28 @@ import FrontMatter from './Frontmatter';
 
 import { MultipleQueriesResponse } from '@algolia/client-search';
 
-interface HitMatch {
-  matchLevel: string;
+interface HighlightItem {
+  matchLevel: 'none' | 'full';
   value: string;
   matchedWords: string[];
 }
 
-interface HighlightResult extends Record<keyof FrontMatter, HitMatch> {
+interface SnippetResultItem {
+  matchLevel: 'none' | 'full';
+  value: string;
+}
+
+interface HighlightResult extends Record<keyof FrontMatter, any> {
   fields: {
-    slug: HitMatch;
+    slug: HighlightItem;
   };
+  excerpt: HighlightItem;
+  tags: HighlightItem[];
+  categories: HighlightItem[];
+}
+
+interface SnippetResult {
+  excerpt: SnippetResultItem;
 }
 
 export interface HistItem extends FrontMatter {
@@ -21,12 +33,7 @@ export interface HistItem extends FrontMatter {
     slug: string;
   };
   _highlightResult: HighlightResult;
-  _snippetResult: {
-    excerpt: {
-      matchLevel: string;
-      value: string;
-    };
-  };
+  _snippetResult: SnippetResult;
 }
 
 export type SearchResult = MultipleQueriesResponse<HistItem>;

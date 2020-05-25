@@ -217,7 +217,8 @@ exports.createPages = ({ actions, graphql }) => {
   });
 };
 
-const isProduction = false
+const isProduction = process.env.NODE_ENV === 'production'
+
 exports.onCreateWebpackConfig = (p) => {
   const {
     stage,
@@ -229,31 +230,33 @@ exports.onCreateWebpackConfig = (p) => {
   actions.setWebpackConfig({
     module: {
       rules: [
-        {
-          test: /\.scss/,
-          use: [
-            loaders.miniCssExtract(),
-            loaders.css({ importLoaders: 1 }),
-            {
-              loader: path.join(__dirname, 'loader/css-map-loader/index.js'),
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: !isProduction,
-                plugins() {
-                  return [precss]
+          ...(!isProduction ? [
+          {
+            test: /\.scss/,
+            use: [
+              loaders.miniCssExtract(),
+              loaders.css({ importLoaders: 1 }),
+              {
+                loader: path.join(__dirname, 'loader/css-map-loader/index.js'),
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  sourceMap: !isProduction,
+                  plugins() {
+                    return [precss]
+                  },
                 },
               },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: !isProduction,
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: !isProduction,
+                },
               },
-            },
-          ],
-        }
+            ],
+          }
+        ]: [])
       ]
     },
     resolve: {

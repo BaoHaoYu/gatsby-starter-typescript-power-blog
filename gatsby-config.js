@@ -15,6 +15,9 @@ const queries = require("./src/utils/algolia").default
 const config = require('./config/SiteConfig').default;
 const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix;
 
+const plugins = []
+process.env.NODE_ENV === 'production' && plugins.push('gatsby-plugin-sass')
+
 module.exports = {
   pathPrefix: config.pathPrefix,
   siteMetadata: {
@@ -29,7 +32,6 @@ module.exports = {
     'gatsby-plugin-catch-links',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-lodash',
-    // 'gatsby-plugin-sass',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -108,5 +110,6 @@ module.exports = {
         chunkSize: 10000, // default: 1000
       },
     },
+      ...plugins,
   ],
 };

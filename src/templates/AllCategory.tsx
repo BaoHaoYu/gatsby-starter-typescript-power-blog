@@ -9,6 +9,7 @@ import PageProps from '../models/PageProps';
 import update from 'lodash/update';
 import map from 'lodash/map';
 import { Tree } from '~/components/Tree/Tree';
+import { useSpring, animated } from 'react-spring';
 
 type ResultObject = { [K: string]: boolean | ResultObject };
 type ResultList = { name: string; children?: ResultList }[];
@@ -69,12 +70,18 @@ export default (props: PageProps) => {
   console.log(toList(allCategories || []));
 
   const list = toList(allCategories || []);
+  const spring = useSpring({
+    delay: 100,
+    opacity: 1,
+    transform: 'translateY(0)',
+    from: { opacity: 0, transform: 'translateY(60px)' },
+  });
 
   if (categories) {
     return (
       <Layout showSideBar={false}>
         <Helmet title={`Categories | ${config.siteTitle}`} />
-        {renderNode(list, true)}
+        <animated.div style={spring}>{renderNode(list, true)}</animated.div>
       </Layout>
     );
   }

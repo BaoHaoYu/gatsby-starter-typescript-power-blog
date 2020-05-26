@@ -45,75 +45,6 @@ function getPostsByType(posts: NodePost[], classificationType: 'categories' | 't
   return postsByType;
 }
 
-// 标签分类页面
-function createClassificationPages(p: {
-  createPage: Actions['createPage'];
-  posts: { node: Post }[];
-  postsPerPage: number;
-  numPages: number;
-  cTags: { name: string; len: number }[];
-  cCategories: { name: string; len: number }[];
-  lastUpdatePosts: LastUpdatePost[];
-}) {
-  const { createPage, posts, postsPerPage, cTags, cCategories, lastUpdatePosts } = p;
-  const classifications = [
-    {
-      singularName: 'category',
-      pluralName: 'categories',
-      template: {
-        part: path.resolve(`src/templates/Category.tsx`),
-        all: path.resolve(`src/templates/AllCategory.tsx`),
-      },
-      postsByClassificationNames: getPostsByType(posts, 'categories'),
-    },
-    {
-      singularName: 'tag',
-      pluralName: 'tags',
-      template: {
-        part: path.resolve(`src/templates/Tag.tsx`),
-        all: path.resolve(`src/templates/AllTag.tsx`),
-      },
-      postsByClassificationNames: getPostsByType(posts, 'tags'),
-    },
-  ];
-
-  classifications.forEach((classification) => {
-    const names = Object.keys(classification.postsByClassificationNames);
-
-    // 所有标签或者分类
-    createPage({
-      path: _.kebabCase(`/${classification.pluralName}`),
-      component: classification.template.all,
-      context: {
-        [`${classification.pluralName}`]: names.sort(),
-      },
-    });
-
-    // 更具标签或者分类划分的列表
-    names.forEach((name) => {
-      const groupPosts = classification.postsByClassificationNames[name];
-      const numPages = Math.ceil(groupPosts.length / postsPerPage);
-
-      _.chunk(groupPosts, postsPerPage).forEach((onePagePosts, i) => {
-        const sitePath = `/${classification.pluralName}/${_.kebabCase(name)}`;
-        createPage({
-          path: i === 0 ? sitePath : `${sitePath}/${i}`,
-          component: classification.template.part,
-          context: {
-            posts: onePagePosts,
-            [`${classification.singularName}Name`]: name,
-            cTags,
-            cCategories,
-            lastUpdatePosts,
-            totalPages: numPages,
-            currentPage: i + 1,
-          },
-        });
-      });
-    });
-  });
-}
-
 // 统计所有分类和标签
 function countArray(
   posts: { node: Post }[],
@@ -140,6 +71,92 @@ function countArray(
     });
   });
   return list;
+}
+
+// 标签分类页面
+function createClassificationPages(p: {
+  createPage: Actions['createPage'];
+  posts: { node: Post }[];
+  postsPerPage: number;
+  numPages: number;
+  cTags: { name: string; len: number }[];
+  cCategories: { name: string; len: number }[];
+  lastUpdatePosts: LastUpdatePost[];
+}) {
+  const { createPage, posts, postsPerPage, cTags, cCategories, lastUpdatePosts } = p;
+  const classifications: {
+    singularName: string;
+    pluralName: string;
+    template: {
+      part: string;
+      all: string;
+    };
+    postsByClassificationNames: { [x: string]: Post[] };
+  }[] = [
+    {
+      singularName: 'category',
+      pluralName: 'categories',
+      template: {
+        part: path.resolve(`src/templates/Category.tsx`),
+        all: path.resolve(`src/templates/AllCategory.tsx`),
+      },
+      postsByClassificationNames: getPostsByType(posts, 'categories'),
+    },
+    {
+      singularName: 'tag',
+      pluralName: 'tags',
+      template: {
+        part: path.resolve(`src/templates/Tag.tsx`),
+        all: path.resolve(`src/templates/AllTag.tsx`),
+      },
+      postsByClassificationNames: getPostsByType(posts, 'tags'),
+    },
+  ];
+
+  classifications.forEach((classification) => {
+    const names = Object.keys(classification.postsByClassificationNames);
+    const allCategories: any[] = [];
+    if (classification.singularName === 'category') {
+      posts.map(({ node }) => {
+        if (node.frontmatter.categories) {
+          allCategories.push(node.frontmatter.categories);
+        }
+      });
+    }
+
+    // 所有标签或者分类
+    createPage({
+      path: _.kebabCase(`/${classification.pluralName}`),
+      component: classification.template.all,
+      context: {
+        [`${classification.pluralName}`]: names.sort(),
+        allCategories,
+      },
+    });
+
+    // 更具标签或者分类划分的列表
+    names.forEach((name) => {
+      const groupPosts = classification.postsByClassificationNames[name];
+      const numPages = Math.ceil(groupPosts.length / postsPerPage);
+
+      _.chunk(groupPosts, postsPerPage).forEach((onePagePosts, i) => {
+        const sitePath = `/${classification.pluralName}/${_.kebabCase(name)}`;
+        createPage({
+          path: i === 0 ? sitePath : `${sitePath}/${i}`,
+          component: classification.template.part,
+          context: {
+            posts: onePagePosts,
+            [`${classification.singularName}Name`]: name,
+            cTags,
+            cCategories,
+            lastUpdatePosts,
+            totalPages: numPages,
+            currentPage: i + 1,
+          },
+        });
+      });
+    });
+  });
 }
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions }) => {

@@ -3,6 +3,7 @@ import Post from './Post';
 interface PathContext {
   tags?: string[];
   categories?: string[];
+  allCategories?: [string][];
   categoryName: string;
   tagName?: string;
   posts?: Post[];

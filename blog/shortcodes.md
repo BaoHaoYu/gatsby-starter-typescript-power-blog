@@ -11,7 +11,9 @@ banner: http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_DODWl7Z8yW.png
 tags:
     - shortcode
 categories:
+    - 编程
     - demo
+    - shortcode
 ---
 
 ## H2

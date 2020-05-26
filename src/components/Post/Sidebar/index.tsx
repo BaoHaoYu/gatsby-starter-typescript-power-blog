@@ -51,6 +51,39 @@ export interface ISideBarProps {
   onClickTitle?(e: React.MouseEvent, item: Data[0]): void;
 }
 
+const SideBarNode = observer((props: { node: Data[0]; children?: any }) => {
+  const { node } = props;
+  return (
+    <div
+      className={cn('SideBarTOC__node', { 'SideBarTOC__node--active': node.active })}
+      key={node.title}
+    >
+      <a
+        onClick={(e) => {
+          clickNav(e, node);
+        }}
+        href={'#' + node.id}
+        className={'SideBarTOC__title'}
+      >
+        {node.title}
+      </a>
+      {props.children}
+    </div>
+  );
+});
+
+const SideBarNodes = observer((props: { data: Data; show?: boolean }) => {
+  return (
+    <div>
+      {props.data.map((item) => (
+        <SideBarNode node={item} key={item.title}>
+          {item.children && <SideBarNodes show={item.open && item.active} data={item.children} />}
+        </SideBarNode>
+      ))}
+    </div>
+  );
+});
+
 const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
   const intersectionObserver = useRef<null | IntersectionObserver>();
   React.useEffect(() => {
@@ -62,28 +95,11 @@ const SideBar: React.FunctionComponent<ISideBarProps> = (props) => {
     };
   }, [props.data]);
 
-  function renderNode(data: ISideBarProps['data'] = []) {
-    return data.map((item) => {
-      return (
-        <div
-          className={cn('SideBarTOC__node', { 'SideBarTOC__node--active': item.active })}
-          key={item.title}
-        >
-          <a
-            onClick={(e) => {
-              clickNav(e, item);
-            }}
-            href={'#' + item.id}
-            className={'SideBarTOC__title'}
-          >
-            {item.title}
-          </a>
-          {item.children && item.open && renderNode(item.children)}
-        </div>
-      );
-    });
-  }
-  return <div className={'SideBarTOC'}>{renderNode(sideBarStore.data)}</div>;
+  return (
+    <div className={'SideBarTOC'}>
+      <SideBarNodes data={sideBarStore.data} show={true} />
+    </div>
+  );
 };
 
 // 初始化

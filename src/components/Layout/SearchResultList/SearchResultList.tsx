@@ -4,7 +4,7 @@ import { kebabCase } from 'lodash';
 import React from 'react';
 import './SearchResultList.scss';
 import { observer } from 'mobx-react';
-import useSpringState from './useSpringState';
+import useSpringState from '~/components/useSpringState';
 
 export const SearchResultList: React.FunctionComponent<{
   showSearch: boolean;

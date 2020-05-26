@@ -96,7 +96,7 @@ export function Header() {
     </div>
   );
 
-  const search = (
+  const searchNode = (
     <Col xs={24} lg={4} style={{ zIndex: 10 }}>
       <animated.div style={headSprings[5]}>
         <span onClick={state.showSearch ? onSearch : onToggleSearch} className={'Header__link'}>
@@ -134,7 +134,7 @@ export function Header() {
             >
               <div className={'Header__menu'}>
                 <Row align={'middle'}>
-                  {lessMd && search}
+                  {lessMd && searchNode}
 
                   <Col offset={lessMd ? 0 : 4} xs={24} lg={4}>
                     <animated.div style={headSprings[1]}>
@@ -165,7 +165,7 @@ export function Header() {
                     </animated.div>
                   </Col>
 
-                  {!lessMd && search}
+                  {!lessMd && searchNode}
                 </Row>
               </div>
             </Col>

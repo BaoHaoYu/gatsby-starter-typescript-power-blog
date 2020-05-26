@@ -138,30 +138,30 @@ export function Header() {
 
                   <Col offset={lessMd ? 0 : 4} xs={24} lg={4}>
                     <animated.div style={headSprings[1]}>
-                      <a className={'Header__link'} href={'about'}>
+                      <Link className={'Header__link'} to={'/about'}>
                         关于
-                      </a>
+                      </Link>
                     </animated.div>
                   </Col>
                   <Col xs={24} lg={4}>
                     <animated.div style={headSprings[2]}>
-                      <a className={'Header__link'} href={'tags'}>
+                      <Link className={'Header__link'} to={'/tags'}>
                         标签
-                      </a>
+                      </Link>
                     </animated.div>
                   </Col>
                   <Col xs={24} lg={4}>
                     <animated.div style={headSprings[3]}>
-                      <a className={'Header__link'} href={'/categories'}>
+                      <Link className={'Header__link'} to={'/categories'}>
                         分类
-                      </a>
+                      </Link>
                     </animated.div>
                   </Col>
                   <Col xs={24} lg={4}>
                     <animated.div style={headSprings[4]}>
-                      <a className={'Header__link'} href={'/archives'}>
+                      <Link className={'Header__link'} to={'/archives'}>
                         归档
-                      </a>
+                      </Link>
                     </animated.div>
                   </Col>
 

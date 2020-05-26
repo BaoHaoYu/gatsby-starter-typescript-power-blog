@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'gatsby';
 import { kebabCase } from 'lodash';
-import { Layout, Wrapper, Header, SectionTitle, Content, Title } from '../components';
+import { Layout } from '../components/Layout/index';
 
 import config from '../../config/SiteConfig';
 import PageProps from '../models/PageProps';
@@ -45,15 +45,23 @@ function toList(allCategories: [string][]): ResultList {
 }
 
 function renderNode(list: ResultList, open?: boolean) {
-  return list.map((item, index) => (
-    <Tree
-      key={index}
-      open={open}
-      name={<Link to={`/categories/${kebabCase(item.name)}`}>{item.name}</Link>}
-    >
-      {item.children ? renderNode(item.children) : ''}
-    </Tree>
-  ));
+  return (
+    <>
+      {list.map((item, index) => (
+        <Tree
+          key={index}
+          open={open}
+          name={
+            <Link className={'TreeNode__link'} to={`/categories/${kebabCase(item.name)}`}>
+              {item.name}
+            </Link>
+          }
+        >
+          {item.children ? renderNode(item.children) : ''}
+        </Tree>
+      ))}
+    </>
+  );
 }
 
 export default (props: PageProps) => {
@@ -64,17 +72,9 @@ export default (props: PageProps) => {
 
   if (categories) {
     return (
-      <Layout>
+      <Layout showSideBar={false}>
         <Helmet title={`Categories | ${config.siteTitle}`} />
-        <Header>
-          <Link to="/">{config.siteTitle}</Link>
-          <SectionTitle>Categories</SectionTitle>
-        </Header>
-        <Wrapper>
-          <Content>
-            {renderNode(list, true)}
-          </Content>
-        </Wrapper>
+        {renderNode(list, true)}
       </Layout>
     );
   }

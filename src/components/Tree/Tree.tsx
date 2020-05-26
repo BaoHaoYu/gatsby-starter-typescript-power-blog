@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { usePrevious, useMeasure } from './helpers';
-import { Global, Frame, Content, toggle } from './styles';
 import * as Icons from './icons';
-
+import './index.scss';
 interface TreeProps {
   name: React.ReactNode;
   children?: any;
@@ -29,12 +28,15 @@ export function Tree(props: TreeProps) {
     | 'CloseSquareO';
   const Icon = Icons[svgKey];
   return (
-    <Frame>
-      <span onClick={() => setOpen(!isOpen)}>
-        <Icon style={{ ...toggle, opacity: children ? 1 : 0.3 }} />
-      </span>
-      <span style={{ verticalAlign: 'middle', ...style }}>{name}</span>
-      <Content
+    <div className={'TreeNode'}>
+      <div className={'TreeNode__title'}>
+        <span className={'TreeNode__toggle'} onClick={() => setOpen(!isOpen)}>
+          <Icon className={'TreeNode__icon'} style={{ opacity: children ? 1 : 0.3 }} />
+        </span>
+        <span style={{ verticalAlign: 'middle', ...style }}>{name}</span>
+      </div>
+      <animated.div
+        className={'TreeNode__content'}
         style={{
           opacity,
           height: height.interpolate((_height: any) =>
@@ -45,34 +47,7 @@ export function Tree(props: TreeProps) {
         <animated.div ref={ref as any} style={{ transform }}>
           {children}
         </animated.div>
-      </Content>
-    </Frame>
+      </animated.div>
+    </div>
   );
 }
-
-export const App = () => (
-  <>
-    <Global />
-    <Tree name="main" open={true}>
-      <Tree name="hello" />
-      <Tree name="subtree with children">
-        <Tree name="hello" />
-        <Tree name="sub-subtree with children">
-          <Tree name="child 1" style={{ color: '#37ceff' }} />
-          <Tree name="child 2" style={{ color: '#37ceff' }} />
-          <Tree name="child 3" style={{ color: '#37ceff' }} />
-          <Tree name="custom content">
-            <div style={{ position: 'relative', width: '100%', height: 200, padding: 10 }}>
-              <div
-                style={{ width: '100%', height: '100%', background: 'black', borderRadius: 5 }}
-              />
-            </div>
-          </Tree>
-        </Tree>
-        <Tree name="hello" />
-      </Tree>
-      <Tree name="world" />
-      <Tree name={<span>🙀 something something</span>} />
-    </Tree>
-  </>
-);

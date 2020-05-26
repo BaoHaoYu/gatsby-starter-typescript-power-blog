@@ -5,6 +5,7 @@ import React from 'react';
 import './SearchResultList.scss';
 import { observer } from 'mobx-react';
 import useSpringState from '~/components/useSpringState';
+import { Link } from 'gatsby';
 
 export const SearchResultList: React.FunctionComponent<{
   showSearch: boolean;
@@ -27,23 +28,22 @@ export const SearchResultList: React.FunctionComponent<{
           {props.hits?.map((hit) => {
             return (
               <div className={'SearchResult__item'} key={hit.title}>
-                <a className={'SearchResult__title'} href={'/blog/' + hit.fields.slug}>
+                <Link className={'SearchResult__title'} to={'/blog/' + hit.fields.slug}>
                   <h5
                     dangerouslySetInnerHTML={{
                       __html: hit._highlightResult.title.value,
                     }}
                   />
-                </a>
+                </Link>
 
                 <div className={'SearchResult__metas'}>
                   {hit._highlightResult.tags && (
                     <span className={'SearchResult__meta'}>
                       标签:{' '}
                       {hit._highlightResult.tags.map((item, index) => (
-                        <a
+                        <Link
                           className={'SearchResult__metaLink'}
-                          role={'button'}
-                          href={'/tags/' + kebabCase(hit.tags && hit.tags[index])}
+                          to={'/tags/' + kebabCase(hit.tags && hit.tags[index])}
                           key={index}
                           dangerouslySetInnerHTML={{
                             __html: item.value,
@@ -57,10 +57,9 @@ export const SearchResultList: React.FunctionComponent<{
                     <span className={'SearchResult__meta'}>
                       分类:{' '}
                       {hit._highlightResult.categories.map((item, index) => (
-                        <a
+                        <Link
                           className={'SearchResult__metaLink'}
-                          role={'button'}
-                          href={'/categories/' + kebabCase(hit.categories && hit.categories[index])}
+                          to={'/categories/' + kebabCase(hit.categories && hit.categories[index])}
                           key={index}
                           dangerouslySetInnerHTML={{
                             __html: item.value,

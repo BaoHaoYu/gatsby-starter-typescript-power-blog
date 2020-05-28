@@ -67,7 +67,6 @@ function renderNode(list: ResultList, open?: boolean) {
 
 export default (props: PageProps) => {
   const { categories, allCategories } = props.pathContext;
-  console.log(toList(allCategories || []));
 
   const list = toList(allCategories || []);
   const spring = useSpring({

@@ -74,7 +74,7 @@ const SideBarNode = observer((props: { node: Data[0]; children?: any }) => {
 
 const SideBarNodes = observer((props: { data: Data; show?: boolean }) => {
   return (
-    <div>
+    <div hidden={!props.show}>
       {props.data.map((item) => (
         <SideBarNode node={item} key={item.title}>
           {item.children && <SideBarNodes show={item.open && item.active} data={item.children} />}

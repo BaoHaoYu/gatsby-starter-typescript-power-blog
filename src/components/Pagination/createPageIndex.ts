@@ -1,4 +1,3 @@
-import defaults from 'lodash/defaults';
 import paginate from 'jw-paginate';
 import last from 'lodash/last';
 import take from 'lodash/take';
@@ -15,11 +14,12 @@ export interface PIndex {
 }
 
 export default function createPageIndex(p: PIndex) {
-  const newP: Required<PIndex> = defaults(p, {
+  const newP: Required<PIndex> = {
     maxBeforePage: 1,
     maxCenterPage: 3,
     maxAfterPage: 1,
-  });
+    ...p,
+  };
 
   const {
     totalItemNumber,
@@ -35,10 +35,10 @@ export default function createPageIndex(p: PIndex) {
   let afterPageIndex: any[] = [];
   const totalPages = now.totalPages;
 
-  for (let i1 = 0; i1 < maxBeforePage + 2; i1++) {
+  for (let i1 = 0; i1 < maxBeforePage + 2 && i1 < now.pages[0]; i1++) {
     beforePageIndex.push(i1 + 1);
   }
-  for (let i2 = totalPages; i2 > totalPages - maxAfterPage - 2; i2--) {
+  for (let i2 = totalPages; i2 > totalPages - maxAfterPage - 2 && i2 > 0; i2--) {
     afterPageIndex.push(i2);
   }
   afterPageIndex.reverse();

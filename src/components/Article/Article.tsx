@@ -27,7 +27,8 @@ const Article = ({
   layout,
 }: IProps) => {
   const lessXs = useLessXs();
-  const isList = 'list' || layout === 'left-list' || layout === 'right-list';
+  const isList = layout === 'list' || layout === 'left-list' || layout === 'right-list';
+
   return (
     <div
       className={cn('Article', {

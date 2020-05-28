@@ -24,10 +24,10 @@ export default (props: Props) => {
   const {
     currentPage,
     postsPerPage,
+    totalPostsNumber,
     cTags,
     cCategories,
     lastUpdatePosts,
-    totalPostsNumber,
   } = props.pageContext;
 
   const { data } = props;

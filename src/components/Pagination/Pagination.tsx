@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import './Pagination.scss';
 import cn from 'classnames';
-import createPageIndex, { PIndex } from '~/utils/createPageIndex';
+import createPageIndex, { PIndex } from './createPageIndex';
 
 interface Props extends PIndex {
   url: string;
@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, totalItemNumber, itemPerPage, url, firstPage 
   }
 
   const isFirst = currentPage === 1;
-  const isLast = currentPage === totalItemNumber;
+  const isLast = currentPage === pageIndexList.length;
   const prevPage = currentPage - 1 === 1 ? firstPage : `/${url}/${(currentPage - 1).toString()}`;
   const nextPage = `/${url}/${(currentPage + 1).toString()}`;
 

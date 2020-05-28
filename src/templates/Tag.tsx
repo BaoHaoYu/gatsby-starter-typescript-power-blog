@@ -14,7 +14,8 @@ export default (props: PageProps) => {
     cTags,
     lastUpdatePosts,
     currentPage,
-    totalPages,
+    postsPerPage,
+    totalPostsNumber,
   } = props.pathContext;
 
   const articleSpring = useSpring({
@@ -51,7 +52,12 @@ export default (props: PageProps) => {
           ))}
         </animated.div>
 
-        <Pagination currentPage={currentPage} totalPages={totalPages} url={'tags'} />
+        <Pagination
+          itemPerPage={postsPerPage}
+          currentPage={currentPage}
+          totalItemNumber={totalPostsNumber}
+          url={'tags/' + tagName}
+        />
       </L1>
     </Layout>
   );

@@ -2,26 +2,30 @@ import React from 'react';
 import { Link } from 'gatsby';
 import './Pagination.scss';
 import cn from 'classnames';
+import createPageIndex, { PIndex } from '~/utils/createPageIndex';
 
-interface Props {
-  currentPage: number;
-  totalPages: number;
+interface Props extends PIndex {
   url: string;
   firstPage?: string;
-  pageIndexList: (number | '...')[];
 }
 
-const Pagination = ({ currentPage, totalPages, url, firstPage, pageIndexList }: Props) => {
+const Pagination = ({ currentPage, totalItemNumber, itemPerPage, url, firstPage }: Props) => {
+  const pageIndexList = createPageIndex({
+    totalItemNumber,
+    itemPerPage,
+    currentPage,
+  });
+
   if (firstPage === undefined) {
     firstPage = `/${url}/`;
   }
 
   const isFirst = currentPage === 1;
-  const isLast = currentPage === totalPages;
+  const isLast = currentPage === totalItemNumber;
   const prevPage = currentPage - 1 === 1 ? firstPage : `/${url}/${(currentPage - 1).toString()}`;
   const nextPage = `/${url}/${(currentPage + 1).toString()}`;
 
-  return totalPages > 1 ? (
+  return (
     <div style={{ textAlign: 'center' }}>
       <div className={'Pagination'}>
         {!isFirst && (
@@ -33,23 +37,23 @@ const Pagination = ({ currentPage, totalPages, url, firstPage, pageIndexList }: 
             ← Prev
           </Link>
         )}
-        {pageIndexList.map((v) =>
-          v !== '...' ? (
+        {pageIndexList.map((pageIndex) =>
+          pageIndex !== '...' ? (
             <Link
               className={cn('Pagination__numbers', 'Pagination__numbers--link', {
-                'Pagination__numbers--current': currentPage === v,
+                'Pagination__numbers--current': currentPage === pageIndex,
               })}
-              key={`pagination-number-${v}`}
-              to={`/${v !== 1 ? url : firstPage}/${v === 1 ? '' : v}`}
+              key={`pagination-number-${pageIndex}`}
+              to={`/${pageIndex !== 1 ? url : firstPage}/${pageIndex === 1 ? '' : pageIndex}`}
             >
-              {v}
+              {pageIndex}
             </Link>
           ) : (
             <span
               className={'Pagination__numbers Pagination__numbers--disable'}
-              key={`pagination-number-${v}`}
+              key={`pagination-number-${pageIndex}`}
             >
-              {v}
+              {pageIndex}
             </span>
           ),
         )}
@@ -65,8 +69,6 @@ const Pagination = ({ currentPage, totalPages, url, firstPage, pageIndexList }: 
         )}
       </div>
     </div>
-  ) : (
-    <span />
   );
 };
 

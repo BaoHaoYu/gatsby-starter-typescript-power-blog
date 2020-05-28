@@ -5,7 +5,6 @@ import config from '../../config/SiteConfig';
 import PageProps from '../models/PageProps';
 import { animated, useSpring } from 'react-spring';
 import { Layout as L1 } from '~/components/Layout/index';
-import createPageIndex from '~/utils/createPageIndex';
 
 export default (props: PageProps) => {
   const {
@@ -14,10 +13,9 @@ export default (props: PageProps) => {
     cCategories,
     cTags,
     postsPerPage,
-    togglePostsNumber,
+    totalPostsNumber,
     lastUpdatePosts,
     currentPage,
-    totalPages,
   } = props.pathContext;
 
   const articleSpring = useSpring({
@@ -26,12 +24,6 @@ export default (props: PageProps) => {
     opacity: 1,
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
-  });
-
-  const pageIndexList = createPageIndex({
-    toggleItemNumber: togglePostsNumber,
-    itemPerPage: postsPerPage,
-    currentPage,
   });
 
   return (
@@ -62,9 +54,9 @@ export default (props: PageProps) => {
         </animated.div>
 
         <Pagination
-          pageIndexList={pageIndexList}
+          itemPerPage={postsPerPage}
           currentPage={currentPage}
-          totalPages={totalPages}
+          totalItemNumber={totalPostsNumber}
           url={'categories/' + categoryName}
         />
       </L1>

@@ -11,6 +11,8 @@ import { useSpring, animated } from 'react-spring';
 interface IPageContext extends ILayoutProps {
   currentPage: number;
   totalPages: number;
+  postsPerPage: number;
+  totalPostsNumber: number;
 }
 
 interface Props {
@@ -19,7 +21,14 @@ interface Props {
 }
 
 export default (props: Props) => {
-  const { currentPage, totalPages, cTags, cCategories, lastUpdatePosts } = props.pageContext;
+  const {
+    currentPage,
+    postsPerPage,
+    cTags,
+    cCategories,
+    lastUpdatePosts,
+    totalPostsNumber,
+  } = props.pageContext;
 
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
@@ -59,8 +68,9 @@ export default (props: Props) => {
         </animated.div>
 
         <Pagination
+          itemPerPage={postsPerPage}
+          totalItemNumber={totalPostsNumber}
           currentPage={currentPage}
-          totalPages={totalPages}
           url={'blog'}
           firstPage={'/'}
         />

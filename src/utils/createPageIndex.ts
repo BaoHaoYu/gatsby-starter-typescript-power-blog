@@ -1,8 +1,10 @@
 import defaults from 'lodash/defaults';
 import paginate from 'jw-paginate';
-
-interface PIndex {
-  toggleItemNumber: number;
+import last from 'lodash/last';
+import take from 'lodash/take';
+import takeRight from 'lodash/takeRight';
+export interface PIndex {
+  totalItemNumber: number;
   currentPage: number;
   itemPerPage: number;
   maxBeforePage?: number;
@@ -18,18 +20,19 @@ export default function createPageIndex(p: PIndex) {
   });
 
   const {
-    toggleItemNumber,
+    totalItemNumber,
     currentPage,
     itemPerPage,
     maxBeforePage,
     maxAfterPage,
     maxCenterPage,
   } = newP;
+  const now = paginate(totalItemNumber, currentPage, itemPerPage, maxCenterPage);
 
   let beforePageIndex: any[] = [];
   let afterPageIndex: any[] = [];
-
-  const now = paginate(toggleItemNumber, currentPage, itemPerPage, maxCenterPage);
+  let before = false;
+  let after = false;
   const totalPages = now.totalPages;
 
   for (let i1 = 0; i1 < maxBeforePage + 2; i1++) {
@@ -39,28 +42,22 @@ export default function createPageIndex(p: PIndex) {
     afterPageIndex.push(i2);
   }
   afterPageIndex.reverse();
-  beforePageIndex = beforePageIndex.map((pageIndex) => {
-    if (pageIndex < now.pages[0] && pageIndex < maxBeforePage + 2) {
-      return pageIndex;
-    }
-    if (pageIndex < now.pages[0] && maxBeforePage + 2 < now.pages[0]) {
-      return '...';
-    }
-    return null;
-  });
 
-  afterPageIndex = afterPageIndex.map((pageIndex) => {
-    if (pageIndex > now.pages[now.pages.length - 1] && pageIndex > now.totalPages - maxAfterPage) {
-      return pageIndex;
-    }
-    if (
-      pageIndex > now.pages[now.pages.length - 1] &&
-      pageIndex === now.totalPages - maxAfterPage
-    ) {
-      return '...';
-    }
-    return null;
-  });
+  if (last(beforePageIndex) < now.pages[0]) {
+    before = true;
+  }
+  if (afterPageIndex[0] > last(now.pages)!) {
+    after = true;
+  }
+  beforePageIndex = take(beforePageIndex, maxBeforePage).filter((v) => v < now.pages[0]);
+  afterPageIndex = takeRight(afterPageIndex, maxAfterPage).filter((v) => v > last(now.pages)!);
+  if (before) {
+    beforePageIndex.push('...');
+  }
+  if (after) {
+    afterPageIndex.unshift('...');
+  }
 
   return [...beforePageIndex, ...now.pages, ...afterPageIndex].filter((v) => v !== null);
 }
+console.log(createPageIndex({ totalItemNumber: 60, currentPage: 5, itemPerPage: 10 }));

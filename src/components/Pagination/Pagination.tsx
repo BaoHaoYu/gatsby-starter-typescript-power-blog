@@ -8,9 +8,10 @@ interface Props {
   totalPages: number;
   url: string;
   firstPage?: string;
+  pageIndexList: (number | '...')[];
 }
 
-const Pagination = ({ currentPage, totalPages, url, firstPage }: Props) => {
+const Pagination = ({ currentPage, totalPages, url, firstPage, pageIndexList }: Props) => {
   if (firstPage === undefined) {
     firstPage = `/${url}/`;
   }
@@ -32,17 +33,27 @@ const Pagination = ({ currentPage, totalPages, url, firstPage }: Props) => {
             ← Prev
           </Link>
         )}
-        {Array.from({ length: totalPages }, (_, i) => (
-          <Link
-            className={cn('Pagination__numbers', {
-              'Pagination__numbers--current': currentPage === i + 1,
-            })}
-            key={`pagination-number${i + 1}`}
-            to={`/${i !== 0 ? url : firstPage}/${i === 0 ? '' : i + 1}`}
-          >
-            {i + 1}
-          </Link>
-        ))}
+        {pageIndexList.map((v) =>
+          v !== '...' ? (
+            <Link
+              className={cn('Pagination__numbers', 'Pagination__numbers--link', {
+                'Pagination__numbers--current': currentPage === v,
+              })}
+              key={`pagination-number-${v}`}
+              to={`/${v !== 1 ? url : firstPage}/${v === 1 ? '' : v}`}
+            >
+              {v}
+            </Link>
+          ) : (
+            <span
+              className={'Pagination__numbers Pagination__numbers--disable'}
+              key={`pagination-number-${v}`}
+            >
+              {v}
+            </span>
+          ),
+        )}
+
         {!isLast && (
           <Link
             className={'Pagination__numbers--next Pagination__numbers'}

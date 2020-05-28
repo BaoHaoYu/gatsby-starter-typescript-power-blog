@@ -137,20 +137,21 @@ function createClassificationPages(p: {
     // 更具标签或者分类划分的列表
     names.forEach((name) => {
       const groupPosts = classification.postsByClassificationNames[name];
-      const numPages = Math.ceil(groupPosts.length / postsPerPage);
-
-      _.chunk(groupPosts, postsPerPage).forEach((onePagePosts, i) => {
+      const chunk = _.chunk(groupPosts, postsPerPage);
+      chunk.forEach((onePagePosts, i) => {
         const sitePath = `/${classification.pluralName}/${_.kebabCase(name)}`;
         createPage({
-          path: i === 0 ? sitePath : `${sitePath}/${i}`,
+          path: i === 0 ? sitePath : `${sitePath}/${i + 1}`,
           component: classification.template.part,
           context: {
-            posts: onePagePosts,
             [`${classification.singularName}Name`]: name,
+            posts: onePagePosts,
             cTags,
             cCategories,
             lastUpdatePosts,
-            totalPages: numPages,
+            postsPerPage,
+            togglePostsNumber: groupPosts.length,
+            totalPages: chunk.length,
             currentPage: i + 1,
           },
         });

@@ -1,6 +1,6 @@
 .Pagination {
   text-align: center;
-  margin: 2rem;
+  margin: 2rem 0;
 
   display: inline-block;
   padding: 0 2.5rem;
@@ -19,7 +19,13 @@
     padding: 1rem;
     color: #696c6d;
 
-    &:hover,
+    &--link {
+      &:hover {
+        background-color: #ce8460;
+        color: white;
+      }
+    }
+
     &--current {
       background-color: #ce8460;
       color: white;
@@ -40,33 +46,7 @@
     }
 
     @media (max-width: 992px) {
-      padding: 0 1.4rem;
-      display: none;
-
-      &:nth-of-type(2) {
-        position: relative;
-        padding-right: 5rem;
-
-        &::after {
-          content: '...';
-          position: absolute;
-          top: 0;
-          left: 4.5rem;
-        }
-      }
-
-      &:nth-child(-n + 3),
-      &:nth-last-child(-n + 3) {
-        display: block;
-      }
-
-      &:nth-last-child(-n + 4) {
-        padding-right: 1.4rem;
-
-        &::after {
-          content: none;
-        }
-      }
+      padding: 0 1rem;
     }
   }
 }

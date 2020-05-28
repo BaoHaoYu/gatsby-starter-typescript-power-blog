@@ -5,6 +5,7 @@ import config from '../../config/SiteConfig';
 import PageProps from '../models/PageProps';
 import { animated, useSpring } from 'react-spring';
 import { Layout as L1 } from '~/components/Layout/index';
+import createPageIndex from '~/utils/createPageIndex';
 
 export default (props: PageProps) => {
   const {
@@ -12,6 +13,8 @@ export default (props: PageProps) => {
     categoryName,
     cCategories,
     cTags,
+    postsPerPage,
+    togglePostsNumber,
     lastUpdatePosts,
     currentPage,
     totalPages,
@@ -24,6 +27,13 @@ export default (props: PageProps) => {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   });
+
+  const pageIndexList = createPageIndex({
+    toggleItemNumber: togglePostsNumber,
+    itemPerPage: postsPerPage,
+    currentPage,
+  });
+
   return (
     <Layout>
       <Helmet title={`${categoryName} | ${config.siteTitle}`} />
@@ -51,7 +61,12 @@ export default (props: PageProps) => {
           ))}
         </animated.div>
 
-        <Pagination currentPage={currentPage} totalPages={totalPages} url={'categories'} />
+        <Pagination
+          pageIndexList={pageIndexList}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          url={'categories/' + categoryName}
+        />
       </L1>
     </Layout>
   );

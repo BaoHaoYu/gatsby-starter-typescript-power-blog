@@ -33,7 +33,6 @@ export default (props: Props) => {
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
   const articleSpring = useSpring({
-    tension: 300,
     delay: 200,
     opacity: 1,
     transform: 'translateY(0)',

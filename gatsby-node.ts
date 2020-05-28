@@ -5,8 +5,6 @@ import _ from 'lodash';
 import Data from '~/models/Data';
 import config from './config/SiteConfig';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-// @ts-ignore
-import precss from 'precss';
 
 interface NodePost {
   node: Post;
@@ -172,6 +170,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions }) => {
     createNodeField({ node: tNode, name: 'slug', value: slug });
   }
 };
+
 export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => {
   const { createPage } = actions;
 
@@ -278,6 +277,7 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
     });
   });
 };
+
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (p) => {
   const { loaders, actions } = p;
   const isProduction = process.env.NODE_ENV === 'production';
@@ -294,15 +294,6 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (p) =>
                   loaders.css({ importLoaders: 1 }),
                   {
                     loader: path.join(__dirname, 'loader/css-map-loader/index.js'),
-                  },
-                  {
-                    loader: 'postcss-loader',
-                    options: {
-                      sourceMap: !isProduction,
-                      plugins() {
-                        return [precss];
-                      },
-                    },
                   },
                   {
                     loader: 'sass-loader',

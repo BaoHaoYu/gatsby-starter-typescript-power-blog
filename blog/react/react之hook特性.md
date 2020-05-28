@@ -1,6 +1,7 @@
 ---
 title: react之hook特性
 date: 2020-04-15 16:00:00
+banner: http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/react-hook.png
 description: hook 可加强函数式编程，减少类和装饰器，目前第三方项目在 hook 上百花齐放。
 tags:
   - react
@@ -29,10 +30,13 @@ categories:
 
 可以达到`this.state`, `this.setState`功能
 
-```tsx
-import * as React from 'react'
+{{< codes Hook Class >}}
 
-export function UseStateDemo() {
+{{< code >}}
+```tsx
+import React from 'react'
+
+export function UseHookDemo() {
   const [state, setState] = React.useState({ value: '' })
   return (
     <input
@@ -43,6 +47,32 @@ export function UseStateDemo() {
   )
 }
 ```
+{{< /code >}}
+
+{{< code >}}
+```tsx
+import React from 'react';
+
+export class ClassDemo extends React.Component {
+  state = {
+    value: '',
+  };
+
+  render() {
+    return (
+      <input
+        type="text"
+        value={this.state.value}
+        onChange={(e) => this.setState({ value: e.target.value })}
+      />
+    );
+  }
+}
+
+```
+{{< /code >}}
+
+{{< /codes >}}
 
 ## useEffect
 
@@ -313,7 +343,7 @@ export function UseCallback() {
 
 ### react-router
 
-可以舍弃`withRouter`，使用`hook`可以获得所有参数
+可以舍弃`withRouter`，使用`hook`可以获得所有参数  
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_VTpXueXP63.png)
 
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_WTX4iO30UG.png)
@@ -327,6 +357,6 @@ const dispatch = useDispatch()
 const isOn = useSelector((state: RootState) => state.isOn)
 ```
 
-### reat-dnd
+### react-dnd
 
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_693jrbYOpF.png)

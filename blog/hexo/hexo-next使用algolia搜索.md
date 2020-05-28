@@ -112,11 +112,13 @@ algolia_search:
 
 ## 效果
 
-algolia_search
-![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_kyHnDJQ9Tg.png)
+`algolia_search`
 
-local_search
-![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_sxLn7AmnyB.png)
+![d](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_kyHnDJQ9Tg.png)
+
+`local_search`
+
+![e](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_sxLn7AmnyB.png)
 
 ## 加入搜索内容
 

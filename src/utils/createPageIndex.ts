@@ -3,6 +3,8 @@ import paginate from 'jw-paginate';
 import last from 'lodash/last';
 import take from 'lodash/take';
 import takeRight from 'lodash/takeRight';
+import uniq from 'lodash/uniq';
+import compact from 'lodash/compact';
 export interface PIndex {
   totalItemNumber: number;
   currentPage: number;
@@ -31,8 +33,6 @@ export default function createPageIndex(p: PIndex) {
 
   let beforePageIndex: any[] = [];
   let afterPageIndex: any[] = [];
-  let before = false;
-  let after = false;
   const totalPages = now.totalPages;
 
   for (let i1 = 0; i1 < maxBeforePage + 2; i1++) {
@@ -44,20 +44,13 @@ export default function createPageIndex(p: PIndex) {
   afterPageIndex.reverse();
 
   if (last(beforePageIndex) < now.pages[0]) {
-    before = true;
+    beforePageIndex = [...take(beforePageIndex, maxBeforePage), 'before'];
   }
   if (afterPageIndex[0] > last(now.pages)!) {
-    after = true;
-  }
-  beforePageIndex = take(beforePageIndex, maxBeforePage).filter((v) => v < now.pages[0]);
-  afterPageIndex = takeRight(afterPageIndex, maxAfterPage).filter((v) => v > last(now.pages)!);
-  if (before) {
-    beforePageIndex.push('...');
-  }
-  if (after) {
-    afterPageIndex.unshift('...');
+    afterPageIndex = ['after', ...takeRight(afterPageIndex, maxAfterPage)];
   }
 
-  return [...beforePageIndex, ...now.pages, ...afterPageIndex].filter((v) => v !== null);
+  return uniq(compact([...beforePageIndex, ...now.pages, ...afterPageIndex])).map((v) =>
+    v === 'before' || v === 'after' ? '...' : v,
+  );
 }
-console.log(createPageIndex({ totalItemNumber: 60, currentPage: 5, itemPerPage: 10 }));

@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { usePrevious, useMeasure } from './helpers';
+import cn from 'classnames';
 import * as Icons from './icons';
-import './index.scss';
+import './TreeNode.scss';
+
 interface TreeProps {
   name: React.ReactNode;
   children?: any;
   style?: React.CSSProperties;
   open?: boolean;
+  active?: boolean;
 }
 
-export function Tree(props: TreeProps) {
+export function TreeNode(props: TreeProps) {
   const { children, name, style, open } = props;
   const [isOpen, setOpen] = useState(open);
   const prev = usePrevious(isOpen);
@@ -28,7 +31,7 @@ export function Tree(props: TreeProps) {
     | 'CloseSquareO';
   const Icon = Icons[svgKey];
   return (
-    <div className={'TreeNode'}>
+    <div className={cn('TreeNode', { 'TreeNode--active': props.active })}>
       <div className={'TreeNode__title'}>
         <span className={'TreeNode__toggle'} onClick={() => setOpen(!isOpen)}>
           <Icon className={'TreeNode__icon'} style={{ opacity: children ? 1 : 0.3 }} />

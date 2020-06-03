@@ -8,7 +8,7 @@ import config from '../../config/SiteConfig';
 import PageProps from '../models/PageProps';
 import update from 'lodash/update';
 import map from 'lodash/map';
-import { Tree } from '~/components/Tree/Tree';
+import { TreeNode } from '~/components/Tree/TreeNode';
 import { useSpring, animated } from 'react-spring';
 
 type ResultObject = { [K: string]: boolean | ResultObject };
@@ -45,21 +45,21 @@ function toList(allCategories: [string][]): ResultList {
   return deepToList(result);
 }
 
-function renderNode(list: ResultList, open?: boolean) {
+function Tree(props: { list: ResultList; open?: boolean }) {
   return (
     <>
-      {list.map((item, index) => (
-        <Tree
+      {props.list.map((item, index) => (
+        <TreeNode
           key={index}
-          open={open}
+          open={props.open}
           name={
             <Link className={'TreeNode__link'} to={`/categories/${kebabCase(item.name)}`}>
               {item.name}
             </Link>
           }
         >
-          {item.children ? renderNode(item.children) : ''}
-        </Tree>
+          {item.children ? <Tree list={item.children} /> : ''}
+        </TreeNode>
       ))}
     </>
   );
@@ -80,8 +80,11 @@ export default (props: PageProps) => {
     return (
       <Layout showSideBar={false}>
         <Helmet title={`Categories | ${config.siteTitle}`} />
-        <animated.div style={spring}>{renderNode(list, true)}</animated.div>
+        <animated.div style={spring}>
+          <Tree list={list} open={true} />
+        </animated.div>
       </Layout>
     );
   }
+  return '';
 };

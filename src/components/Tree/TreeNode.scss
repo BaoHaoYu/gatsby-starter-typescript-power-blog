@@ -1,4 +1,6 @@
-.TreeNode {
+$root: TreeNode;
+
+.#{$root} {
   position: relative;
   padding: 4px 0 0 0;
   text-overflow: ellipsis;
@@ -36,5 +38,30 @@
 
   &__toggle {
     display: flex;
+
+    svg {
+      fill: #1c1d1f;
+    }
+  }
+
+  &--active {
+    > .#{$root} {
+      &__title {
+        border-bottom-color: #ce8460;
+
+        .#{$root} {
+          &__link {
+            color: #ce8460;
+            font-weight: bold;
+          }
+
+          &__toggle {
+            svg {
+              fill: #ce8460;
+            }
+          }
+        }
+      }
+    }
   }
 }

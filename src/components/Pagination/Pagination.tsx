@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, totalItemNumber, itemPerPage, url, firstPage 
   }
 
   const isFirst = currentPage === 1;
-  const isLast = currentPage === pageIndexList.length;
+  const isLast = currentPage === pageIndexList[pageIndexList.length - 1];
   const prevPage = currentPage - 1 === 1 ? firstPage : `/${url}/${(currentPage - 1).toString()}`;
   const nextPage = `/${url}/${(currentPage + 1).toString()}`;
 

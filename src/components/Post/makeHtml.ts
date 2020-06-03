@@ -1,12 +1,14 @@
 import cn from 'classnames';
 import cheerio from 'cheerio';
 import he from 'he';
-export function make(_mdContent: string) {
+
+export function makeHtml(_mdContent: string) {
   // 清除空的P标签
   function cleanEmptyP(mdContent: string) {
     return mdContent.replace(/<p>(\s+)?<\/p>/g, '');
   }
 
+  // 添加下划线
   function addHrBeforeH(mdContent: string) {
     const $ = cheerio.load(mdContent);
 
@@ -24,6 +26,7 @@ export function make(_mdContent: string) {
     return $.html();
   }
 
+  // 可以使用markdown语法的盒子
   function makeBoxMd(mdContent: string) {
     return mdContent.replace(/{{&#x3C; box(md|Md) >}}(.|\n)+?{{&#x3C; \/box(md|Md) >}}/g, (v) => {
       return v
@@ -32,6 +35,7 @@ export function make(_mdContent: string) {
     });
   }
 
+  // 简单的盒子，markdown语法不会被转换
   function makeBoxSimple(mdContent: string) {
     return mdContent.replace(/{{&#x3C; box >}}(.|\n)+?{{&#x3C; \/box >}}/g, (v) => {
       const content = v.replace(/{{&#x3C; box >}}\n?/, '').replace(/\n?{{&#x3C; \/box >}}/, '');
@@ -39,6 +43,7 @@ export function make(_mdContent: string) {
     });
   }
 
+  // 展开收起内容
   function makeExpand(mdContent: string) {
     return mdContent.replace(/{{&#x3C; expand ".+?" >}}(.|\n)+?{{&#x3C; \/expand >}}/g, (v) => {
       const expandTitle = (v.match(/{{&#x3C; expand ".+?" >}}/) || [''])[0]
@@ -59,6 +64,7 @@ export function make(_mdContent: string) {
     });
   }
 
+  // 代码tab切换
   function makeCodeTabs(mdContent: string) {
     return mdContent.replace(
       /(<p>)?{{&#x3C; codes .+? >}}(.|\n)+?{{&#x3C; \/codes >}}(<\/p>)?/g,
@@ -93,6 +99,7 @@ export function make(_mdContent: string) {
     );
   }
 
+  // tab切换
   function makeTabs(mdContent: string) {
     return mdContent.replace(/{{&#x3C; tabs .+? >}}(.|\n)+?{{&#x3C; \/tabs >}}/g, (v) => {
       const tabs = (v.match(/{{&#x3C; tabs .+? >}}/) || [''])[0]
@@ -122,6 +129,7 @@ export function make(_mdContent: string) {
     });
   }
 
+  // 弹出提示框，类似盒子，样式不用而已
   function makeAlert(mdContent: string) {
     return mdContent.replace(/{{&#x3C; alert theme=".+?" >}}(.|\n)+?{{&#x3C; \/alert >}}/g, (v) => {
       const cl = (v.match(/{{&#x3C; alert theme=".+?" >}}/) || [''])[0]
@@ -136,6 +144,7 @@ export function make(_mdContent: string) {
     });
   }
 
+  // 注意事项
   function makeNotice(mdContent: string) {
     return mdContent.replace(/{{&#x3C; notice .+? >}}(.|\n)+?{{&#x3C; \/notice >}}/g, (v) => {
       const cl = (v.match(/{{&#x3C; notice .+? >}}/) || [''])[0]
@@ -147,7 +156,8 @@ export function make(_mdContent: string) {
     });
   }
 
-  function makeLazy(mdContent: string) {
+  // 图片懒加载
+  function addImageLazy(mdContent: string) {
     const $ = cheerio.load(mdContent);
 
     $('img').each((_index, element) => {
@@ -161,25 +171,34 @@ export function make(_mdContent: string) {
     return $.html();
   }
 
-  // Notice
+  // 代码加入行号
+  function addLineNumber(mdContent: string) {
+    const $ = cheerio.load(mdContent);
+
+    $('pre > code').each((_index, el) => {
+      const codeContent = $(el).html();
+      const codeLine = codeContent?.split('\n') || [];
+
+      let lineNumber = codeLine.map((_v) => `<span></span>`).join('');
+      lineNumber = `<code class="index">${lineNumber}</code>`;
+
+      $(el).parent().prepend(lineNumber);
+    });
+
+    return $.html();
+  }
+
   _mdContent = makeNotice(_mdContent);
-  // Alert
   _mdContent = makeAlert(_mdContent);
-  // Tabs
   _mdContent = makeTabs(_mdContent);
-  // Code
   _mdContent = makeCodeTabs(_mdContent);
-  // Expand
   _mdContent = makeExpand(_mdContent);
-  // BoxMd
   _mdContent = makeBoxMd(_mdContent);
-  //
   _mdContent = makeBoxSimple(_mdContent);
-  //
-  _mdContent = makeLazy(_mdContent);
-  // Add hr
+  _mdContent = addImageLazy(_mdContent);
+  _mdContent = addLineNumber(_mdContent);
   _mdContent = addHrBeforeH(_mdContent);
-  //
   _mdContent = cleanEmptyP(_mdContent);
+
   return _mdContent;
 }

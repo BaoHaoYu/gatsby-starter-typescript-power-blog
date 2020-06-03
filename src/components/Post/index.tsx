@@ -1,19 +1,19 @@
-import React, { useRef } from 'react';
-import SideBar, { Data } from '~/components/Post/Sidebar';
+import React, { useMemo, useRef, useEffect } from 'react';
+import { Data, PostSidebar } from '~/components/Post/PostSidebar/PostSidebar';
 import { observer } from 'mobx-react';
 import { Row, Col, Affix } from 'antd';
-import tocData from '~/components/Post/Sidebar/tocData';
+import tocData from '~/components/Post/PostSidebar/tocData';
 import $ from 'jquery';
 import { useExceedMd } from '~/utils/media';
-import { Meta, IMeta } from '~/components/Meta/Meta';
-import { make } from './make';
-import cn from 'classnames';
+import { IMeta } from '~/components/Meta/Meta';
+import { makeHtml } from './makeHtml';
 import './index.scss';
 import IPost from '~/models/Post';
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
-import { NavPreAndNext } from './NavPreAndNext/NavPreAndNext';
 import { useSpring, animated } from 'react-spring';
 import { imageGallery } from '~/utils/imageGallery';
+import { PostContent } from './PostContent/PostContent';
+import { PostHead } from './PostHead/PostHead';
 
 interface IProps extends IMeta {
   title: string;
@@ -33,9 +33,10 @@ function bindTabs(selector: string, activeClass: string) {
   const $item = $(selector);
   $item.on('click', function (e) {
     e.preventDefault();
+    const $parent = $(this).parent();
     const paneActiveClass = 'tab-content__pane--active';
-    const index = $item.index(this);
-    $item.removeClass(activeClass).eq(index).addClass(activeClass);
+    const index = $parent.children().index(this);
+    $parent.children().removeClass(activeClass).eq(index).addClass(activeClass);
     $(this)
       .parent()
       .next()
@@ -57,10 +58,10 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
     toggleToc: true,
     postHeadElement: [],
   });
-  const html = make(props.content);
-
+  const html = useMemo(() => makeHtml(props.content), []);
   const post = useRef(null);
-  React.useEffect(() => {
+
+  useEffect(() => {
     const head = $(post.current!).children('h2,h3,h4,h5,h6');
     const postHeadElement: HTMLElement[] = [];
     head.each((_index, element) => {
@@ -92,14 +93,12 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
     from: { opacity: 0, transform: 'translateY(50px)' },
     ...toggleStyle,
   });
-
   const postHeadSpring = useSpring({
     delay: 100,
     opacity: 1,
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(-50px)' },
   });
-
   const postContentSpring = useSpring({
     delay: 400,
     opacity: 1,
@@ -119,41 +118,28 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
         <Col lg={showToc ? 18 : 24} md={24}>
           <animated.div style={postHeadSpring}>
             {/*头部*/}
-            <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
-              <h1 className={'h2'}>{props.title}</h1>
-              <div style={{ marginBottom: `1.5rem` }}>
-                <Meta
-                  tags={props.tags}
-                  categories={props.categories}
-                  date={props.date}
-                  timeToRead={props.timeToRead}
-                />
-              </div>
-            </Col>
-            {/*图片*/}
-            {props.banner && (
-              <div>
-                <img className={'banner'} src={props.banner} alt={props.title} />
-              </div>
-            )}{' '}
+            <PostHead
+              showToc={showToc}
+              title={props.title}
+              date={props.date}
+              tags={props.tags}
+              categories={props.categories}
+              banner={props.banner}
+              timeToRead={props.timeToRead}
+            />
           </animated.div>
 
           {/*内容*/}
           <Col style={{ margin: 'auto' }} lg={showToc ? 24 : 20}>
             <animated.div style={postContentSpring}>
-              <div
-                className={cn('content', {
-                  'content--showToc': showToc,
-                })}
-              >
-                <div
-                  id={'postContent'}
-                  ref={post}
-                  dangerouslySetInnerHTML={{ __html: html || '' }}
-                />
-
-                {exceedMd && <NavPreAndNext next={props.next} prev={props.prev} />}
-              </div>
+              <PostContent
+                post={post}
+                showToc={showToc}
+                next={props.next}
+                prev={props.prev}
+                exceedMd={exceedMd}
+                html={html}
+              />
             </animated.div>
           </Col>
         </Col>
@@ -163,13 +149,14 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
           <Affix offsetTop={50}>
             {exceedMd && (
               <animated.div style={sideBarSpring}>
-                <SideBar postHeadElement={state.postHeadElement} data={state.data} />
+                <PostSidebar postHeadElement={state.postHeadElement} data={state.data} />
               </animated.div>
             )}
           </Affix>
         </Col>
       </Row>
 
+      {/*显示隐藏导航栏*/}
       {exceedMd && state.data.length > 0 && (
         <div onClick={toggleToc} className={'bottom'}>
           {state.toggleToc ? (

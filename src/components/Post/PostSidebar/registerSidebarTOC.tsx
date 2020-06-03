@@ -1,4 +1,4 @@
-import { Data } from './index';
+import { Data } from './PostSidebar';
 
 interface IP {
   postHeadElement: HTMLElement[];

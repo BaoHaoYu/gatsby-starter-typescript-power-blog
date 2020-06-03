@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import cn from 'classnames';
-import './index.scss';
+import './PostSidebar.scss';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
-import { registerSideBarTOC } from '~/components/Post/sidebar/registerSidebarTOC';
+import { registerSideBarTOC } from '~/components/Post/PostSidebar/registerSidebarTOC';
 import $ from 'jquery';
 import get from 'lodash/get';
 
@@ -170,4 +170,4 @@ function findNodeParents(data: Data, item: Data[0]) {
   return list;
 }
 
-export default observer(SideBar);
+export const PostSidebar = observer(SideBar);

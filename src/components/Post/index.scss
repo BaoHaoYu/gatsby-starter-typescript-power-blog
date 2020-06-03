@@ -252,6 +252,73 @@
     }
   }
 
+  .paragraph {
+    font-size: 0.9rem;
+  }
+
+  .codeTabs {
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+
+    &__link {
+      height: 30px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 13.8px;
+      color: #555;
+      border-top: 1px solid transparent;
+      font-family: montserrat, sans-serif;
+      text-transform: capitalize;
+      transition: all 0.2s ease-in;
+      background-color: #e2e6e9;
+      padding: 0 10px;
+
+      &:hover {
+        color: #ce8460;
+      }
+
+      &:first-child {
+        border-top-left-radius: 0.25rem;
+      }
+
+      &--active {
+        background-color: #ce8460;
+        color: white;
+        font-weight: bold;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+
+    &--onlyCode {
+      background: #e2e6e9;
+      border: none;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125);
+
+      pre {
+        margin: 0;
+      }
+
+      pre[class*='language-'] {
+        margin: 0;
+      }
+
+      .tab-content {
+        background: #eceff1;
+        padding: 0 !important;
+      }
+
+      pre[class*='language-'] {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+  }
+
   blockquote {
     font-size: 20px !important;
     color: #696c6d;
@@ -299,8 +366,7 @@
     }
   }
 
-  p,
-  .paragraph {
+  p {
     font-size: 0.9rem;
   }
 
@@ -322,10 +388,6 @@
     }
   }
 
-  pre[class*='language-'] {
-    border-radius: 5px;
-  }
-
   hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -334,60 +396,61 @@
     background: none;
   }
 
-  .codeTabs {
+  pre[class*='language-'] {
+    $lineHeight: 1.2rem;
+
+    display: flex;
     border-radius: 5px;
-    overflow: hidden;
+    overflow: auto;
+    position: relative;
+    margin: 0.5em 0;
+    padding: 1.25em 1em;
 
-    &__link {
-      height: 30px;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      font-size: 13.8px;
-      color: #555;
-      border-top: 1px solid transparent;
-      font-family: montserrat, sans-serif;
-      text-transform: capitalize;
-      transition: all 0.2s ease-in;
-      background-color: #e2e6e9;
-      padding: 0 10px;
+    code[class*="language-"] {
+      margin-left: 1em;
+      line-height: $lineHeight;
 
-      &:hover {
-        color: #ce8460;
-      }
-
-      &:first-child {
-        border-top-left-radius: 0.25rem;
-      }
-
-      &--active {
-        background-color: #ce8460;
-        color: white;
-        font-weight: bold;
-
-        &:hover {
-          color: white;
-        }
+      * {
+        line-height: $lineHeight;
       }
     }
 
-    &--onlyCode {
-      background: #e2e6e9;
-      border: none;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125);
+    code.index {
+      top: 0;
+      left: 0;
+      border-right: 1px solid #6b6b6b;
+      box-sizing: border-box;
+      min-width: 2em;
+      margin: 0;
+      user-select: none;
+      border-radius: 0;
+      width: 1.8rem;
+      line-height: $lineHeight;
 
-      pre {
-        margin: 0;
-      }
+      span {
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        display: inline-block;
+        float: left;
+        padding-right: 0.7em;
+        color: #999;
+        text-align: right;
+        counter-increment: linenumber;
 
-      .tab-content {
-        background: #eceff1;
-        padding: 0 !important;
-      }
+        &:before {
+          content: counter(linenumber);
+        }
 
-      pre[class*='language-'] {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        &:hover {
+          cursor: pointer;
+
+          &:before {
+            content: 'copy';
+            font-size: 12px;
+            line-height: 20px;
+          }
+        }
       }
     }
   }

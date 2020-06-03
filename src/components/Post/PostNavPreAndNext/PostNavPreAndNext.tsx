@@ -2,9 +2,9 @@ import IPost from '~/models/Post';
 import { Col, Row } from 'antd';
 import { Link } from 'gatsby';
 import React from 'react';
-import './NavPreAndNext.scss';
+import './PostNavPreAndNext.scss';
 
-export function NavPreAndNext(props: { prev?: IPost; next?: IPost }) {
+export function PostNavPreAndNext(props: { prev?: IPost; next?: IPost }) {
   return (
     <div className={'navPost'}>
       <Row>

@@ -1,4 +1,4 @@
-import { Data } from './index';
+import { Data } from './PostSidebar';
 import $ from 'jquery';
 
 // 获得文章标题导航数据

@@ -1,3 +1,6 @@
+/**
+ * 生成图片画廊，自适应图片宽度，高度
+ */
 import PhotoSwipe from 'photoswipe';
 import $ from 'jquery';
 import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default';

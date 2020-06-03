@@ -102,18 +102,24 @@ function UseEffect(p: { value: string; onChange: any }) {
 
 2.参考值变化才执行之后的方法, `React.useEffect`第二个参数就是参考值, 如下是`class`组件对比`hook`函数式组件
 
+{{< codes Hook Class >}}
+{{< code >}}
+```tsx
+React.useEffect(() => {
+  // componentDidMount or componentDidUpdate
+}, [p.value])
+```
+{{< /code >}}
+
+{{< code >}}
 ```tsx
 componentDidUpdate(prevProps: any) {
     if (prevProps.value === this.props.value) return
     // componentDidUpdate
 }
 ```
-
-```tsx
-React.useEffect(() => {
-  // componentDidMount or componentDidUpdate
-}, [p.value])
-```
+{{< /code >}}
+{{< /codes >}}
 
 3.提取`componentDidMount`, `React.useEffect`第二个参数改成空数组
 
@@ -290,8 +296,9 @@ const CountText = React.memo((p: { count: number }) => {
 ## useCallback
 
 参考如下两个链接，解释为何需要`useCallback`，如何达到`PureComponent`效果
-[usememo-and-usecallback](https://kentcdodds.com/blog/usememo-and-usecallback)
-[translation-usememo-and-usecallback](https://jancat.github.io/post/2019/translation-usememo-and-usecallback/)
+
+- [usememo-and-usecallback](https://kentcdodds.com/blog/usememo-and-usecallback)
+- [translation-usememo-and-usecallback](https://jancat.github.io/post/2019/translation-usememo-and-usecallback/)
 
 ```tsx
 import * as React from 'react'

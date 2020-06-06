@@ -19,7 +19,7 @@ export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
       <div className={'section'}>
         <Container>
           <Row gutter={exceedMd && p.showSideBar ? 30 : 0}>
-            <Col sm={24} lg={p.showSideBar ? 16 : 24}>
+            <Col span={24} lg={p.showSideBar ? 16 : 24}>
               {p.children}
             </Col>
             {exceedMd && p.showSideBar && (

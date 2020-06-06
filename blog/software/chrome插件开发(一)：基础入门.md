@@ -13,6 +13,7 @@ categories:
 推销使用`typescript` + `gulp`开发，好处如下
 
 安装`@types/chrome`可以提供完善的智能提示和 API 预览，也许想要进一步扩展可以加入`react`，`sass`，只要使用`nodejs`工程化，一切都变得十分美好
+
 ![智能提示](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/Code_Ako9Q6BZrP.png)
 
 <!-- more -->
@@ -20,6 +21,7 @@ categories:
 ![API预览](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/Code_cW45boUm15.png)
 
 2.使用`async`和`await`解决回调问题
+
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/Code_IFZiYoW6Gu.png)
 
 ---
@@ -88,18 +90,23 @@ categories:
 ## 载入扩展
 
 创建好`background.js`和`pop.html`进入`chrome://extensions/`
+
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_Jr5qeUHsFA.png)
 
 本文项目扩展所在的目录
+
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/Code_Ukq4jDdphr.png)
 
 鼠标放上去效果
+
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_pDyxk8X5DJ.png)
 
 点击弹窗内容
+
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_at3OhtCiyo.png)
 
 扩展程序页可以看见扩展的名字，版本，描述，ID
+ 
 ![](http://bhyblog.oss-cn-shenzhen.aliyuncs.com/hexo/chrome_WaSGHa9In5.png)
 
 ## 通信

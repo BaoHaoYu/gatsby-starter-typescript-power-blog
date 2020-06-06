@@ -73,6 +73,7 @@ function countArray(
 
 // 标签分类页面
 function createClassificationPages(p: {
+  allCategories: string[][];
   createPage: Actions['createPage'];
   posts: { node: Post }[];
   postsPerPage: number;
@@ -113,14 +114,6 @@ function createClassificationPages(p: {
 
   classifications.forEach((classification) => {
     const names = Object.keys(classification.postsByClassificationNames);
-    const allCategories: any[] = [];
-    if (classification.singularName === 'category') {
-      posts.map(({ node }) => {
-        if (node.frontmatter.categories) {
-          allCategories.push(node.frontmatter.categories);
-        }
-      });
-    }
 
     // 所有标签或者分类
     createPage({
@@ -128,7 +121,7 @@ function createClassificationPages(p: {
       component: classification.template.all,
       context: {
         [`${classification.pluralName}`]: names.sort(),
-        allCategories,
+        allCategories: p.allCategories,
       },
     });
 
@@ -212,6 +205,13 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
     const cTags = countArray(posts, 'tags');
     const cCategories = countArray(posts, 'categories');
 
+    const allCategories: string[][] = [];
+    posts.map(({ node }) => {
+      if (node.frontmatter.categories) {
+        allCategories.push(node.frontmatter.categories);
+      }
+    });
+
     const lastUpdatePosts1 = _.filter(
       posts,
       ({ node }: NodePost) => node.frontmatter.latest_update_date,
@@ -251,6 +251,7 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
     });
 
     createClassificationPages({
+      allCategories,
       createPage,
       posts,
       postsPerPage,

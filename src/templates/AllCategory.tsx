@@ -14,7 +14,7 @@ import { useSpring, animated } from 'react-spring';
 type ResultObject = { [K: string]: boolean | ResultObject };
 type ResultList = { name: string; children?: ResultList }[];
 
-function toList(allCategories: [string][]): ResultList {
+function toList(allCategories: string[][]): ResultList {
   const result: any = {};
   if (allCategories) {
     allCategories.map((postCategories) => {

@@ -1,33 +1,20 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { graphql } from 'gatsby';
-import {
-  Layout,
-  // Wrapper,
-  // Header,
-  // Subline,
-  SEO,
-  // PrevNext,
-  // SectionTitle,
-  // Content,
-} from '../components';
+import { graphql, PageProps } from 'gatsby';
+import { Layout, SEO } from '../components';
 import config from '../../config/SiteConfig';
 import '../utils/prismjs-theme.css';
-import PathContext from '../models/PathContext';
-import Post from '../models/Post';
 import { Post as PostMain } from '~/components/Post';
 import { Layout as L1 } from '~/components/Layout/index';
-interface Props {
-  data: {
-    markdownRemark: Post;
-  };
-  pathContext: PathContext;
-}
+import { PostContext } from '~/models/PageContext';
+import Post from '~/models/Post';
 
-export default (props: Props) => {
-  const { prev, next } = props.pathContext;
+type PostPageProps = PageProps<{ markdownRemark: Post }, PostContext>;
+
+// 文章页
+export default (props: PostPageProps) => {
+  const { prev, next } = props.pageContext;
   const post = props.data.markdownRemark;
-
   return (
     <Layout>
       <L1>

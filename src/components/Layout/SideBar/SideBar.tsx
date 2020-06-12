@@ -96,19 +96,23 @@ export function SideBar(p: SideBarProps & { children?: React.ReactNode }) {
         <Widget title={'最后更新'}>
           <ul className={'LastUpdate'}>
             {p.lastUpdatePosts?.map((post) => (
-              <li className={'LastUpdate__item'} key={post.slug}>
+              <li className={'LastUpdate__item'} key={post.fields.slug}>
                 <Row gutter={12}>
                   <Col span={6}>
-                    <img className={'LastUpdate__banner'} src={post.banner} alt={post.title} />
+                    <img
+                      className={'LastUpdate__banner'}
+                      src={post.frontmatter.banner}
+                      alt={post.frontmatter.title}
+                    />
                   </Col>
                   <Col span={18}>
                     <h5>
-                      <Link className={'LastUpdate__link'} to={'/blog/' + post.slug}>
-                        {post.title}
+                      <Link className={'LastUpdate__link'} to={'/blog/' + post.fields.slug}>
+                        {post.frontmatter.title}
                       </Link>
                     </h5>
 
-                    <small>{post.latest_update_date}</small>
+                    <small>{post.frontmatter.latest_update_date}</small>
                   </Col>
                 </Row>
               </li>

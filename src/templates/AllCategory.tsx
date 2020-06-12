@@ -66,7 +66,7 @@ function Tree(props: { list: ResultList; open?: boolean }) {
 }
 
 export default (props: PageProps) => {
-  const { categories, allCategories } = props.pathContext;
+  const { allCategories } = props.pathContext;
 
   const list = toList(allCategories || []);
   const spring = useSpring({
@@ -76,7 +76,7 @@ export default (props: PageProps) => {
     from: { opacity: 0, transform: 'translateY(60px)' },
   });
 
-  if (categories) {
+  if (allCategories) {
     return (
       <Layout showSideBar={false}>
         <Helmet title={`Categories | ${config.siteTitle}`} />

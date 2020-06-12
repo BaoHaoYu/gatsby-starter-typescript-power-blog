@@ -1,22 +1,26 @@
 import React from 'react';
-import PageProps from '../models/PageProps';
 import { Article, Layout, Pagination } from '../components';
 import { Helmet } from 'react-helmet';
 import config from '../../config/SiteConfig';
 import { Layout as L1 } from '~/components/Layout/index';
 import { animated, useSpring } from 'react-spring';
+import Data from '~/models/Data';
+import { TagContext } from '~/models/PageContext';
+import { PageProps } from 'gatsby';
 
-export default (props: PageProps) => {
+type TagPageProps = PageProps<Data, TagContext>;
+
+export default (props: TagPageProps) => {
   const {
     posts,
-    tagName,
+    classification,
     cCategories,
     cTags,
     lastUpdatePosts,
     currentPage,
     postsPerPage,
     totalPostsNumber,
-  } = props.pathContext;
+  } = props.pageContext;
 
   const articleSpring = useSpring({
     tension: 300,
@@ -29,7 +33,7 @@ export default (props: PageProps) => {
     <Layout>
       <Helmet title={`${'Tags'} | ${config.siteTitle}`} />
       <L1
-        activeTag={tagName}
+        activeTag={classification}
         showSideBar={true}
         cTags={cTags}
         cCategories={cCategories}
@@ -56,7 +60,7 @@ export default (props: PageProps) => {
           itemPerPage={postsPerPage}
           currentPage={currentPage}
           totalItemNumber={totalPostsNumber}
-          url={'tags/' + tagName}
+          url={'tags/' + classification}
         />
       </L1>
     </Layout>

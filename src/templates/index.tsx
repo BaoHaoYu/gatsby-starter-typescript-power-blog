@@ -1,36 +1,19 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import { Article, Pagination } from '../components';
 import { Helmet } from 'react-helmet';
 import config from '../../config/SiteConfig';
 import Data from '../models/Data';
 import '../style/all.scss';
-import { Layout, ILayoutProps } from '~/components/Layout/index';
+import { Layout } from '~/components/Layout/index';
 import { useSpring, animated } from 'react-spring';
+import { IndexContext } from '~/models/PageContext';
 
-interface IPageContext extends ILayoutProps {
-  currentPage: number;
-  totalPages: number;
-  postsPerPage: number;
-  totalPostsNumber: number;
-}
+type IndexPageProps = PageProps<Data, IndexContext>;
 
-interface Props {
-  data: Data;
-  pageContext: IPageContext;
-}
-
-export default (props: Props) => {
-  const {
-    currentPage,
-    postsPerPage,
-    totalPostsNumber,
-    cTags,
-    cCategories,
-    lastUpdatePosts,
-  } = props.pageContext;
-
-  const { data } = props;
+// 首页
+export default (props: IndexPageProps) => {
+  const { data, pageContext } = props;
   const { edges } = data.allMarkdownRemark;
   const articleSpring = useSpring({
     delay: 200,
@@ -38,13 +21,12 @@ export default (props: Props) => {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   });
-
   return (
     <Layout
       showSideBar={true}
-      cTags={cTags}
-      cCategories={cCategories}
-      lastUpdatePosts={lastUpdatePosts}
+      cTags={pageContext.cTags}
+      cCategories={pageContext.cCategories}
+      lastUpdatePosts={pageContext.lastUpdatePosts}
     >
       <Helmet title={`Blog | ${config.siteTitle}`} />
 
@@ -66,9 +48,9 @@ export default (props: Props) => {
       </animated.div>
 
       <Pagination
-        itemPerPage={postsPerPage}
-        totalItemNumber={totalPostsNumber}
-        currentPage={currentPage}
+        itemPerPage={pageContext.postsPerPage}
+        totalItemNumber={pageContext.totalPostsNumber}
+        currentPage={pageContext.currentPage}
         url={'blog'}
         firstPage={'/'}
       />

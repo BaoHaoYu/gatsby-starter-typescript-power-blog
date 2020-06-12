@@ -13,12 +13,12 @@ interface Props {
   };
 }
 
+// 首页文章分页
 export default (props: Props) => {
   const { currentPage, totalPages } = props.pageContext;
 
   const { data } = props;
   const { edges, totalCount } = data.allMarkdownRemark;
-
   return (
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />

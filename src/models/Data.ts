@@ -1,15 +1,10 @@
 import AllMarkdownRemark from './AllMarkdownRemark';
+import Post from '~/models/Post';
 
 export interface SideBarFromServer {
   cTags?: { name: string; len: number }[];
   cCategories?: { name: string; len: number }[];
-  lastUpdatePosts?: {
-    slug: string;
-    title: string;
-    latest_update_date: string;
-    date: string;
-    banner: string;
-  }[];
+  lastUpdatePosts?: Post[];
 }
 
 interface Data {

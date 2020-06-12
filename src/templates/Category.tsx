@@ -2,21 +2,26 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Layout, Article, Pagination } from '../components';
 import config from '../../config/SiteConfig';
-import PageProps from '../models/PageProps';
 import { animated, useSpring } from 'react-spring';
 import { Layout as L1 } from '~/components/Layout/index';
+import Data from '~/models/Data';
+import { CategoryContext } from '~/models/PageContext';
+import { PageProps } from 'gatsby';
 
-export default (props: PageProps) => {
+type CategoryPageProps = PageProps<Data, CategoryContext>;
+
+// 分类展示文章列表
+export default (props: CategoryPageProps) => {
   const {
     posts,
-    categoryName,
+    classification,
     cCategories,
     cTags,
     postsPerPage,
     totalPostsNumber,
     lastUpdatePosts,
     currentPage,
-  } = props.pathContext;
+  } = props.pageContext;
 
   const articleSpring = useSpring({
     tension: 300,
@@ -28,9 +33,9 @@ export default (props: PageProps) => {
 
   return (
     <Layout>
-      <Helmet title={`${categoryName} | ${config.siteTitle}`} />
+      <Helmet title={`${classification} | ${config.siteTitle}`} />
       <L1
-        activeCategory={categoryName}
+        activeCategory={classification}
         showSideBar={true}
         cTags={cTags}
         cCategories={cCategories}
@@ -57,7 +62,7 @@ export default (props: PageProps) => {
           itemPerPage={postsPerPage}
           currentPage={currentPage}
           totalItemNumber={totalPostsNumber}
-          url={'categories/' + categoryName}
+          url={'categories/' + classification}
         />
       </L1>
     </Layout>

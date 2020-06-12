@@ -5,17 +5,10 @@ import _ from 'lodash';
 import Data from '~/models/Data';
 import config from './config/SiteConfig';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import { CategoryContext, IndexContext, TagContext } from '~/models/PageContext';
 
 interface NodePost {
   node: Post;
-}
-
-interface LastUpdatePost {
-  slug: string;
-  title: string;
-  latest_update_date?: string;
-  date?: string;
-  banner?: string;
 }
 
 // 根据 classificationType 对所有的文章进行分类
@@ -80,9 +73,9 @@ function createClassificationPages(p: {
   numPages: number;
   cTags: { name: string; len: number }[];
   cCategories: { name: string; len: number }[];
-  lastUpdatePosts: LastUpdatePost[];
+  lastUpdatePosts: Post[];
 }) {
-  const { createPage, posts, postsPerPage, cTags, cCategories, lastUpdatePosts } = p;
+  const { createPage, posts, postsPerPage, cTags, cCategories, lastUpdatePosts, allCategories } = p;
   const classifications: {
     singularName: string;
     pluralName: string;
@@ -131,16 +124,17 @@ function createClassificationPages(p: {
       const chunk = _.chunk(groupPosts, postsPerPage);
       chunk.forEach((onePagePosts, i) => {
         const sitePath = `/${classification.pluralName}/${_.kebabCase(name)}`;
-        createPage({
+        createPage<CategoryContext | TagContext>({
           path: i === 0 ? sitePath : `${sitePath}/${i + 1}`,
           component: classification.template.part,
           context: {
-            [`${classification.singularName}Name`]: name,
+            classification: name,
             posts: onePagePosts,
             cTags,
             cCategories,
             lastUpdatePosts,
             postsPerPage,
+            allCategories,
             totalPostsNumber: groupPosts.length,
             totalPages: chunk.length,
             currentPage: i + 1,
@@ -220,20 +214,14 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
       lastUpdatePosts1,
       ({ node }: NodePost) => node.frontmatter.latest_update_date,
     );
-    let lastUpdatePosts: LastUpdatePost[] = lastUpdatePosts2.map(({ node }) => {
-      return {
-        slug: node.fields.slug,
-        title: node.frontmatter.title,
-        latest_update_date: node.frontmatter.latest_update_date,
-        date: node.frontmatter.date,
-        banner: node.frontmatter.banner,
-      };
+    let lastUpdatePosts: Post[] = lastUpdatePosts2.map(({ node }) => {
+      return node;
     });
     lastUpdatePosts = lastUpdatePosts.reverse().slice(0, 3);
 
     // 分页
     Array.from({ length: numPages }).forEach((_n, i) => {
-      createPage({
+      createPage<IndexContext>({
         path: i === 0 ? `/` : `/blog/${i + 1}`,
         component: path.resolve('./src/templates/index.tsx'),
         context: {
@@ -241,6 +229,7 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
           cCategories,
           lastUpdatePosts,
           postsPerPage,
+          allCategories,
           limit: postsPerPage,
           skip: i * postsPerPage,
           totalPages: numPages,

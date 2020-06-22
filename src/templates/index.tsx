@@ -21,8 +21,11 @@ export default (props: IndexPageProps) => {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   });
+  const { allCategories } = props.pageContext;
+
   return (
     <Layout
+      allCategories={allCategories}
       showSideBar={true}
       cTags={pageContext.cTags}
       cCategories={pageContext.cCategories}

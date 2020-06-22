@@ -29,10 +29,12 @@ export default (props: TagPageProps) => {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   });
+  const { allCategories } = props.pageContext;
   return (
     <Layout>
       <Helmet title={`${'Tags'} | ${config.siteTitle}`} />
       <L1
+        allCategories={allCategories}
         activeTag={classification}
         showSideBar={true}
         cTags={cTags}

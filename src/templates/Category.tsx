@@ -30,11 +30,12 @@ export default (props: CategoryPageProps) => {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   });
-
+  const { allCategories } = props.pageContext;
   return (
     <Layout>
       <Helmet title={`${classification} | ${config.siteTitle}`} />
       <L1
+        allCategories={allCategories}
         activeCategory={classification}
         showSideBar={true}
         cTags={cTags}

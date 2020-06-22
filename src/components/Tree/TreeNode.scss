@@ -27,20 +27,20 @@ $root: TreeNode;
   &__title {
     border-bottom: 1px dotted #ddd;
     font-size: 20px;
-    color: #1c1d1f;
+    color: #696c6d;
     display: flex;
     align-items: center;
   }
 
   &__link {
-    color: #1c1d1f;
+    color: #696c6d;
   }
 
   &__toggle {
     display: flex;
 
     svg {
-      fill: #1c1d1f;
+      fill: #696c6d;
     }
   }
 

@@ -7,10 +7,12 @@ import './SideBar.scss';
 import { useSprings, animated } from 'react-spring';
 import cn from 'classnames';
 import { SideBarFromServer } from '~/models/Data';
+import { toList, Tree } from '~/templates/AllCategory';
 
 export interface SideBarProps extends SideBarFromServer {
   activeTag?: string;
   activeCategory?: string;
+  allCategories?: string[][];
 }
 
 interface IWidget {
@@ -37,6 +39,7 @@ export function SideBar(p: SideBarProps & { children?: React.ReactNode }) {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   }));
+  const list = toList(p.allCategories || []);
   return (
     <aside>
       <animated.div style={sideBarSprings[0]}>
@@ -58,21 +61,7 @@ export function SideBar(p: SideBarProps & { children?: React.ReactNode }) {
 
       <animated.div style={sideBarSprings[1]}>
         <Widget title={'分类'}>
-          <ul className={'Categories'}>
-            {p.cCategories?.map((item) => (
-              <li className={'Categories__item'} key={item.name}>
-                <Link
-                  className={cn('Categories__link', {
-                    'Categories__link--active': item.name === p.activeCategory,
-                  })}
-                  to={'/categories/' + kebabCase(item.name)}
-                >
-                  {item.name}
-                  <small className={'Categories__len'}>({item.len})</small>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <Tree fontSize={16} list={list} open={true} />
         </Widget>
       </animated.div>
 

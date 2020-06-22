@@ -14,7 +14,7 @@ import { useSpring, animated } from 'react-spring';
 type ResultObject = { [K: string]: boolean | ResultObject };
 type ResultList = { name: string; children?: ResultList }[];
 
-function toList(allCategories: string[][]): ResultList {
+export function toList(allCategories: string[][]): ResultList {
   const result: any = {};
   if (allCategories) {
     allCategories.map((postCategories) => {
@@ -45,11 +45,12 @@ function toList(allCategories: string[][]): ResultList {
   return deepToList(result);
 }
 
-function Tree(props: { list: ResultList; open?: boolean }) {
+export function Tree(props: { list: ResultList; open?: boolean; fontSize?: number | string }) {
   return (
     <>
       {props.list.map((item, index) => (
         <TreeNode
+          fontSize={props.fontSize}
           key={index}
           open={props.open}
           name={
@@ -58,7 +59,7 @@ function Tree(props: { list: ResultList; open?: boolean }) {
             </Link>
           }
         >
-          {item.children ? <Tree list={item.children} /> : ''}
+          {item.children ? <Tree fontSize={props.fontSize} list={item.children} /> : ''}
         </TreeNode>
       ))}
     </>

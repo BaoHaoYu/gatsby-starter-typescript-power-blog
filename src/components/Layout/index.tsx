@@ -7,11 +7,11 @@ import { SideBar, SideBarProps } from './SideBar/SideBar';
 
 export interface ILayoutProps extends SideBarProps {
   showSideBar?: boolean;
+  allCategories?: string[][];
 }
 
 export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
   const exceedMd = useExceedMd();
-
   return (
     <div className={'Layout'}>
       <Header />
@@ -25,6 +25,7 @@ export const Layout: React.FunctionComponent<ILayoutProps> = (p) => {
             {exceedMd && p.showSideBar && (
               <Col lg={8}>
                 <SideBar
+                  allCategories={p.allCategories}
                   activeTag={p.activeTag}
                   activeCategory={p.activeCategory}
                   cTags={p.cTags}

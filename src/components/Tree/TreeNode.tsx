@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
-import { usePrevious, useMeasure } from './helpers';
+import { usePrevious } from './helpers';
+import { useMeasure } from 'react-use';
 import cn from 'classnames';
 import * as Icons from './icons';
 import './TreeNode.scss';
@@ -11,6 +12,7 @@ interface TreeProps {
   style?: React.CSSProperties;
   open?: boolean;
   active?: boolean;
+  fontSize?: number | string;
 }
 
 export function TreeNode(props: TreeProps) {
@@ -32,7 +34,7 @@ export function TreeNode(props: TreeProps) {
   const Icon = Icons[svgKey];
   return (
     <div className={cn('TreeNode', { 'TreeNode--active': props.active })}>
-      <div className={'TreeNode__title'}>
+      <div style={{ fontSize: props.fontSize }} className={'TreeNode__title'}>
         <span className={'TreeNode__toggle'} onClick={() => setOpen(!isOpen)}>
           <Icon className={'TreeNode__icon'} style={{ opacity: children ? 1 : 0.3 }} />
         </span>

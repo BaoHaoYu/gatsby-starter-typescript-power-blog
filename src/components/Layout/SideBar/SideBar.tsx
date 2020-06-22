@@ -39,7 +39,8 @@ export function SideBar(p: SideBarProps & { children?: React.ReactNode }) {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   }));
-  const list = toList(p.allCategories || []);
+  const list = toList(p.allCategories || [], p.activeCategory);
+  console.log(list);
   return (
     <aside>
       <animated.div style={sideBarSprings[0]}>

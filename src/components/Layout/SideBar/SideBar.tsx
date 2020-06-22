@@ -62,7 +62,7 @@ export function SideBar(p: SideBarProps & { children?: React.ReactNode }) {
 
       <animated.div style={sideBarSprings[1]}>
         <Widget title={'分类'}>
-          <Tree fontSize={16} list={list} open={true} />
+          <Tree fontSize={16} list={list} />
         </Widget>
       </animated.div>
 

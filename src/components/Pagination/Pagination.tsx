@@ -34,7 +34,7 @@ const Pagination = ({ currentPage, totalItemNumber, itemPerPage, url, firstPage 
             to={prevPage}
             rel="prev"
           >
-            ← Prev
+            ←
           </Link>
         )}
         {pageIndexList.map((pageIndex) =>
@@ -64,7 +64,7 @@ const Pagination = ({ currentPage, totalItemNumber, itemPerPage, url, firstPage 
             to={nextPage}
             rel="next"
           >
-            Next →
+            →
           </Link>
         )}
       </div>

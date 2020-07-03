@@ -30,6 +30,7 @@
     "@types/classnames": "^2.2.10",
     "@types/he": "^1.1.1",
     "@types/jquery": "^3.3.38",
+    "@types/loader-utils": "^2.0.1",
     "@types/lodash": "^4.14.149",
     "@types/photoswipe": "^4.1.0",
     "@types/prismjs": "^1.16.1",
@@ -124,7 +125,7 @@
     "react-helmet": "^6.0.0",
     "react-icons": "^3.10.0",
     "react-spring": "^8.0.27",
-    "react-use": "^15.1.0",
+    "react-use": "^15.3.0",
     "styled-components": "^5.1.0",
     "typography": "^0.16.19"
   },

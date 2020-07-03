@@ -167,7 +167,7 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
       allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }, limit: 10000) {
         edges {
           node {
-            excerpt(pruneLength: 250)
+            excerpt
             html
             id
             fields {
@@ -283,7 +283,7 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = (p) =>
                   loaders.miniCssExtract(),
                   loaders.css({ importLoaders: 1 }),
                   {
-                    loader: path.join(__dirname, 'loader/css-map-loader/index.js'),
+                    loader: path.join(__dirname, 'loader/css-map-loader/index.ts'),
                   },
                   {
                     loader: 'sass-loader',

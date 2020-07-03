@@ -147,7 +147,7 @@ export const Post: React.FunctionComponent<IProps> = observer((props: IProps) =>
         {/*导航*/}
         <Col lg={6}>
           <Affix offsetTop={50}>
-            {exceedMd && (
+            {showToc && (
               <animated.div style={sideBarSpring}>
                 <PostSidebar postHeadElement={state.postHeadElement} data={state.data} />
               </animated.div>

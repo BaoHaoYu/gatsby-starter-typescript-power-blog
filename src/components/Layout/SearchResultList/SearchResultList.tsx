@@ -13,7 +13,7 @@ export const SearchResultList: React.FunctionComponent<{
   style?: React.CSSProperties;
   className?: string;
 }> = observer((props) => {
-  const searchResult = useSpringState(props.showSearch, {
+  const [state, spring] = useSpringState(props.showSearch, {
     delay: 100,
     opacity: 1,
     transform: 'translateY(0)',
@@ -22,8 +22,8 @@ export const SearchResultList: React.FunctionComponent<{
   });
 
   return (
-    <animated.div style={searchResult.spring}>
-      {searchResult.state !== 'exited' && props.hits && (
+    <animated.div style={spring}>
+      {state !== 'exited' && props.hits && (
         <div style={props.style} className={'SearchResult'}>
           {props.hits?.map((hit) => {
             return (

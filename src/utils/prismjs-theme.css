@@ -20,6 +20,11 @@ pre[class*="language-"] {
 	-ms-hyphens: none;
 	hyphens: none;
 }
+code[class*="language-text"], pre[class*="language-text"] {
+	background: #fff2db;
+	color: #363636;
+	padding: 2px 3px!important;
+}
 
 code[class*="language-"]::-moz-selection,
 pre[class*="language-"]::-moz-selection,

@@ -1671,6 +1671,11 @@
   resolved "http://r.cnpmjs.org/@types/animejs/download/@types/animejs-3.1.1.tgz#f1455e306a96f4bff9aae6b5b61c1b5efca74cf4"
   integrity sha1-8UVeMGqW9L/5qua1thwbXvynTPQ=
 
+"@types/anymatch@*":
+  version "1.3.1"
+  resolved "https://r.cnpmjs.org/@types/anymatch/download/@types/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
+  integrity sha1-M2utwb7sudrMOL6izzKt9ieoQho=
+
 "@types/cheerio@^0.22.18":
   version "0.22.18"
   resolved "http://r.cnpmjs.org/@types/cheerio/download/@types/cheerio-0.22.18.tgz#19018dceae691509901e339d63edf1e935978fe6"
@@ -1803,6 +1808,14 @@
   resolved "http://r.cnpmjs.org/@types/json5/download/@types/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
+"@types/loader-utils@^2.0.1":
+  version "2.0.1"
+  resolved "https://r.cnpmjs.org/@types/loader-utils/download/@types/loader-utils-2.0.1.tgz#4073425aca25762099823f7b922e86599c2b85ec"
+  integrity sha1-QHNCWsoldiCZgj97ki6GWZwrhew=
+  dependencies:
+    "@types/node" "*"
+    "@types/webpack" "*"
+
 "@types/lodash@^4.14.149", "@types/lodash@^4.14.92":
   version "4.14.150"
   resolved "http://r.cnpmjs.org/@types/lodash/download/@types/lodash-4.14.150.tgz#649fe44684c3f1fcb6164d943c5a61977e8cf0bd"
@@ -1922,6 +1935,11 @@
   resolved "http://r.cnpmjs.org/@types/sizzle/download/@types/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
   integrity sha1-qBG4wY4rq6t9VCszZYh64uTZ3kc=
 
+"@types/source-list-map@*":
+  version "0.1.2"
+  resolved "https://r.cnpmjs.org/@types/source-list-map/download/@types/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
+  integrity sha1-AHiDYGP/rxdBI0m7o2QIfgrALsk=
+
 "@types/styled-components@^5.0.1":
   version "5.1.0"
   resolved "http://r.cnpmjs.org/@types/styled-components/download/@types/styled-components-5.1.0.tgz#24d3412ba5395aa06e14fbc93c52f9454cebd0d6"
@@ -1932,6 +1950,11 @@
     "@types/react-native" "*"
     csstype "^2.2.0"
 
+"@types/tapable@*":
+  version "1.0.6"
+  resolved "https://r.cnpmjs.org/@types/tapable/download/@types/tapable-1.0.6.tgz#a9ca4b70a18b270ccb2bc0aaafefd1d486b7ea74"
+  integrity sha1-qcpLcKGLJwzLK8Cqr+/R1Ia36nQ=
+
 "@types/tmp@^0.0.33":
   version "0.0.33"
   resolved "http://r.cnpmjs.org/@types/tmp/download/@types/tmp-0.0.33.tgz#1073c4bc824754ae3d10cfab88ab0237ba964e4d"
@@ -1941,6 +1964,13 @@
   version "0.16.3"
   resolved "http://r.cnpmjs.org/@types/typography/download/@types/typography-0.16.3.tgz#a237ed8b6ffa5d647491d4e681f2f37a87bfbd65"
   integrity sha1-ojfti2/6XWR0kdTmgfLzeoe/vWU=
+
+"@types/uglify-js@*":
+  version "3.9.2"
+  resolved "https://r.cnpmjs.org/@types/uglify-js/download/@types/uglify-js-3.9.2.tgz#01992579debba674e1e359cd6bcb1a1d0ab2e02b"
+  integrity sha1-AZkled67pnTh41nNa8saHQqy4Cs=
+  dependencies:
+    source-map "^0.6.1"
 
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
   version "2.0.3"
@@ -1962,6 +1992,27 @@
     "@types/node" "*"
     "@types/unist" "*"
     "@types/vfile-message" "*"
+
+"@types/webpack-sources@*":
+  version "1.4.0"
+  resolved "https://r.cnpmjs.org/@types/webpack-sources/download/@types/webpack-sources-1.4.0.tgz#e58f1f05f87d39a5c64cf85705bdbdbb94d4d57e"
+  integrity sha1-5Y8fBfh9OaXGTPhXBb29u5TU1X4=
+  dependencies:
+    "@types/node" "*"
+    "@types/source-list-map" "*"
+    source-map "^0.7.3"
+
+"@types/webpack@*":
+  version "4.41.17"
+  resolved "https://r.cnpmjs.org/@types/webpack/download/@types/webpack-4.41.17.tgz#0a69005e644d657c85b7d6ec1c826a71bebd1c93"
+  integrity sha1-CmkAXmRNZXyFt9bsHIJqcb69HJM=
+  dependencies:
+    "@types/anymatch" "*"
+    "@types/node" "*"
+    "@types/tapable" "*"
+    "@types/uglify-js" "*"
+    "@types/webpack-sources" "*"
+    source-map "^0.6.0"
 
 "@types/yargs-parser@*":
   version "15.0.0"
@@ -6217,6 +6268,11 @@ fast-deep-equal@^3.1.1:
   version "3.1.1"
   resolved "http://r.cnpmjs.org/fast-deep-equal/download/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
   integrity sha1-VFFFB3xQFJHjOxXsQIwpQ3bpSuQ=
+
+fast-deep-equal@^3.1.3:
+  version "3.1.3"
+  resolved "https://r.cnpmjs.org/fast-deep-equal/download/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
+  integrity sha1-On1WtVnWy8PrUSMlJE5hmmXGxSU=
 
 fast-diff@^1.1.1:
   version "1.2.0"
@@ -13691,7 +13747,7 @@ react-side-effect@^2.1.0:
 
 react-spring@^8.0.27:
   version "8.0.27"
-  resolved "http://r.cnpmjs.org/react-spring/download/react-spring-8.0.27.tgz#97d4dee677f41e0b2adcb696f3839680a3aa356a"
+  resolved "https://r.cnpmjs.org/react-spring/download/react-spring-8.0.27.tgz#97d4dee677f41e0b2adcb696f3839680a3aa356a"
   integrity sha1-l9Te5nf0Hgsq3LaW84OWgKOqNWo=
   dependencies:
     "@babel/runtime" "^7.3.1"
@@ -13712,26 +13768,24 @@ react-typography@^0.16.19:
   resolved "http://r.cnpmjs.org/react-typography/download/react-typography-0.16.19.tgz#5736b47961dcf6b9605b6fa38d41980db2588e28"
   integrity sha1-Vza0eWHc9rlgW2+jjUGYDbJYjig=
 
-react-universal-interface@^0.6.0:
-  version "0.6.0"
-  resolved "http://r.cnpmjs.org/react-universal-interface/download/react-universal-interface-0.6.0.tgz#b65cbf7d71a2f3f7dd9705d8e4f06748539bd465"
-  integrity sha1-tly/fXGi8/fdlwXY5PBnSFOb1GU=
-  dependencies:
-    tslib "^1.9.3"
+react-universal-interface@^0.6.2:
+  version "0.6.2"
+  resolved "https://r.cnpmjs.org/react-universal-interface/download/react-universal-interface-0.6.2.tgz#5e8d438a01729a4dbbcbeeceb0b86be146fe2b3b"
+  integrity sha1-Xo1DigFymk27y+7OsLhr4Ub+Kzs=
 
-react-use@^15.1.0:
-  version "15.1.0"
-  resolved "http://r.cnpmjs.org/react-use/download/react-use-15.1.0.tgz#e8680b3615841e81ec1070ca7374fa0da0539104"
-  integrity sha1-6GgLNhWEHoHsEHDKc3T6DaBTkQQ=
+react-use@^15.3.0:
+  version "15.3.0"
+  resolved "https://r.cnpmjs.org/react-use/download/react-use-15.3.0.tgz#42946aa6e7bf571104173439cc7b7e26a4ca4c51"
+  integrity sha1-QpRqpue/VxEEFzQ5zHt+JqTKTFE=
   dependencies:
     "@types/js-cookie" "2.2.6"
     "@xobotyi/scrollbar-width" "1.9.5"
     copy-to-clipboard "^3.2.0"
-    fast-deep-equal "^3.1.1"
+    fast-deep-equal "^3.1.3"
     fast-shallow-equal "^1.0.0"
     js-cookie "^2.2.1"
     nano-css "^5.2.1"
-    react-universal-interface "^0.6.0"
+    react-universal-interface "^0.6.2"
     resize-observer-polyfill "^1.5.1"
     screenfull "^5.0.0"
     set-harmonic-interval "^1.0.1"
@@ -16295,7 +16349,7 @@ tslib@1.9.0:
   resolved "http://r.cnpmjs.org/tslib/download/tslib-1.9.0.tgz#e37a86fda8cbbaf23a057f473c9f4dc64e5fc2e8"
   integrity sha1-43qG/ajLuvI6BX9HPJ9Nxk5fwug=
 
-tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0:
   version "1.13.0"
   resolved "http://r.cnpmjs.org/tslib/download/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha1-yIHhPMcBWJTtkUhi0nZDb6mkcEM=

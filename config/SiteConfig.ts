@@ -12,7 +12,7 @@ export default {
   author: 'Majid Hajian', // Author for schemaORGJSONLD
   siteLogo: '/assets/logo.png', // Image for schemaORGJSONLD
 
-  // siteFBAppID: '123456789', // Facebook App ID - Optional
+  // siteFBAppID: '123456789', // Facebook Example ID - Optional
   userTwitter: '@mhadaily', // Twitter Username - Optional
   ogSiteName: 'mhadaily', // Facebook Site Name - Optional
   ogLanguage: 'en_US', // Facebook Language

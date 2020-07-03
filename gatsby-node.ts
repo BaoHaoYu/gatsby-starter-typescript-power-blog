@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Data from '~/models/Data';
 import config from './config/SiteConfig';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import { CategoryContext, IndexContext, TagContext } from '~/models/PageContext';
+import { CategoryContext, IndexContext, TagContext, ArchivesContext } from '~/models/PageContext';
 
 interface NodePost {
   node: Post;
@@ -200,6 +200,7 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
     const cCategories = countArray(posts, 'categories');
 
     const allCategories: string[][] = [];
+    const chunkPosts = _.chunk(posts, 10);
     posts.map(({ node }) => {
       if (node.frontmatter.categories) {
         allCategories.push(node.frontmatter.categories);
@@ -232,13 +233,13 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
           allCategories,
           limit: postsPerPage,
           skip: i * postsPerPage,
-          totalPages: numPages,
           totalPostsNumber: posts.length,
           currentPage: i + 1,
         },
       });
     });
 
+    // 标签分类页面
     createClassificationPages({
       allCategories,
       createPage,
@@ -250,6 +251,7 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
       lastUpdatePosts,
     });
 
+    // 文章内容
     posts.forEach(({ node }, index) => {
       const next = index === 0 ? null : posts[index - 1].node;
       const prev = index === posts.length - 1 ? null : posts[index + 1].node;
@@ -262,6 +264,21 @@ export const createPages: GatsbyNode['createPages'] = ({ actions, graphql }) => 
           slug: _.kebabCase(node.frontmatter.title),
           prev,
           next,
+        },
+      });
+    });
+
+    const archivesPages = Math.ceil(posts.length / 10);
+    // 归档页
+    Array.from({ length: archivesPages }).forEach((_n, i) => {
+      createPage<ArchivesContext>({
+        path: i === 0 ? `/archives` : `/archives/${i + 1}`,
+        component: path.resolve('./src/templates/Archives.tsx'),
+        context: {
+          posts: chunkPosts[i],
+          totalPostsNumber: chunkPosts.length,
+          currentPage: i + 1,
+          postsPerPage,
         },
       });
     });

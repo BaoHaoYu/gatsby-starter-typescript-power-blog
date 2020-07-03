@@ -1,27 +1,20 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Article, Pagination } from '../components';
+import { Pagination } from '../components';
 import config from '../../config/SiteConfig';
 import { animated, useSpring } from 'react-spring';
 import { Layout as L1 } from '~/components/Layout/index';
 import Data from '~/models/Data';
-import { CategoryContext } from '~/models/PageContext';
+import { ArchivesContext } from '~/models/PageContext';
 import { PageProps } from 'gatsby';
+import './Archives.scss';
+import { Link, graphql } from 'gatsby';
 
-type CategoryPageProps = PageProps<Data, CategoryContext>;
+type CategoryPageProps = PageProps<Data, ArchivesContext>;
 
 // 分类展示文章列表
 export default (props: CategoryPageProps) => {
-  const {
-    posts,
-    classification,
-    cCategories,
-    cTags,
-    postsPerPage,
-    totalPostsNumber,
-    lastUpdatePosts,
-    currentPage,
-  } = props.pageContext;
+  const { posts, postsPerPage, totalPostsNumber, currentPage } = props.pageContext;
 
   const articleSpring = useSpring({
     tension: 300,
@@ -30,32 +23,18 @@ export default (props: CategoryPageProps) => {
     transform: 'translateY(0)',
     from: { opacity: 0, transform: 'translateY(50px)' },
   });
-  const { allCategories } = props.pageContext;
   return (
     <>
-      <Helmet title={`${classification} | ${config.siteTitle}`} />
-      <L1
-        allCategories={allCategories}
-        activeCategory={classification}
-        showSideBar={true}
-        cTags={cTags}
-        cCategories={cCategories}
-        lastUpdatePosts={lastUpdatePosts}
-      >
+      <Helmet title={`${config.siteTitle}`} />
+      <L1 showSideBar={false}>
         <animated.div style={articleSpring}>
           {posts?.map((post) => (
-            <Article
-              key={post.fields.slug}
-              description={post.frontmatter.description}
-              banner={post.frontmatter.banner}
-              title={post.frontmatter.title}
-              date={post.frontmatter.date}
-              tags={post.frontmatter.tags}
-              categories={post.frontmatter.categories}
-              excerpt={post.excerpt}
-              timeToRead={post.timeToRead}
-              slug={post.fields.slug}
-            />
+            <div className={'Archives__item'} key={post.node.frontmatter.title}>
+              <Link to={'/blog/' + post.node.fields.slug}>
+                <h5 className={'Archives__title'}>{post.node.frontmatter.title}</h5>
+              </Link>
+              <div className={'Archives__desc'}>{post.node.frontmatter.description}</div>
+            </div>
           ))}
         </animated.div>
 
@@ -63,7 +42,7 @@ export default (props: CategoryPageProps) => {
           itemPerPage={postsPerPage}
           currentPage={currentPage}
           totalItemNumber={totalPostsNumber}
-          url={'categories/' + classification}
+          url={'archives'}
         />
       </L1>
     </>

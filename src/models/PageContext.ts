@@ -4,7 +4,6 @@ import Post from './Post';
  * 分页
  */
 interface PageIndex {
-  totalPages: number;
   totalPostsNumber: number;
   currentPage: number;
   postsPerPage: number;
@@ -66,7 +65,7 @@ export interface TagContext extends PageIndex, IndexCommon {
  * 归档页
  */
 export interface ArchivesContext extends PageIndex {
-  posts: Post[];
+  posts: { node: Post }[];
 }
 
 export interface BlogContext {

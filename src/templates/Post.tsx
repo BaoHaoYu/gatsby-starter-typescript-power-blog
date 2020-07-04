@@ -5,7 +5,6 @@ import { Layout, SEO } from '../components';
 import config from '../../config/SiteConfig';
 import '../utils/prismjs-theme.css';
 import { Post as PostMain } from '~/components/Post';
-import { Layout as L1 } from '~/components/Layout/index';
 import { PostContext } from '~/models/PageContext';
 import Post from '~/models/Post';
 
@@ -17,27 +16,25 @@ export default (props: PostPageProps) => {
   const post = props.data.markdownRemark;
   return (
     <Layout>
-      <L1>
-        {post ? (
-          <>
-            <SEO postPath={post.fields.slug} postNode={post} postSEO={true} />
-            <Helmet title={`${post.frontmatter.title} | ${config.siteTitle}`} />
-            <PostMain
-              title={post.frontmatter.title}
-              categories={post.frontmatter.categories}
-              date={post.frontmatter.date}
-              tags={post.frontmatter.tags}
-              banner={post.frontmatter.banner}
-              latestUpdateDate={post.frontmatter.latest_update_date}
-              slug={post.fields.slug}
-              content={post.html}
-              timeToRead={post.timeToRead}
-              prev={prev}
-              next={next}
-            />
-          </>
-        ) : null}
-      </L1>
+      {post ? (
+        <>
+          <SEO postPath={post.fields.slug} postNode={post} postSEO={true} />
+          <Helmet title={`${post.frontmatter.title} | ${config.siteTitle}`} />
+          <PostMain
+            title={post.frontmatter.title}
+            categories={post.frontmatter.categories}
+            date={post.frontmatter.date}
+            tags={post.frontmatter.tags}
+            banner={post.frontmatter.banner}
+            latestUpdateDate={post.frontmatter.latest_update_date}
+            slug={post.fields.slug}
+            content={post.html}
+            timeToRead={post.timeToRead}
+            prev={prev}
+            next={next}
+          />
+        </>
+      ) : null}
     </Layout>
   );
 };

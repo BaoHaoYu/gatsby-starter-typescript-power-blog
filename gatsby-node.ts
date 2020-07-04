@@ -136,7 +136,6 @@ function createClassificationPages(p: {
             postsPerPage,
             allCategories,
             totalPostsNumber: groupPosts.length,
-            totalPages: chunk.length,
             currentPage: i + 1,
           },
         });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Pagination } from '../components';
+import { Pagination } from '~/components';
 import config from '../../config/SiteConfig';
 import { animated, useSpring } from 'react-spring';
 import { Layout as L1 } from '~/components/Layout/index';
@@ -8,7 +8,7 @@ import Data from '~/models/Data';
 import { ArchivesContext } from '~/models/PageContext';
 import { PageProps } from 'gatsby';
 import './Archives.scss';
-import { Link, graphql } from 'gatsby';
+import { Link } from 'gatsby';
 
 type CategoryPageProps = PageProps<Data, ArchivesContext>;
 

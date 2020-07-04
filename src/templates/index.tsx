@@ -1,11 +1,11 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { Article, Pagination } from '../components';
+import { Article, Pagination } from '~/components';
 import { Helmet } from 'react-helmet';
 import config from '../../config/SiteConfig';
 import Data from '../models/Data';
 import '../style/all.scss';
-import { Layout } from '~/components/Layout/index';
+import { Layout } from '~/components/Layout';
 import { useSpring, animated } from 'react-spring';
 import { IndexContext } from '~/models/PageContext';
 

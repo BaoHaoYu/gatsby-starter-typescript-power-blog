@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Article, Pagination } from '../components';
+import { Article, Pagination } from '~/components';
 import config from '../../config/SiteConfig';
 import { animated, useSpring } from 'react-spring';
 import { Layout as L1 } from '~/components/Layout/index';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Article, Layout, Pagination } from '../components';
+import { Article, Pagination } from '~/components';
 import { Helmet } from 'react-helmet';
 import config from '../../config/SiteConfig';
-import { Layout as L1 } from '~/components/Layout/index';
+import { Layout } from '~/components/Layout';
 import { animated, useSpring } from 'react-spring';
 import Data from '~/models/Data';
 import { TagContext } from '~/models/PageContext';
@@ -31,9 +31,9 @@ export default (props: TagPageProps) => {
   });
   const { allCategories } = props.pageContext;
   return (
-    <Layout>
+    <>
       <Helmet title={`${'Tags'} | ${config.siteTitle}`} />
-      <L1
+      <Layout
         allCategories={allCategories}
         activeTag={classification}
         showSideBar={true}
@@ -64,7 +64,7 @@ export default (props: TagPageProps) => {
           totalItemNumber={totalPostsNumber}
           url={'tags/' + classification}
         />
-      </L1>
-    </Layout>
+      </Layout>
+    </>
   );
 };

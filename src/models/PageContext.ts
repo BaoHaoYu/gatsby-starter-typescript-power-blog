@@ -67,9 +67,3 @@ export interface TagContext extends PageIndex, IndexCommon {
 export interface ArchivesContext extends PageIndex {
   posts: { node: Post }[];
 }
-
-export interface BlogContext {
-  slug: string;
-  prev: Post;
-  next: Post;
-}
